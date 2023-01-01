@@ -1,0 +1,27 @@
+local indent = 2
+
+vim.opt.breakindent = true
+vim.opt.completeopt = "menuone,noselect"
+vim.opt.hlsearch = false
+vim.opt.ignorecase = true
+vim.opt.laststatus = 0
+vim.opt.mouse = "a"
+vim.opt.relativenumber = true
+vim.opt.scrolloff = 4
+vim.opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize" }
+vim.opt.shiftround = true
+vim.opt.shiftwidth = indent
+vim.opt.showmode = false
+vim.opt.sidescrolloff = 8
+vim.opt.smartcase = true
+vim.opt.smartindent = true
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+vim.opt.tabstop = indent
+vim.opt.termguicolors = true
+vim.opt.undofile = true
+vim.opt.updatetime = 200
+vim.wo.number = true
+vim.wo.signcolumn = "yes"
+vim.g.mapleader = " "
+vim.g.maplocalleader = ","
