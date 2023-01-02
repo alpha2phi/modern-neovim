@@ -4,19 +4,31 @@ return {
   config = function()
     local wk = require "which-key"
     wk.setup {
-      show_help = true,
+      show_help = false,
       plugins = { spelling = true },
       key_labels = { ["<leader>"] = "SPC" },
+      triggers = "auto",
     }
-    wk.register {
-      ["g"] = { name = "+goto" },
-      ["]"] = { name = "+next" },
-      ["["] = { name = "+prev" },
-      ["<leader>b"] = { name = "+buffer" },
-      ["<leader>c"] = { name = "+code" },
-      ["<leader>f"] = { name = "+file" },
-      ["<leader>g"] = { name = "+git" },
-      ["<leader>x"] = { name = "+diagnostics" },
-    }
+    wk.register ({
+      w = { "<cmd>update!<CR>", "Save" },
+      q = { "<cmd>lua require('util').smart_quit()<CR>", "Quit" },
+      f = { name = "+File" },
+      g = { name = "+Git" },
+      c = {
+        name = "+Code",
+        x = {
+          name = "Swap Next",
+          f = "Function",
+          p = "Parameter",
+          c = "Class",
+        },
+        X = {
+          name = "Swap Previous",
+          f = "Function",
+          p = "Parameter",
+          c = "Class",
+        },
+      },
+    }, {prefix = "<leader>"})
   end,
 }

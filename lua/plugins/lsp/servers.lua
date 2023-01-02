@@ -16,7 +16,7 @@ local servers = {
 }
 
 function M.setup()
-  print("todo")
+  -- TODO
 end
 
 return M
