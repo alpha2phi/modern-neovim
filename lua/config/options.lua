@@ -21,7 +21,7 @@ vim.opt.number = true
 vim.opt.pumblend = 10
 vim.opt.pumheight = 10
 vim.opt.relativenumber = true
-vim.opt.scrolloff = 4
+vim.opt.scrolloff = 8
 vim.opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize" }
 vim.opt.shiftround = true
 vim.opt.shiftwidth = indent
@@ -42,3 +42,4 @@ vim.opt.wildmode = "longest:full,full"
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
+vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
