@@ -3,16 +3,7 @@ return {
   lazy = false,
   config = function()
     local dashboard = require "alpha.themes.dashboard"
-    local logo = [[
-             ██╗      █████╗ ███████╗██╗   ██╗██╗   ██╗██╗███╗   ███╗          Z
-             ██║     ██╔══██╗╚══███╔╝╚██╗ ██╔╝██║   ██║██║████╗ ████║      Z    
-             ██║     ███████║  ███╔╝  ╚████╔╝ ██║   ██║██║██╔████╔██║   z       
-             ██║     ██╔══██║ ███╔╝    ╚██╔╝  ╚██╗ ██╔╝██║██║╚██╔╝██║ z         
-             ███████╗██║  ██║███████╗   ██║    ╚████╔╝ ██║██║ ╚═╝ ██║
-             ╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝     ╚═══╝  ╚═╝╚═╝     ╚═╝
-      ]]
-
-    dashboard.section.header.val = vim.split(logo, "\n")
+    dashboard.section.header.val = require("plugins.dashboard.logos")["random"]
     dashboard.section.buttons.val = {
       dashboard.button("f", " " .. " Find file", ":Telescope find_files <CR>"),
       dashboard.button("n", " " .. " New file", ":ene <BAR> startinsert <CR>"),
@@ -26,10 +17,10 @@ return {
       button.opts.hl = "AlphaButtons"
       button.opts.hl_shortcut = "AlphaShortcut"
     end
-    dashboard.section.footer.opts.hl = "Type"
+    dashboard.section.footer.opts.hl = "Constant"
     dashboard.section.header.opts.hl = "AlphaHeader"
     dashboard.section.buttons.opts.hl = "AlphaButtons"
-    dashboard.opts.layout[1].val = 8
+    dashboard.opts.layout[1].val = 0
 
     if vim.o.filetype == "lazy" then
       -- close and re-open Lazy after showing alpha
@@ -46,7 +37,14 @@ return {
       callback = function()
         local stats = require("lazy").stats()
         local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
-        dashboard.section.footer.val = "⚡ Neovim loaded " .. stats.count .. " plugins in " .. ms .. "ms"
+
+        -- local now = os.date "%d-%m-%Y %H:%M:%S"
+        local version = "   v" .. vim.version().major .. "." .. vim.version().minor .. "." .. vim.version().patch
+        local fortune = require "alpha.fortune"
+        local quote = table.concat(fortune(), "\n")
+        local plugins = "⚡Neovim loaded " .. stats.count .. " plugins in " .. ms .. "ms"
+        local footer = "\t" .. version ..   "\t" .. plugins .. "\n" .. quote
+        dashboard.section.footer.val = footer
         pcall(vim.cmd.AlphaRedraw)
       end,
     })

@@ -1,5 +1,17 @@
 return {
   {
+    "folke/styler.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("styler").setup {
+        themes = {
+          markdown = { colorscheme = "gruvbox" },
+          help = { colorscheme = "gruvbox" },
+        },
+      }
+    end,
+  },
+  {
     "folke/tokyonight.nvim",
     lazy = false,
     priority = 1000,
@@ -7,6 +19,19 @@ return {
       local tokyonight = require "tokyonight"
       tokyonight.setup { style = "moon" }
       tokyonight.load()
+    end,
+  },
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000,
+  },
+  {
+    "ellisonleao/gruvbox.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require("gruvbox").setup()
     end,
   },
 }

@@ -1,7 +1,7 @@
 local M = {
   'rcarriga/nvim-notify',
   event = 'VeryLazy',
-  enabled = false,
+  enabled = true,
   config = {
     timeout = 3000,
     level = vim.log.levels.INFO,
