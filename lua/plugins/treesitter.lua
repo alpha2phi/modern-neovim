@@ -22,7 +22,24 @@ return {
       end)()
 
       require("nvim-treesitter.configs").setup {
-        ensure_installed = "all",
+        ensure_installed = {
+          "bash",
+          "help",
+          "html",
+          "javascript",
+          "json",
+          "lua",
+          "markdown",
+          "markdown_inline",
+          "python",
+          "query",
+          "regex",
+          "rust",
+          "tsx",
+          "typescript",
+          "vim",
+          "yaml",
+        },
         highlight = { enable = true },
         indent = { enable = true, disable = { "python" } },
         incremental_selection = {

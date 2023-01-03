@@ -3,7 +3,7 @@ return {
   lazy = false,
   config = function()
     local dashboard = require "alpha.themes.dashboard"
-    dashboard.section.header.val = require("plugins.dashboard.logos")["random"]
+    dashboard.section.header.val = require("plugins.dashboard.logo")["random"]
     dashboard.section.buttons.val = {
       dashboard.button("f", " " .. " Find file", ":Telescope find_files <CR>"),
       dashboard.button("n", " " .. " New file", ":ene <BAR> startinsert <CR>"),
@@ -43,7 +43,7 @@ return {
         local fortune = require "alpha.fortune"
         local quote = table.concat(fortune(), "\n")
         local plugins = "⚡Neovim loaded " .. stats.count .. " plugins in " .. ms .. "ms"
-        local footer = "\t" .. version ..   "\t" .. plugins .. "\n" .. quote
+        local footer = "\t" .. version .. "\t" .. plugins .. "\n" .. quote
         dashboard.section.footer.val = footer
         pcall(vim.cmd.AlphaRedraw)
       end,
