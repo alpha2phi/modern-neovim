@@ -12,10 +12,10 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Install plugins
+-- Configure lazy.nvim
 require("lazy").setup("plugins", {
   defaults = { lazy = true, version = "*" },
-  install = { missing = true, colorscheme = { "tokyonight", "gruvbox", "everforest" } },
+  install = { missing = true, colorscheme = { "tokyonight", "gruvbox" } },
   checker = { enabled = true },
   performance = {
     rtp = {
