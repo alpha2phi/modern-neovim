@@ -20,8 +20,7 @@ end
 function M.version()
   local v = vim.version()
   if v and not v.prerelease then
-    vim.notify(("Neovim v%d.%d.%d"):format(v.major, v.minor, v.patch), vim.log.levels.WARN,
-      { title = "Neovim: not running nightly!" })
+    vim.notify(("Neovim v%d.%d.%d"):format(v.major, v.minor, v.patch), vim.log.levels.WARN, { title = "Neovim: not running nightly!" })
   end
 end
 
@@ -48,8 +47,7 @@ local function escape_text(str)
   return str:gsub(quote_pattern, "%%%1")
 end
 
--- local BASE_LUA_PATH = M.join_paths(vim.fn.stdpath "config", "lua")
-local BASE_LUA_PATH = M.join_paths("/home/alpha2phi/.config/modern-neovim/nvim", "lua")
+local BASE_LUA_PATH = M.join_paths(vim.fn.stdpath "config", "lua")
 
 function M.glob_require(package)
   local glob_path = M.join_paths(BASE_LUA_PATH, package, "*.lua")
@@ -58,14 +56,9 @@ function M.glob_require(package)
     local pkg = path:gsub(escape_text(BASE_LUA_PATH), ""):gsub(".lua", "")
     local basename = M.basename(pkg)
     if basename ~= "init" and basename:sub(1, 1) ~= "_" then
-      print(pkg)
-      vim.pretty_print(require(pkg))
+      require(pkg)
     end
   end
 end
-
-local servers = "plugins/lsp/servers"
-
-M.glob_require(servers)
 
 return M
