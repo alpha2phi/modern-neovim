@@ -9,9 +9,9 @@ return {
       key_labels = { ["<leader>"] = "SPC" },
       triggers = "auto",
     }
-    wk.register ({
+    wk.register({
       w = { "<cmd>update!<CR>", "Save" },
-      q = { "<cmd>lua require('util').smart_quit()<CR>", "Quit" },
+      q = { "<cmd>lua require('utils').smart_quit()<CR>", "Quit" },
       f = { name = "+File" },
       g = { name = "+Git" },
       c = {
@@ -29,6 +29,6 @@ return {
           c = "Class",
         },
       },
-    }, {prefix = "<leader>"})
+    }, { prefix = "<leader>" })
   end,
 }
