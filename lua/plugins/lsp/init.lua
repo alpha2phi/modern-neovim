@@ -24,6 +24,7 @@ return {
     keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
     ensure_installed = {
       "stylua",
+      "ruff",
     },
     config = function(plugin)
       require("mason").setup()
@@ -45,6 +46,7 @@ return {
       nls.setup {
         sources = {
           nls.builtins.formatting.stylua,
+          nls.builtins.diagnostics.ruff.with { extra_args = { "--max-line-length=180" } },
         },
       }
     end,

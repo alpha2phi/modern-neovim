@@ -48,5 +48,3 @@ ENV XDG_CONFIG_HOME="$modern_neovim"
 
 EXPOSE 6666
 CMD [ "nvim", "--headless", "--listen",  "0.0.0.0:6666" ]
-
-
