@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+  nvim:
+    build: .
+    restart: always
+    ports:
+      - 6666:6666
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
+    networks:
+      - app_network
+    container_name: nvim
+    # Uncomment this to map the docker volume
+    # volumes:
+    #   - ./workspace:/workspace
+
+networks:
+  app_network:
+    driver: bridge

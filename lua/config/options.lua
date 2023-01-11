@@ -3,7 +3,7 @@ local indent = 2
 vim.o.formatoptions = "jcroqlnt"
 vim.o.shortmess = "filnxtToOFWIcC"
 vim.opt.breakindent = true
-vim.opt.cmdheight = 0
+vim.opt.cmdheight = 1
 vim.opt.completeopt = "menuone,noselect"
 vim.opt.conceallevel = 3
 vim.opt.confirm = true
@@ -42,4 +42,4 @@ vim.opt.wildmode = "longest:full,full"
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
-vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
