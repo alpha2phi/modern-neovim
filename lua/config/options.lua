@@ -4,6 +4,7 @@ vim.o.formatoptions = "jcroqlnt"
 vim.o.shortmess = "filnxtToOFWIcC"
 vim.opt.breakindent = true
 vim.opt.cmdheight = 1
+vim.opt.clipboard = "unnamedplus" -- Access system clipboard
 vim.opt.completeopt = "menuone,noselect"
 vim.opt.conceallevel = 3
 vim.opt.confirm = true

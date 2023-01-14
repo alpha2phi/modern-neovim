@@ -1,13 +1,17 @@
 return {
   "nvim-telescope/telescope.nvim",
-  dependencies = { { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-    "nvim-telescope/telescope-file-browser.nvim" },
+  dependencies = {
+    { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+    "nvim-telescope/telescope-file-browser.nvim",
+    "nvim-telescope/telescope-project.nvim",
+  },
   cmd = "Telescope",
   keys = {
-    { "<leader><space>", require("utils").find_files, desc = "Find Files" },
-    { "<leader>ff", require("utils").find_files, desc = "Find Files" },
+    { "<leader><space>", require("utils.finder").find_files, desc = "Find Files" },
+    { "<leader>ff", require("utils.finder").find_files, desc = "Find Files" },
     { "<leader>fo", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
     { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
+    { "<leader>fr", "<cmd>Telescope file_browser<cr>", desc = "Browser" },
     { "<leader>f/", "<cmd>Telescope live_grep<cr>", desc = "Grep" },
   },
   config = function(_, _)
@@ -66,5 +70,6 @@ return {
     telescope.setup(opts)
     telescope.load_extension "fzf"
     telescope.load_extension "file_browser"
+    telescope.load_extension "project"
   end,
 }
