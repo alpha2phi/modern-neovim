@@ -44,15 +44,7 @@ local servers = {
   dockerls = {},
 }
 
-local function lsp_attach(on_attach)
-  vim.api.nvim_create_autocmd("LspAttach", {
-    callback = function(args)
-      local bufnr = args.buf
-      local client = vim.lsp.get_client_by_id(args.data.client_id)
-      on_attach(client, bufnr)
-    end,
-  })
-end
+local lsp_utils = require("plugins.lsp.utils")
 
 local function lsp_capabilities()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -60,7 +52,7 @@ local function lsp_capabilities()
 end
 
 function M.setup(_)
-  lsp_attach(function(client, buffer)
+  lsp_utils.on_attach(function(client, buffer)
     require("plugins.lsp.format").on_attach(client, buffer)
     require("plugins.lsp.keymaps").on_attach(client, buffer)
   end)
