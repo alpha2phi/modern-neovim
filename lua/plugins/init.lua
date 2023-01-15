@@ -23,21 +23,6 @@ return {
     config = { default = true }, -- same as config = true
   },
   {
-    "sindrets/diffview.nvim",
-    cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
-    config = true,
-  },
-  {
-    "TimUntersberger/neogit",
-    cmd = "Neogit",
-    config = {
-      integrations = { diffview = true },
-    },
-    keys = {
-      { "<leader>gs", "<cmd>Neogit kind=tab<cr>", desc = "Status" },
-    },
-  },
-  {
     "monaqa/dial.nvim",
     keys = { "<C-a>", "<C-x>", { "<C-a>", "v" }, { "<C-x>", "v" }, { "g<C-a>", "v" }, { "g<C-x>", "v" } },
     -- stylua: ignore
@@ -56,5 +41,27 @@ return {
     config = function()
       vim.g.matchup_matchparen_offscreen = { method = "popup" }
     end,
+  },
+  {
+    "sindrets/diffview.nvim",
+    cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
+    config = true,
+  },
+  {
+    "TimUntersberger/neogit",
+    cmd = "Neogit",
+    config = {
+      integrations = { diffview = true },
+    },
+    keys = {
+      { "<leader>gs", "<cmd>Neogit kind=tab<cr>", desc = "Status" },
+    },
+  },
+  {
+    "tpope/vim-fugitive",
+    cmd = { "Git", "GBrowse", "Gdiffsplit", "Gvdiffsplit" },
+    dependencies = {
+      "tpope/vim-rhubarb",
+    },
   },
 }
