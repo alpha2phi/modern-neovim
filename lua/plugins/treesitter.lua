@@ -24,15 +24,14 @@ return {
       require("nvim-treesitter.configs").setup {
         ensure_installed = {
           "bash",
+          "dockerfile",
           "help",
           "html",
-          "json",
           "lua",
           "markdown",
           "markdown_inline",
           "query",
           "regex",
-          "rust",
           "vim",
           "yaml",
         },

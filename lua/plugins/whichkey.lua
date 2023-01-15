@@ -4,7 +4,7 @@ return {
   config = function()
     local wk = require "which-key"
     wk.setup {
-      show_help = false,
+      show_help = true,
       plugins = { spelling = true },
       key_labels = { ["<leader>"] = "SPC" },
       triggers = "auto",
@@ -14,6 +14,8 @@ return {
       q = { "<cmd>lua require('utils').smart_quit()<CR>", "Quit" },
       f = { name = "+File" },
       g = { name = "+Git" },
+      p = { name = "+Project" },
+      s = { name = "+Search" },
       c = {
         name = "+Code",
         x = {

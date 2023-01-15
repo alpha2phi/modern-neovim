@@ -44,6 +44,11 @@ function M.list_hovers(ft)
   return providers[HOVER] or {}
 end
 
+function M.capabilities()
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  return require("cmp_nvim_lsp").default_capabilities(capabilities)
+end
+
 function M.on_attach(on_attach)
   vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(args)
