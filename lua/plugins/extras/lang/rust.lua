@@ -28,10 +28,7 @@ return {
           lsp_utils.on_attach(function(client, buffer)
             if client.name == "rust_analyzer" then
               -- stylua: ignore
-              print("todo mappings")
-              -- vim.keymap.set("n", "<leader>co", "TypescriptOrganizeImports",
-              --   { buffer = buffer, desc = "Organize Imports" })
-              -- vim.keymap.set("n", "<leader>cR", "TypescriptRenameFile", { desc = "Rename File", buffer = buffer })
+              vim.keymap.set("n", "<leader>cR", "RustRunnables", { buffer = buffer, desc = "Runnables" })
             end
           end)
           require("rust-tools").setup { server = opts }
