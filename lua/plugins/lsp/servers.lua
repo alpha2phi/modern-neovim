@@ -2,24 +2,6 @@ local M = {}
 
 local lsp_utils = require "plugins.lsp.utils"
 
-M.servers = {
-  sumneko_lua = {
-    settings = {
-      Lua = {
-        workspace = {
-          checkThirdParty = false,
-        },
-        completion = { callSnippet = "Replace" },
-        telemetry = { enable = false },
-        hint = {
-          enable = false,
-        },
-      },
-    },
-  },
-  dockerls = {},
-}
-
 function M.setup(_, opts)
   lsp_utils.on_attach(function(client, buffer)
     require("plugins.lsp.format").on_attach(client, buffer)

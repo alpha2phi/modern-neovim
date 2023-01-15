@@ -13,9 +13,23 @@ return {
       "hrsh7th/cmp-nvim-lsp-signature-help",
     },
     opts = {
-      servers = function()
-        return require("plugins.lsp.servers").servers
-      end,
+      servers = {
+        sumneko_lua = {
+          settings = {
+            Lua = {
+              workspace = {
+                checkThirdParty = false,
+              },
+              completion = { callSnippet = "Replace" },
+              telemetry = { enable = false },
+              hint = {
+                enable = false,
+              },
+            },
+          },
+        },
+        dockerls = {},
+      },
       setup = {},
     },
     config = function(plugin, opts)
