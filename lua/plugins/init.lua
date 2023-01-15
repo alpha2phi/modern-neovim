@@ -36,13 +36,6 @@ return {
     end,
   },
   {
-    "andymass/vim-matchup",
-    lazy = false,
-    init = function()
-      vim.g.matchup_matchparen_offscreen = { method = "popup" }
-    end,
-  },
-  {
     "sindrets/diffview.nvim",
     cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
     config = true,
