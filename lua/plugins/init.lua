@@ -57,4 +57,11 @@ return {
       "tpope/vim-rhubarb",
     },
   },
+  {
+    "andymass/vim-matchup",
+    enabled = false,
+    config = function()
+      vim.g.matchup_matchparen_offscreen = { method = "popup" }
+    end,
+  },
 }
