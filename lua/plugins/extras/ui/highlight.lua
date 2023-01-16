@@ -1,13 +1,5 @@
 return {
   {
-    "andymass/vim-matchup",
-    lazy = false,
-    enabled = false,
-    init = function()
-      vim.g.matchup_matchparen_offscreen = { method = "popup" }
-    end,
-  },
-  {
     "RRethy/vim-illuminate",
     event = "BufReadPost",
     opts = { delay = 200 },

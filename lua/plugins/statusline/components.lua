@@ -10,7 +10,7 @@ return {
   },
   git_repo = {
     function()
-      if #vim.api.nvim_list_tabpages() > 1 and vim.fn.trim(vim.fn.system "git rev-parse --is-inside-work-tree") == "true" then
+      if vim.fn.trim(vim.fn.system "git rev-parse --is-inside-work-tree") == "true" then
         return vim.fn.trim(vim.fn.system "basename `git rev-parse --show-toplevel`")
       end
       return ""
@@ -84,7 +84,7 @@ return {
         end
       end
       table.sort(client_names)
-      return icons.ui.Code .. " " ..  table.concat(client_names, ", ") .. " " .. icons.ui.Code
+      return icons.ui.Code .. " " .. table.concat(client_names, ", ") .. " " .. icons.ui.Code
     end,
     -- icon = icons.ui.Code,
     colored = true,

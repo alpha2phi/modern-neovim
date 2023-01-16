@@ -11,7 +11,12 @@ return {
   {
     "stevearc/dressing.nvim",
     event = "VeryLazy",
-    config = true,
+    opts = {
+      input = { relative = "editor" },
+      select = {
+        backend = { "telescope", "fzf", "builtin" },
+      },
+    },
   },
   {
     "rcarriga/nvim-notify",
@@ -37,6 +42,14 @@ return {
       vim.api.nvim_set_keymap("v", "<C-x>", require("dial.map").dec_visual(), { desc = "Decrement", noremap = true })
       vim.api.nvim_set_keymap("v", "g<C-a>", require("dial.map").inc_gvisual(), { desc = "Increment", noremap = true })
       vim.api.nvim_set_keymap("v", "g<C-x>", require("dial.map").dec_gvisual(), { desc = "Decrement", noremap = true })
+    end,
+  },
+  {
+    "andymass/vim-matchup",
+    lazy = false,
+    enabled = false,
+    init = function()
+      vim.g.matchup_matchparen_offscreen = { method = "popup" }
     end,
   },
 }
