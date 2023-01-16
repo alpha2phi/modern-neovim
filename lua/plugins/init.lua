@@ -1,10 +1,7 @@
 return {
   "nvim-lua/plenary.nvim",
   "MunifTanjim/nui.nvim",
-  {
-    "nvim-tree/nvim-web-devicons",
-    config = { default = true },
-  },
+  "nvim-tree/nvim-web-devicons",
   { "nacro90/numb.nvim", event = "BufReadPre", config = true },
   {
     "lukas-reineke/indent-blankline.nvim",
@@ -19,8 +16,15 @@ return {
   {
     "rcarriga/nvim-notify",
     event = "VeryLazy",
-    enabled = true,
-    config = { default = true }, -- same as config = true
+    opts = {
+      timeout = 3000,
+      max_height = function()
+        return math.floor(vim.o.lines * 0.75)
+      end,
+      max_width = function()
+        return math.floor(vim.o.columns * 0.75)
+      end,
+    },
   },
   {
     "monaqa/dial.nvim",
@@ -34,27 +38,5 @@ return {
       vim.api.nvim_set_keymap("v", "g<C-a>", require("dial.map").inc_gvisual(), { desc = "Increment", noremap = true })
       vim.api.nvim_set_keymap("v", "g<C-x>", require("dial.map").dec_gvisual(), { desc = "Decrement", noremap = true })
     end,
-  },
-  {
-    "sindrets/diffview.nvim",
-    cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
-    config = true,
-  },
-  {
-    "TimUntersberger/neogit",
-    cmd = "Neogit",
-    config = {
-      integrations = { diffview = true },
-    },
-    keys = {
-      { "<leader>gs", "<cmd>Neogit kind=tab<cr>", desc = "Status" },
-    },
-  },
-  {
-    "tpope/vim-fugitive",
-    cmd = { "Git", "GBrowse", "Gdiffsplit", "Gvdiffsplit" },
-    dependencies = {
-      "tpope/vim-rhubarb",
-    },
   },
 }
