@@ -1,5 +1,12 @@
 local icons = require "config.icons"
 
+local function fg(name)
+  return function()
+    local hl = vim.api.nvim_get_hl_by_name(name, true)
+    return hl and hl.foreground and { fg = string.format("#%06x", hl.foreground) }
+  end
+end
+
 return {
   spaces = {
     function()
@@ -91,5 +98,23 @@ return {
     on_click = function()
       vim.cmd [[LspInfo]]
     end,
+  },
+  noice_mode = {
+    function()
+      return require("noice").api.status.mode.get()
+    end,
+    cond = function()
+      return package.loaded["noice"] and require("noice").api.status.mode.has()
+    end,
+    color = fg "Constant",
+  },
+  noice_command = {
+    function()
+      return require("noice").api.status.command.get()
+    end,
+    cond = function()
+      return package.loaded["noice"] and require("noice").api.status.command.has()
+    end,
+    color = fg "Statement",
   },
 }

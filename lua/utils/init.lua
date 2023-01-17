@@ -1,6 +1,6 @@
 local M = {}
 
-function M.smart_quit()
+function M.quit()
   local bufnr = vim.api.nvim_get_current_buf()
   local buf_windows = vim.call("win_findbuf", bufnr)
   local modified = vim.api.nvim_buf_get_option(bufnr, "modified")
