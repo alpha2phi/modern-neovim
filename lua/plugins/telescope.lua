@@ -17,6 +17,7 @@ return {
       { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
       { "<leader>fr", "<cmd>Telescope file_browser<cr>", desc = "Browser" },
       { "<leader>ps", "<cmd>Telescope repo list<cr>", desc = "Search" },
+      { "<leader>hs", "<cmd>Telescope help_tags<cr>", desc = "Search" },
       {
         "<leader>pp",
         function()
@@ -32,7 +33,7 @@ return {
         end,
         desc = "Buffer",
       },
-      { "<leader>so", "<cmd>Telescope aerial<cr>", desc = "Outline" },
+      { "<leader>vo", "<cmd>Telescope aerial<cr>", desc = "Outline" },
     },
     config = function(_, _)
       local telescope = require "telescope"

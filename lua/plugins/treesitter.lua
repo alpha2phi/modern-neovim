@@ -17,7 +17,7 @@ end)()
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
+    dependencies = { "nvim-treesitter/nvim-treesitter-textobjects", "JoosepAlviste/nvim-ts-context-commentstring" },
     build = ":TSUpdate",
     event = "BufReadPost",
     opts = {
@@ -37,6 +37,7 @@ return {
       },
       highlight = { enable = true },
       indent = { enable = true, disable = { "python" } },
+      context_commentstring = { enable = true },
       incremental_selection = {
         enable = true,
         keymaps = {
