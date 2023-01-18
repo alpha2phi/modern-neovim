@@ -1,5 +1,12 @@
 local icons = require "config.icons"
 
+local function fg(name)
+  return function()
+    local hl = vim.api.nvim_get_hl_by_name(name, true)
+    return hl and hl.foreground and { fg = string.format("#%06x", hl.foreground) }
+  end
+end
+
 return {
   spaces = {
     function()
@@ -10,7 +17,7 @@ return {
   },
   git_repo = {
     function()
-      if #vim.api.nvim_list_tabpages() > 1 and vim.fn.trim(vim.fn.system "git rev-parse --is-inside-work-tree") == "true" then
+      if vim.fn.trim(vim.fn.system "git rev-parse --is-inside-work-tree") == "true" then
         return vim.fn.trim(vim.fn.system "basename `git rev-parse --show-toplevel`")
       end
       return ""
@@ -84,12 +91,30 @@ return {
         end
       end
       table.sort(client_names)
-      return icons.ui.Code .. " " ..  table.concat(client_names, ", ") .. " " .. icons.ui.Code
+      return icons.ui.Code .. " " .. table.concat(client_names, ", ") .. " " .. icons.ui.Code
     end,
     -- icon = icons.ui.Code,
     colored = true,
     on_click = function()
       vim.cmd [[LspInfo]]
     end,
+  },
+  noice_mode = {
+    function()
+      return require("noice").api.status.mode.get()
+    end,
+    cond = function()
+      return package.loaded["noice"] and require("noice").api.status.mode.has()
+    end,
+    color = fg "Constant",
+  },
+  noice_command = {
+    function()
+      return require("noice").api.status.command.get()
+    end,
+    cond = function()
+      return package.loaded["noice"] and require("noice").api.status.command.has()
+    end,
+    color = fg "Statement",
   },
 }

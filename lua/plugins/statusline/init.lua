@@ -26,7 +26,14 @@ return {
         sections = {
           lualine_a = { "mode" },
           lualine_b = { components.git_repo, "branch" },
-          lualine_c = { components.diff, components.diagnostics, components.separator, components.lsp_client },
+          lualine_c = {
+            components.diff,
+            components.diagnostics,
+            components.noice_command,
+            components.noice_mode,
+            components.separator,
+            components.lsp_client,
+          },
           lualine_x = { "filename", components.spaces, "encoding", "fileformat", "filetype", "progress" },
           lualine_y = {},
           lualine_z = { "location" },

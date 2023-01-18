@@ -1,10 +1,7 @@
 return {
   "nvim-lua/plenary.nvim",
   "MunifTanjim/nui.nvim",
-  {
-    "nvim-tree/nvim-web-devicons",
-    config = { default = true },
-  },
+  "nvim-tree/nvim-web-devicons",
   { "nacro90/numb.nvim", event = "BufReadPre", config = true },
   {
     "lukas-reineke/indent-blankline.nvim",
@@ -14,39 +11,58 @@ return {
   {
     "stevearc/dressing.nvim",
     event = "VeryLazy",
-    config = true,
+    opts = {
+      input = { relative = "editor" },
+      select = {
+        backend = { "telescope", "fzf", "builtin" },
+      },
+    },
   },
   {
     "rcarriga/nvim-notify",
     event = "VeryLazy",
-    enabled = true,
-    config = { default = true }, -- same as config = true
-  },
-  {
-    "sindrets/diffview.nvim",
-    cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
-    config = true,
-  },
-  {
-    "TimUntersberger/neogit",
-    cmd = "Neogit",
-    config = {
-      integrations = { diffview = true },
-    },
-    keys = {
-      { "<leader>gs", "<cmd>Neogit kind=floating<cr>", desc = "Status" },
+    opts = {
+      timeout = 3000,
+      max_height = function()
+        return math.floor(vim.o.lines * 0.75)
+      end,
+      max_width = function()
+        return math.floor(vim.o.columns * 0.75)
+      end,
     },
   },
   {
     "monaqa/dial.nvim",
-    event = "BufReadPre",
+    keys = { "<C-a>", "<C-x>", { "<C-a>", "v" }, { "<C-x>", "v" }, { "g<C-a>", "v" }, { "g<C-x>", "v" } },
+    -- stylua: ignore
+    init = function()
+      vim.api.nvim_set_keymap("n", "<C-a>", require("dial.map").inc_normal(), { desc = "Increment", noremap = true })
+      vim.api.nvim_set_keymap("n", "<C-x>", require("dial.map").dec_normal(), { desc = "Decrement", noremap = true })
+      vim.api.nvim_set_keymap("v", "<C-a>", require("dial.map").inc_visual(), { desc = "Increment", noremap = true })
+      vim.api.nvim_set_keymap("v", "<C-x>", require("dial.map").dec_visual(), { desc = "Decrement", noremap = true })
+      vim.api.nvim_set_keymap("v", "g<C-a>", require("dial.map").inc_gvisual(), { desc = "Increment", noremap = true })
+      vim.api.nvim_set_keymap("v", "g<C-x>", require("dial.map").dec_gvisual(), { desc = "Decrement", noremap = true })
+    end,
+  },
+  {
+    "andymass/vim-matchup",
+    lazy = false,
+    enabled = false,
     config = function()
-      vim.api.nvim_set_keymap("n", "<C-a>", require("dial.map").inc_normal(), { noremap = true })
-      vim.api.nvim_set_keymap("n", "<C-x>", require("dial.map").dec_normal(), { noremap = true })
-      vim.api.nvim_set_keymap("v", "<C-a>", require("dial.map").inc_visual(), { noremap = true })
-      vim.api.nvim_set_keymap("v", "<C-x>", require("dial.map").dec_visual(), { noremap = true })
-      vim.api.nvim_set_keymap("v", "g<C-a>", require("dial.map").inc_gvisual(), { noremap = true })
-      vim.api.nvim_set_keymap("v", "g<C-x>", require("dial.map").dec_gvisual(), { noremap = true })
+      vim.g.matchup_matchparen_offscreen = { method = "popup" }
+    end,
+  },
+  { "tpope/vim-surround", event = "BufReadPre" },
+  {
+    "numToStr/Comment.nvim",
+    dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" },
+    keys = { "gc", "gcc", "gbc" },
+    config = function(_, _)
+      local opts = {
+        ignore = "^$",
+        pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
+      }
+      require("Comment").setup(opts)
     end,
   },
 }

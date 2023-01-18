@@ -33,7 +33,16 @@ return {
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.abort(),
-          ["<CR>"] = cmp.mapping.confirm { select = true },
+          ["<CR>"] = cmp.mapping {
+            i = cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Replace, select = false },
+            c = function(fallback)
+              if cmp.visible() then
+                cmp.confirm { behavior = cmp.ConfirmBehavior.Replace, select = false }
+              else
+                fallback()
+              end
+            end,
+          },
           ["<C-j>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
@@ -125,7 +134,7 @@ return {
         require("luasnip.loaders.from_vscode").lazy_load()
       end,
     },
-    config = {
+    opts = {
       history = true,
       delete_check_events = "TextChanged",
     },
