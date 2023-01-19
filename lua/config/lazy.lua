@@ -17,7 +17,7 @@ require("lazy").setup {
   spec = {
     { import = "plugins" },
   },
-  defaults = { lazy = true, version = "*" },
+  defaults = { lazy = true, version = nil },
   install = { missing = true, colorscheme = { "tokyonight", "gruvbox" } },
   checker = { enabled = true },
   performance = {
