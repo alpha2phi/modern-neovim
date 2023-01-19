@@ -14,10 +14,10 @@ return {
   },
   {
     "nvim-neotest/neotest",
-    -- keys = {
-    --   { "<leader>tl", "<cmd>TestLast<cr>", desc = "Last" },
-    --   { "<leader>tn", "<cmd>TestNearest<cr>", desc = "Nearest" },
-    -- },
+    keys = {
+      { "<leader>tNl", "<cmd>lua require('neotest').run.run_last()<cr>", desc = "Last" },
+      { "<leader>tNn", "<cmd>lua require('neotest').run.run()<cr>", desc = "Nearest" },
+    },
     dependencies = {
       "nvim-neotest/neotest-python",
       "nvim-neotest/neotest-plenary",

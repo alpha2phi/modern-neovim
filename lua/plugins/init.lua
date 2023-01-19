@@ -50,7 +50,6 @@ return {
   },
   {
     "andymass/vim-matchup",
-    branch = "master",
     event = { "BufReadPost" },
     config = function()
       vim.g.matchup_matchparen_offscreen = { method = "popup" }
