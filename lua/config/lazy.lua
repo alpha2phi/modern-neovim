@@ -14,7 +14,7 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Configure lazy.nvim
 require("lazy").setup("plugins", {
-  defaults = { lazy = true, version = "*" },
+  defaults = { lazy = true, version = nil },
   install = { missing = true, colorscheme = { "tokyonight", "gruvbox" } },
   checker = { enabled = true },
   performance = {
