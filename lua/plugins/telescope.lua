@@ -33,7 +33,7 @@ return {
         end,
         desc = "Buffer",
       },
-      { "<leader>vo", "<cmd>Telescope aerial<cr>", desc = "Outline" },
+      { "<leader>vo", "<cmd>Telescope aerial<cr>", desc = "Code Outline" },
     },
     config = function(_, _)
       local telescope = require "telescope"
