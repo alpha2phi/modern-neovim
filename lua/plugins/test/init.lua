@@ -4,6 +4,8 @@ return {
     keys = {
       { "<leader>tl", "<cmd>TestLast<cr>", desc = "Last" },
       { "<leader>tn", "<cmd>TestNearest<cr>", desc = "Nearest" },
+      { "<leader>tv", "<cmd>TestVisit<cr>", desc = "Visit" },
+      { "<leader>ts", "<cmd>TestSuite<cr>", desc = "Suite" },
     },
     config = function()
       vim.g["test#strategy"] = "neovim"
@@ -19,6 +21,7 @@ return {
       { "<leader>tNn", "<cmd>lua require('neotest').run.run()<cr>", desc = "Nearest" },
     },
     dependencies = {
+      "vim-test/vim-test",
       "nvim-neotest/neotest-python",
       "nvim-neotest/neotest-plenary",
       "nvim-neotest/neotest-vim-test",
@@ -36,7 +39,13 @@ return {
       require("neotest").setup(opts)
     end,
   },
-  -- {
+  {
+    "stevearc/overseer.nvim",
+    lazy = false,
+    config = true,
+  }, -- {
   --   "andythigpen/nvim-coverage",
+  --   cmd = { "Coverage--[[  ]]" },
+  --   config = true,
   -- },
 }
