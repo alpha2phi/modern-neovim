@@ -27,10 +27,12 @@ return {
         w = { "<cmd>update!<CR>", "Save" },
         q = { "<cmd>lua require('utils').quit()<CR>", "Quit" },
         b = { name = "+Buffer" },
+        d = { name = "+Debug" },
         f = { name = "+File" },
         h = { name = "+Help" },
         g = { name = "+Git" },
         p = { name = "+Project" },
+        t = { name = "+Test" },
         v = { name = "+View" },
         ["sn"] = { name = "+Noice" },
         s = {

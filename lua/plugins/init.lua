@@ -30,6 +30,10 @@ return {
         return math.floor(vim.o.columns * 0.75)
       end,
     },
+    config = function(_, opts)
+      require("notify").setup(opts)
+      vim.notify = require "notify"
+    end,
   },
   {
     "monaqa/dial.nvim",
@@ -46,8 +50,8 @@ return {
   },
   {
     "andymass/vim-matchup",
-    lazy = false,
-    enabled = false,
+    branch = "master",
+    event = { "BufReadPost" },
     config = function()
       vim.g.matchup_matchparen_offscreen = { method = "popup" }
     end,
