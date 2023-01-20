@@ -2,10 +2,12 @@ return {
   {
     "vim-test/vim-test",
     keys = {
+      { "<leader>tc", "<cmd>TestClass<cr>", desc = "Class" },
+      { "<leader>tf", "<cmd>TestFile<cr>", desc = "File" },
       { "<leader>tl", "<cmd>TestLast<cr>", desc = "Last" },
       { "<leader>tn", "<cmd>TestNearest<cr>", desc = "Nearest" },
-      { "<leader>tv", "<cmd>TestVisit<cr>", desc = "Visit" },
       { "<leader>ts", "<cmd>TestSuite<cr>", desc = "Suite" },
+      { "<leader>tv", "<cmd>TestVisit<cr>", desc = "Visit" },
     },
     config = function()
       vim.g["test#strategy"] = "neovim"
@@ -53,19 +55,22 @@ return {
   },
   {
     "stevearc/overseer.nvim",
-    cmd = {
-      "OverseerToggle",
-      "OverseerOpen",
-      "OverseerRun",
-      "OverseerBuild",
-      "OverseerClose",
-      "OverseerLoadBundle",
-      "OverseerSaveBundle",
-      "OverseerDeleteBundle",
-      "OverseerRunCmd",
-      "OverseerQuickAction",
-      "OverseerTaskAction",
+    keys = {
+      { "<leader>tor", "<cmd>OverseerRun<cr>", desc = "Run" },
     },
+    -- cmd = {
+    --   "OverseerToggle",
+    --   "OverseerOpen",
+    --   "OverseerRun",
+    --   "OverseerBuild",
+    --   "OverseerClose",
+    --   "OverseerLoadBundle",
+    --   "OverseerSaveBundle",
+    --   "OverseerDeleteBundle",
+    --   "OverseerRunCmd",
+    --   "OverseerQuickAction",
+    --   "OverseerTaskAction",
+    -- },
     config = true,
   }, -- {
   --   "andythigpen/nvim-coverage",

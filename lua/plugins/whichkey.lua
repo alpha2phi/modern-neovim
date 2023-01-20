@@ -32,7 +32,7 @@ return {
         h = { name = "+Help" },
         g = { name = "+Git" },
         p = { name = "+Project" },
-        t = { name = "+Test", N = { name = "Neotest" } },
+        t = { name = "+Test", N = { name = "Neotest" }, o = { "Overseer" } },
         v = { name = "+View" },
         ["sn"] = { name = "+Noice" },
         s = {
