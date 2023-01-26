@@ -25,7 +25,16 @@ return {
       }
       wk.register({
         w = { "<cmd>update!<CR>", "Save" },
-        q = { "<cmd>lua require('utils').quit()<CR>", "Quit" },
+        q = {
+          name = "Quit",
+          q = {
+            function()
+              require("utils").quit()
+            end,
+            "Quit",
+          },
+          t = { "<cmd>tabclose<cr>", "Close Tab" },
+        },
         b = { name = "+Buffer" },
         d = { name = "+Debug" },
         f = { name = "+File" },
@@ -34,7 +43,6 @@ return {
         p = { name = "+Project" },
         t = { name = "+Test", N = { name = "Neotest" }, o = { "Overseer" } },
         v = { name = "+View" },
-        ["sn"] = { name = "+Noice" },
         s = {
           name = "+Search",
           c = {
@@ -49,6 +57,7 @@ return {
             end,
             "Stack Overflow",
           },
+          -- n = { name = "+Noice" },
         },
         c = {
           name = "+Code",

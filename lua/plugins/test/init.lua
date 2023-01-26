@@ -39,16 +39,17 @@ return {
     },
     config = function()
       local opts = {
-        require "neotest-python" {
-          dap = { justMyCode = false },
-          runner = "unittest",
+        adapters = {
+          require "neotest-python" {
+            dap = { justMyCode = false },
+            runner = "unittest",
+          },
+          require "neotest-plenary",
+          require "neotest-vim-test" {
+            ignore_file_types = { "python", "vim", "lua" },
+          },
+          require "neotest-rust",
         },
-        require "neotest-plenary",
-        require "neotest-vim-test" {
-          ignore_file_types = { "python", "vim", "lua" },
-        },
-        require "neotest-rust",
-
         -- overseer.nvim
         consumers = {
           overseer = require "neotest.consumers.overseer",
@@ -65,7 +66,7 @@ return {
     "stevearc/overseer.nvim",
     keys = {
       { "<leader>toR", "<cmd>OverseerRunCmd<cr>", desc = "Run Command" },
-      { "<leader>toa", "<cmd>OverseerAction<cr>", desc = "Task Action" },
+      { "<leader>toa", "<cmd>OverseerTaskAction<cr>", desc = "Task Action" },
       { "<leader>tob", "<cmd>OverseerBuild<cr>", desc = "Build" },
       { "<leader>toc", "<cmd>OverseerClose<cr>", desc = "Close" },
       { "<leader>tod", "<cmd>OverseerDeleteBundle<cr>", desc = "Delete Bundle" },
@@ -78,9 +79,9 @@ return {
     },
     config = true,
   },
-  {
-    "andythigpen/nvim-coverage",
-    cmd = { "Coverage" },
-    config = true,
-  },
+  -- {
+  --   "andythigpen/nvim-coverage",
+  --   cmd = { "Coverage" },
+  --   config = true,
+  -- },
 }
