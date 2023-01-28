@@ -15,7 +15,7 @@ function M.setup()
         return "127.0.0.1"
       end,
       port = function()
-        local val = tonumber(vim.fn.input("Port: ", "54321"))
+        local val = tonumber(vim.fn.input("Port: ", "8086"))
         assert(val, "Please provide a port number")
         return val
       end,
@@ -25,8 +25,6 @@ function M.setup()
   dap.adapters.nlua = function(callback, config)
     callback { type = "server", host = config.host, port = config.port }
   end
-  -- stylua: ignore
-  vim.keymap.set("n", "<leader>cR", function() require("osv").run_this() end, { buffer = buffer, desc = "Run" })
 end
 
 return M

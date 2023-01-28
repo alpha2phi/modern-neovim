@@ -24,6 +24,7 @@ return {
         triggers = "auto",
       }
       wk.register({
+        mode = { "n", "v" },
         w = { "<cmd>update!<CR>", "Save" },
         q = {
           name = "Quit",

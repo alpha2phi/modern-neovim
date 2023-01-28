@@ -15,7 +15,7 @@ local M = {
     { "<leader>db", function() require("dap").step_back() end, desc = "Step Back", },
     { "<leader>dc", function() require("dap").continue() end, desc = "Continue", },
     { "<leader>dd", function() require("dap").disconnect() end, desc = "Disconnect", },
-    { "<leader>de", function() require("dapui").eval() end, desc = "Evaluate", },
+    { "<leader>de", function() require("dapui").eval() end, mode = {"n", "v"}, desc = "Evaluate", },
     { "<leader>dg", function() require("dap").session() end, desc = "Get Session", },
     { "<leader>dh", function() require("dap.ui.widgets").hover() end, desc = "Hover Variables", },
     { "<leader>dS", function() require("dap.ui.widgets").scopes() end, desc = "Scopes", },
