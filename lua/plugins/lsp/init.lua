@@ -5,7 +5,7 @@ return {
     dependencies = {
       { "folke/neoconf.nvim", cmd = "Neoconf", config = true },
       { "folke/neodev.nvim", opts = {
-        library = { plugins = { "neotest" }, types = true },
+        library = { plugins = { "neotest", "nvim-dap-ui" }, types = true },
       } },
       { "j-hui/fidget.nvim", config = true },
       { "smjonas/inc-rename.nvim", config = true },
@@ -46,6 +46,8 @@ return {
       ensure_installed = {
         "stylua",
         "ruff",
+        "debugpy",
+        "codelldb",
       },
     },
     config = function(_, opts)
@@ -82,5 +84,14 @@ return {
       "nvim-tree/nvim-web-devicons",
     },
     config = true,
+  },
+  {
+    "folke/trouble.nvim",
+    cmd = { "TroubleToggle", "Trouble" },
+    opts = { use_diagnostic_signs = true },
+    keys = {
+      { "<leader>cd", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics" },
+      { "<leader>cD", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics" },
+    },
   },
 }

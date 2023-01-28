@@ -13,7 +13,7 @@ function M.quit()
       end
     end)
   else
-    vim.cmd "q!"
+    vim.cmd "qa!"
   end
 end
 
