@@ -10,14 +10,14 @@ return {
       require("mini.map").setup(opts)
     end,
   },
-  {
-    "echasnovski/mini.jump",
-    opts = {},
-    keys = { "f", "F", "t", "T" },
-    config = function(_, opts)
-      require("mini.jump").setup(opts)
-    end,
-  },
+  -- {
+  --   "echasnovski/mini.jump",
+  --   opts = {},
+  --   keys = { "f", "F", "t", "T" },
+  --   config = function(_, opts)
+  --     require("mini.jump").setup(opts)
+  --   end,
+  -- },
   {
     "echasnovski/mini.move",
     opts = {},
@@ -82,11 +82,11 @@ return {
   --     require("mini.comment").setup(opts)
   --   end,
   -- },
-  {
-    "echasnovski/mini.pairs",
-    event = "VeryLazy",
-    config = function(_, opts)
-      require("mini.pairs").setup(opts)
-    end,
-  },
+  -- {
+  --   "echasnovski/mini.pairs",
+  --   event = "VeryLazy",
+  --   config = function(_, opts)
+  --     require("mini.pairs").setup(opts)
+  --   end,
+  -- },
 }

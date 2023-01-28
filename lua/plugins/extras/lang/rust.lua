@@ -31,10 +31,9 @@ return {
         rust_analyzer = function(_, opts)
           local lsp_utils = require "plugins.lsp.utils"
           lsp_utils.on_attach(function(client, buffer)
+            -- stylua: ignore
             if client.name == "rust_analyzer" then
-              -- stylua: ignore
               vim.keymap.set("n", "<leader>cR", "<cmd>RustRunnables<cr>", { buffer = buffer, desc = "Runnables" })
-              -- stylua: ignore
               vim.keymap.set("n", "<leader>cl", function() vim.lsp.codelens.run() end, { buffer = buffer, desc = "Code Lens" })
             end
           end)
@@ -64,35 +63,37 @@ return {
   {
     "mfussenegger/nvim-dap",
     opts = {
-      setup = function()
-        local dap = require "dap"
-        dap.adapters.codelldb = {
-          type = "server",
-          port = "${port}",
-          executable = {
-            command = codelldb_path,
-            args = { "--port", "${port}" },
+      setup = {
+        codelldb = function()
+          local dap = require "dap"
+          dap.adapters.codelldb = {
+            type = "server",
+            port = "${port}",
+            executable = {
+              command = codelldb_path,
+              args = { "--port", "${port}" },
 
-            -- On windows you may have to uncomment this:
-            -- detached = false,
-          },
-        }
-        dap.configurations.cpp = {
-          {
-            name = "Launch file",
-            type = "codelldb",
-            request = "launch",
-            program = function()
-              return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-            end,
-            cwd = "${workspaceFolder}",
-            stopOnEntry = false,
-          },
-        }
+              -- On windows you may have to uncomment this:
+              -- detached = false,
+            },
+          }
+          dap.configurations.cpp = {
+            {
+              name = "Launch file",
+              type = "codelldb",
+              request = "launch",
+              program = function()
+                return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+              end,
+              cwd = "${workspaceFolder}",
+              stopOnEntry = false,
+            },
+          }
 
-        dap.configurations.c = dap.configurations.cpp
-        dap.configurations.rust = dap.configurations.cpp
-      end,
+          dap.configurations.c = dap.configurations.cpp
+          dap.configurations.rust = dap.configurations.cpp
+        end,
+      },
     },
   },
 }

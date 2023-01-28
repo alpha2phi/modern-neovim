@@ -94,4 +94,9 @@ return {
       { "<leader>cD", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics" },
     },
   },
+  {
+    "glepnir/lspsaga.nvim",
+    event = "VeryLazy",
+    config = true,
+  },
 }

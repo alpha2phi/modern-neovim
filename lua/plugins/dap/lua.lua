@@ -25,6 +25,8 @@ function M.setup()
   dap.adapters.nlua = function(callback, config)
     callback { type = "server", host = config.host, port = config.port }
   end
+  -- stylua: ignore
+  vim.keymap.set("n", "<leader>cR", function() require("osv").run_this() end, { buffer = buffer, desc = "Run" })
 end
 
 return M

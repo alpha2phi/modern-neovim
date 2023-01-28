@@ -124,6 +124,10 @@ return {
           { name = "cmdline" },
         }),
       })
+
+      -- Auto pairs
+      local cmp_autopairs = require "nvim-autopairs.completion.cmp"
+      cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done { map_char = { tex = "" } })
     end,
   },
   {
@@ -141,14 +145,14 @@ return {
     -- stylua: ignore
     keys = {
       {
-        "<tab>",
+        "<C-j>",
         function()
           return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
         end,
         expr = true, remap = true, silent = true, mode = "i",
       },
-      { "<tab>", function() require("luasnip").jump(1) end, mode = "s" },
-      { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
+      { "<C-j>", function() require("luasnip").jump(1) end, mode = "s" },
+      { "<C-k>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
     },
   },
 }
