@@ -23,7 +23,7 @@ return {
         },
       },
       setup = {
-        pyright = function(_, opts)
+        pyright = function(_, _)
           local lsp_utils = require "plugins.lsp.utils"
           lsp_utils.on_attach(function(client, buffer)
             -- stylua: ignore
