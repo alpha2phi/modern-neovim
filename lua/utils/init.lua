@@ -9,11 +9,11 @@ function M.quit()
       prompt = "You have unsaved changes. Quit anyway? (y/n) ",
     }, function(input)
       if input == "y" then
-        vim.cmd "q!"
+        vim.cmd "qa!"
       end
     end)
   else
-    vim.cmd "q!"
+    vim.cmd "qa!"
   end
 end
 

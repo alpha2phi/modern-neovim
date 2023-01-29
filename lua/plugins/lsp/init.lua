@@ -5,7 +5,7 @@ return {
     dependencies = {
       { "folke/neoconf.nvim", cmd = "Neoconf", config = true },
       { "folke/neodev.nvim", opts = {
-        library = { plugins = { "neotest" }, types = true },
+        library = { plugins = { "neotest", "nvim-dap-ui" }, types = true },
       } },
       { "j-hui/fidget.nvim", config = true },
       { "smjonas/inc-rename.nvim", config = true },
@@ -32,7 +32,18 @@ return {
         },
         dockerls = {},
       },
-      setup = {},
+      setup = {
+        sumneko_lua = function(_, _)
+          local lsp_utils = require "plugins.lsp.utils"
+          lsp_utils.on_attach(function(client, buffer)
+            -- stylua: ignore
+            if client.name == "sumneko_lua" then
+              vim.keymap.set("n", "<leader>dX", function() require("osv").run_this() end, { buffer = buffer, desc = "OSV Run" })
+              vim.keymap.set("n", "<leader>dL", function() require("osv").launch({port = 8086} ) end,{ buffer = buffer, desc = "OSV Launch" })
+            end
+          end)
+        end,
+      },
     },
     config = function(plugin, opts)
       require("plugins.lsp.servers").setup(plugin, opts)
@@ -46,6 +57,8 @@ return {
       ensure_installed = {
         "stylua",
         "ruff",
+        "debugpy",
+        "codelldb",
       },
     },
     config = function(_, opts)
@@ -81,6 +94,20 @@ return {
       "SmiteshP/nvim-navic",
       "nvim-tree/nvim-web-devicons",
     },
+    config = true,
+  },
+  {
+    "folke/trouble.nvim",
+    cmd = { "TroubleToggle", "Trouble" },
+    opts = { use_diagnostic_signs = true },
+    keys = {
+      { "<leader>cd", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics" },
+      { "<leader>cD", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics" },
+    },
+  },
+  {
+    "glepnir/lspsaga.nvim",
+    event = "VeryLazy",
     config = true,
   },
 }

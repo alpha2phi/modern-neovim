@@ -17,7 +17,7 @@ end)()
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    dependencies = { "nvim-treesitter/nvim-treesitter-textobjects", "JoosepAlviste/nvim-ts-context-commentstring" },
+    dependencies = { "nvim-treesitter/nvim-treesitter-textobjects", "JoosepAlviste/nvim-ts-context-commentstring", "RRethy/nvim-treesitter-endwise" },
     build = ":TSUpdate",
     event = "BufReadPost",
     opts = {
@@ -90,9 +90,22 @@ return {
       matchup = {
         enable = true,
       },
+      endwise = {
+        enable = true,
+      },
     },
     config = function(_, opts)
       require("nvim-treesitter.configs").setup(opts)
+    end,
+  },
+  {
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    config = function()
+      local npairs = require "nvim-autopairs"
+      npairs.setup {
+        check_ts = true,
+      }
     end,
   },
 }
