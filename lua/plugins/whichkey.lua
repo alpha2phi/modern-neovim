@@ -49,6 +49,7 @@ return {
         },
         c = {
           name = "+Code",
+          g = { name = "Annotation" },
           x = {
             name = "Swap Next",
             f = "Function",

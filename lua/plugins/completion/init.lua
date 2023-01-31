@@ -12,6 +12,7 @@ return {
     config = function()
       local cmp = require "cmp"
       local luasnip = require "luasnip"
+      local neogen = require "neogen"
       local icons = require "config.icons"
 
       local has_words_before = function()
@@ -48,6 +49,8 @@ return {
               cmp.select_next_item()
             elseif luasnip.expand_or_jumpable() then
               luasnip.expand_or_jump()
+            elseif neogen.jumpable() then
+              neogen.jump_next()
             elseif has_words_before() then
               cmp.complete()
             else
@@ -63,6 +66,8 @@ return {
               cmp.select_prev_item()
             elseif luasnip.jumpable(-1) then
               luasnip.jump(-1)
+            elseif neogen.jumpable(true) then
+              neogen.jump_prev()
             else
               fallback()
             end
