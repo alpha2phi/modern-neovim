@@ -43,8 +43,8 @@ return {
         -- stylua: ignore
         s = {
           name = "+Search",
-          c = { function() require("utils.cht").cht() end, "Cheatsheets", },
-          s = { function() require("utils.cht").stack_overflow() end, "Stack Overflow", },
+          c = { function() require("utils.coding").cht() end, "Cheatsheets", },
+          s = { function() require("utils.coding").stack_overflow() end, "Stack Overflow", },
           -- n = { name = "+Noice" },
         },
         c = {

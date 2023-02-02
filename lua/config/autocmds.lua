@@ -41,6 +41,7 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = {
     "OverseerForm",
     "OverseerList",
+    "checkhealth",
     "floggraph",
     "fugitive",
     "git",
