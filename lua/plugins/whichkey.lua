@@ -26,14 +26,9 @@ return {
       wk.register({
         mode = { "n", "v" },
         w = { "<cmd>update!<CR>", "Save" },
-        q = {
-          name = "Quit",
-          q = {
-            function()
-              require("utils").quit()
-            end,
-            "Quit",
-          },
+        -- stylua: ignore
+        q = { name = "Quit", 
+          q = { function() require("utils").quit() end, "Quit", },
           t = { "<cmd>tabclose<cr>", "Close Tab" },
         },
         b = { name = "+Buffer" },
@@ -44,24 +39,17 @@ return {
         p = { name = "+Project" },
         t = { name = "+Test", N = { name = "Neotest" }, o = { "Overseer" } },
         v = { name = "+View" },
+        z = { name = "+System" },
+        -- stylua: ignore
         s = {
           name = "+Search",
-          c = {
-            function()
-              require("utils.cht").cht()
-            end,
-            "Cheatsheets",
-          },
-          s = {
-            function()
-              require("utils.cht").stack_overflow()
-            end,
-            "Stack Overflow",
-          },
+          c = { function() require("utils.coding").cht() end, "Cheatsheets", },
+          s = { function() require("utils.coding").stack_overflow() end, "Stack Overflow", },
           -- n = { name = "+Noice" },
         },
         c = {
           name = "+Code",
+          g = { name = "Annotation" },
           x = {
             name = "Swap Next",
             f = "Function",
