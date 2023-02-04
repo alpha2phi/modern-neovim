@@ -12,7 +12,7 @@ return {
     end,
     -- stylua: ignore
     keys = {
-      { "<leader>cF", function() require("refactoring").select_refactor() end, mode = {"v"}, desc = "Refactor" },
+      { "<leader>cF", function() require("telescope").extensions.refactoring.refactors() end, mode = { "v" }, desc = "Refactor", },
     },
   },
 }
