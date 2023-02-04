@@ -68,6 +68,14 @@ return {
       { "<leader>bD", function() require("mini.bufremove").delete(0, true) end, desc = "Delete Buffer (Force)" },
     },
   },
+  {
+    "echasnovski/mini.animate",
+    event = "VeryLazy",
+    enabled = false,
+    config = function(_, _)
+      require("mini.animate").setup()
+    end,
+  },
   -- {
   --   "echasnovski/mini.comment",
   --   event = "VeryLazy",
