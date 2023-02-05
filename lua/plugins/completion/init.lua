@@ -143,6 +143,7 @@ return {
         require("luasnip.loaders.from_vscode").lazy_load()
       end,
     },
+    build = "make install_jsregexp",
     opts = {
       history = true,
       delete_check_events = "TextChanged",
@@ -152,7 +153,7 @@ return {
       {
         "<C-j>",
         function()
-          return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
+          return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<C-j>"
         end,
         expr = true, remap = true, silent = true, mode = "i",
       },
