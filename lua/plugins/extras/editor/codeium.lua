@@ -2,6 +2,7 @@ return {
   {
     "Exafunction/codeium.vim",
     event = "VeryLazy",
+    enabled = false,
     -- stylua: ignore
     config = function ()
       vim.keymap.set("i", "<C-s>", function() return vim.fn["codeium#Accept"]() end, { expr = true })
