@@ -81,4 +81,6 @@ return {
       { "<leader>qd", function() require("persistence").stop() end, desc = "Don't Save Current Session" },
     },
   },
+  -- scope buffers to tabs
+  { "tiagovla/scope.nvim", event = "VeryLazy", opts = {} },
 }
