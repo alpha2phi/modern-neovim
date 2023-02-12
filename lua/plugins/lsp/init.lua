@@ -16,7 +16,7 @@ return {
     },
     opts = {
       servers = {
-        sumneko_lua = {
+        lua_ls = {
           settings = {
             Lua = {
               workspace = {
@@ -33,11 +33,11 @@ return {
         dockerls = {},
       },
       setup = {
-        sumneko_lua = function(_, _)
+        lua_ls = function(_, _)
           local lsp_utils = require "plugins.lsp.utils"
           lsp_utils.on_attach(function(client, buffer)
             -- stylua: ignore
-            if client.name == "sumneko_lua" then
+            if client.name == "lua_ls" then
               vim.keymap.set("n", "<leader>dX", function() require("osv").run_this() end, { buffer = buffer, desc = "OSV Run" })
               vim.keymap.set("n", "<leader>dL", function() require("osv").launch({port = 8086} ) end,{ buffer = buffer, desc = "OSV Launch" })
             end

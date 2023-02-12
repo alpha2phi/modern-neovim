@@ -1,7 +1,7 @@
 return {
   {
     "anuvyklack/hydra.nvim",
-    event = "VeryLazy",
+    keys = { "<A-g>" },
     config = function(_, _)
       local Hydra = require "hydra"
       local gitsigns = require "gitsigns"
