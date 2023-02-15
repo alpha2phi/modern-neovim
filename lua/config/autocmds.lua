@@ -76,9 +76,3 @@ vim.api.nvim_create_autocmd("VimLeave", {
     vim.cmd [[set guicursor=a:ver100]]
   end,
 })
-
-vim.api.nvim_create_autocmd("DirChanged", {
-  callback = function()
-    vim.opt.titlestring = vim.fn.getcwd()
-  end,
-})
