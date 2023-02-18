@@ -77,8 +77,5 @@ vim.api.nvim_create_autocmd("VimLeave", {
   end,
 })
 
-vim.api.nvim_create_autocmd("DirChanged", {
-  callback = function()
-    vim.opt.titlestring = vim.fn.getcwd()
-  end,
-})
+-- don't auto comment new line
+vim.api.nvim_create_autocmd("BufEnter", { command = [[set formatoptions-=cro]] })
