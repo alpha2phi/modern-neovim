@@ -78,4 +78,4 @@ vim.api.nvim_create_autocmd("VimLeave", {
 })
 
 -- don't auto comment new line
-api.nvim_create_autocmd("BufEnter", { command = [[set formatoptions-=cro]] })
+vim.api.nvim_create_autocmd("BufEnter", { command = [[set formatoptions-=cro]] })
