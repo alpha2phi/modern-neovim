@@ -76,3 +76,6 @@ vim.api.nvim_create_autocmd("VimLeave", {
     vim.cmd [[set guicursor=a:ver100]]
   end,
 })
+
+-- don't auto comment new line
+api.nvim_create_autocmd("BufEnter", { command = [[set formatoptions-=cro]] })
