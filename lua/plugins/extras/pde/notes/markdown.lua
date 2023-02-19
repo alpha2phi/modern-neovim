@@ -1,4 +1,3 @@
--- TODO:
 return {
   {
     "jakewvincent/mkdnflow.nvim",
@@ -6,4 +5,5 @@ return {
     rocks = "luautf8",
     opts = {},
   },
+  { "AckslD/nvim-FeMaco.lua", ft = { "markdown" }, opts = {} },
 }
