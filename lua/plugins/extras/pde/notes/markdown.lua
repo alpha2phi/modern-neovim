@@ -8,13 +8,22 @@ return {
   { "AckslD/nvim-FeMaco.lua", ft = { "markdown" }, opts = {} },
   {
     "iamcco/markdown-preview.nvim",
-    build = function()
-      vim.fn["mkdp#util#install"]()
+    ft = { "markdown" },
+    build = "cd app && npm install",
+    init = function()
+      vim.g.mkdp_filetypes = { "markdown" }
     end,
+  },
+  { "mzlogin/vim-markdown-toc", ft = { "markdown" } },
+  {
+    "renerocksai/telekasten.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    opts = {
+      home = vim.env.HOME .. "/zettelkasten",
+    },
     ft = { "markdown" },
   },
+  -- { "toppair/peek.nvim", run = "deno task --quiet build:fast" },
   -- glow.nvim
-  -- peek.nvim
   -- https://github.com/rockerBOO/awesome-neovim#markdown-and-latex
-  -- https://github.com/renerocksai/telekasten.nvim
 }
