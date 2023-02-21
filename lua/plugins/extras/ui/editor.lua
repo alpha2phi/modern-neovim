@@ -21,4 +21,5 @@ return {
       require("transparent").setup(opts)
     end,
   },
+  -- TODO: colorizer
 }

@@ -17,9 +17,14 @@ end)()
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    dependencies = { "nvim-treesitter/nvim-treesitter-textobjects", "JoosepAlviste/nvim-ts-context-commentstring", "RRethy/nvim-treesitter-endwise" },
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter-textobjects",
+      "JoosepAlviste/nvim-ts-context-commentstring",
+      "RRethy/nvim-treesitter-endwise",
+      "windwp/nvim-ts-autotag",
+    },
     build = ":TSUpdate",
-    event = "BufReadPost",
+    event = { "BufReadPost", "BufNewFile" },
     opts = {
       sync_install = false,
       ensure_installed = {
@@ -91,6 +96,9 @@ return {
         enable = true,
       },
       endwise = {
+        enable = true,
+      },
+      autotag = {
         enable = true,
       },
     },
