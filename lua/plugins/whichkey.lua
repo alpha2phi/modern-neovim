@@ -27,7 +27,7 @@ return {
         mode = { "n", "v" },
         w = { "<cmd>update!<CR>", "Save" },
         -- stylua: ignore
-        q = { name = "Quit", 
+        q = { name = "Quit",
           q = { function() require("utils").quit() end, "Quit", },
           t = { "<cmd>tabclose<cr>", "Close Tab" },
         },
@@ -36,6 +36,7 @@ return {
         f = { name = "+File" },
         h = { name = "+Help" },
         j = { name = "+Jump" },
+        o = { name = "+Orgmode" },
         g = { name = "+Git", h = { name = "Hunk" }, t = { name = "Toggle" } },
         p = { name = "+Project" },
         t = { name = "+Test", N = { name = "Neotest" }, o = { "Overseer" } },
