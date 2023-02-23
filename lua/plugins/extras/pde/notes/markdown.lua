@@ -23,6 +23,16 @@ return {
     },
     ft = { "markdown" },
   },
+  {
+    "epwalsh/obsidian.nvim",
+    opts = {
+      dir = vim.env.HOME .. "/obsidian",
+      completion = {
+        nvim_cmp = true,
+      },
+    },
+    ft = { "markdown" },
+  },
   -- { "toppair/peek.nvim", run = "deno task --quiet build:fast" },
   -- glow.nvim
   -- https://github.com/rockerBOO/awesome-neovim#markdown-and-latex

@@ -39,6 +39,7 @@ return {
         o = { name = "+Orgmode" },
         g = { name = "+Git", h = { name = "Hunk" }, t = { name = "Toggle" } },
         p = { name = "+Project" },
+        r = { name = "+Run" },
         t = { name = "+Test", N = { name = "Neotest" }, o = { "Overseer" } },
         v = { name = "+View" },
         z = { name = "+System" },
