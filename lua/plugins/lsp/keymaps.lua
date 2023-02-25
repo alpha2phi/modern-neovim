@@ -5,7 +5,7 @@ function M.on_attach(client, buffer)
 
   self:map("gd", "Telescope lsp_definitions", { desc = "Goto Definition" })
   self:map("gr", "Telescope lsp_references", { desc = "References" })
-  self:map("gD", "Telescope lsp_declarations", { desc = "Goto Declaration" })
+  self:map("gD", "Lspsaga peek_definition", { desc = "Peek Definition" })
   self:map("gI", "Telescope lsp_implementations", { desc = "Goto Implementation" })
   self:map("gb", "Telescope lsp_type_definitions", { desc = "Goto Type Definition" })
   self:map("K", "Lspsaga hover_doc", { desc = "Hover" })
