@@ -7,6 +7,7 @@ return {
       load = {
         ["core.defaults"] = {}, -- Loads default behaviour
         ["core.norg.concealer"] = {}, -- Adds pretty icons to your documents
+        ["core.norg.qol.toc"] = {},
         ["core.norg.dirman"] = { -- Manages Neorg workspaces
           config = {
             workspaces = {

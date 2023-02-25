@@ -4,6 +4,7 @@ return {
     ft = { "markdown" },
     rocks = "luautf8",
     opts = {},
+    enabled = false,
   },
   { "AckslD/nvim-FeMaco.lua", ft = { "markdown" }, opts = {} },
   {

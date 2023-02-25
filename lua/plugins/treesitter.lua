@@ -38,6 +38,7 @@ return {
         "org",
         "query",
         "regex",
+        "latex",
         "vim",
         "yaml",
       },
