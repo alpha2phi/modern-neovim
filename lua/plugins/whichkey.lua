@@ -24,7 +24,6 @@ return {
         triggers = "auto",
       }
       wk.register({
-        mode = { "n", "v" },
         w = { "<cmd>update!<CR>", "Save" },
         -- stylua: ignore
         q = { name = "Quit",
@@ -67,7 +66,7 @@ return {
             c = "Class",
           },
         },
-      }, { prefix = "<leader>" })
+      }, { prefix = "<leader>", mode = { "n", "v" } })
     end,
   },
 }
