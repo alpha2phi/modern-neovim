@@ -94,6 +94,7 @@ return {
       "SmiteshP/nvim-navic",
       "nvim-tree/nvim-web-devicons",
     },
+    enabled = false, -- use lspsaga
     config = true,
   },
   {
