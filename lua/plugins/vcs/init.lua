@@ -111,4 +111,14 @@ return {
       vim.g.gist_open_browser_after_post = 1
     end,
   },
+  {
+    "aaronhallaert/advanced-git-search.nvim",
+    config = function()
+      require("telescope").load_extension "advanced_git_search"
+    end,
+    dependencies = {
+      "nvim-telescope/telescope.nvim",
+      "tpope/vim-fugitive",
+    },
+  },
 }

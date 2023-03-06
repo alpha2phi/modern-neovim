@@ -10,6 +10,7 @@ return {
       "stevearc/aerial.nvim",
       "nvim-telescope/telescope-frecency.nvim",
       "kkharji/sqlite.lua",
+      "aaronhallaert/advanced-git-search.nvim",
     },
     cmd = "Telescope",
     -- stylua: ignore
