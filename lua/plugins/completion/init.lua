@@ -152,7 +152,7 @@ return {
       cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done { map_char = { tex = "" } })
 
       -- Git
-      require("cmp_git").setup { filetypes = { "gitcommit", "octo", "NeogitCommitMessage" } }
+      require("cmp_git").setup { filetypes = { "NeogitCommitMessage" } }
     end,
   },
   {
