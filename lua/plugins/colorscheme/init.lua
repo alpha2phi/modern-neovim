@@ -29,7 +29,6 @@ return {
       tokyonight.load()
     end,
   },
-  { "nyoom-engineering/oxocarbon.nvim", lazy = false, name = "oxocarbon" },
   {
     "catppuccin/nvim",
     lazy = false,

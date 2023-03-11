@@ -5,6 +5,7 @@ return {
       require("various-textobjs").setup { useDefaultKeymaps = true }
     end,
     event = "VeryLazy",
+    enabled = false,
   },
-  { "axieax/urlview.nvim", cmd = { "UrlView" } },
+  { "axieax/urlview.nvim", enabled = false, cmd = { "UrlView" } },
 }
