@@ -13,6 +13,7 @@ return {
       "williamboman/mason-lspconfig.nvim",
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-nvim-lsp-signature-help",
+      "jay-babu/mason-null-ls.nvim",
     },
     opts = {
       servers = {
@@ -39,7 +40,7 @@ return {
             -- stylua: ignore
             if client.name == "lua_ls" then
               vim.keymap.set("n", "<leader>dX", function() require("osv").run_this() end, { buffer = buffer, desc = "OSV Run" })
-              vim.keymap.set("n", "<leader>dL", function() require("osv").launch({port = 8086} ) end,{ buffer = buffer, desc = "OSV Launch" })
+              vim.keymap.set("n", "<leader>dL", function() require("osv").launch({ port = 8086 }) end, { buffer = buffer, desc = "OSV Launch" })
             end
           end)
         end,
@@ -82,11 +83,13 @@ return {
         sources = {
           nls.builtins.formatting.stylua,
           nls.builtins.formatting.black,
+          nls.builtins.formatting.shfmt,
           nls.builtins.diagnostics.ruff.with { extra_args = { "--max-line-length=180" } },
         },
       }
     end,
   },
+  { "jay-babu/mason-null-ls.nvim", opts = { ensure_installed = nil, automatic_installation = true, automatic_setup = false } },
   {
     "utilyre/barbecue.nvim",
     event = "VeryLazy",
