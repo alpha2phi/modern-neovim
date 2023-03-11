@@ -11,6 +11,7 @@ return {
       "nvim-telescope/telescope-frecency.nvim",
       "kkharji/sqlite.lua",
       "aaronhallaert/advanced-git-search.nvim",
+      "benfowler/telescope-luasnip.nvim",
     },
     cmd = "Telescope",
     -- stylua: ignore
@@ -24,6 +25,7 @@ return {
       { "<leader>hs", "<cmd>Telescope help_tags<cr>", desc = "Search" },
       { "<leader>pp", function() require("telescope").extensions.project.project { display_type = "minimal" } end, desc = "List", },
       { "<leader>sw", "<cmd>Telescope live_grep<cr>", desc = "Workspace" },
+      { "<leader>ss", "<cmd>Telescope luasnip<cr>", desc = "Snippets" },
       { "<leader>sb", function() require("telescope.builtin").current_buffer_fuzzy_find() end, desc = "Buffer", },
       { "<leader>vo", "<cmd>Telescope aerial<cr>", desc = "Code Outline" },
       { "<leader>zc", function() require("telescope.builtin").colorscheme({enable_preview = true}) end, desc = "Colorscheme", },
@@ -89,6 +91,7 @@ return {
       telescope.load_extension "aerial"
       telescope.load_extension "dap"
       telescope.load_extension "frecency"
+      telescope.load_extension "luasnip"
     end,
   },
   {

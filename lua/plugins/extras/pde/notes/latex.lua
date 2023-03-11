@@ -5,7 +5,7 @@ return {
   {
     "lervag/vimtex",
     ft = { "tex" },
-    config = function(plugin, opts)
+    config = function()
       -- Run compilation on start
       vim.cmd [[
         :autocmd BufNewFile,BufRead *.tex VimtexCompile

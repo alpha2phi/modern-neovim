@@ -47,7 +47,7 @@ return {
         s = {
           name = "+Search",
           c = { function() require("utils.coding").cht() end, "Cheatsheets", },
-          s = { function() require("utils.coding").stack_overflow() end, "Stack Overflow", },
+          o = { function() require("utils.coding").stack_overflow() end, "Stack Overflow", },
           -- n = { name = "+Noice" },
         },
         c = {
