@@ -8,6 +8,7 @@ return {
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
+      "petertriho/cmp-git",
     },
     config = function()
       local cmp = require "cmp"
@@ -96,8 +97,9 @@ return {
           { name = "nvim_lsp" },
           { name = "luasnip" },
           { name = "buffer" },
-          { name = "orgmode" },
           { name = "path" },
+          { name = "git" },
+          { name = "orgmode" },
         },
         formatting = {
           fields = { "kind", "abbr", "menu" },
@@ -148,6 +150,9 @@ return {
       -- Auto pairs
       local cmp_autopairs = require "nvim-autopairs.completion.cmp"
       cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done { map_char = { tex = "" } })
+
+      -- Git
+      require("cmp_git").setup { filetypes = { "NeogitCommitMessage" } }
     end,
   },
   {

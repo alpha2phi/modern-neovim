@@ -7,7 +7,6 @@ local M = {
       { "nvim-telescope/telescope-dap.nvim" },
       { "jbyuki/one-small-step-for-vimkind" },
       { "jay-babu/mason-nvim-dap.nvim" },
-      { "jay-babu/mason-null-ls.nvim" },
     },
   -- stylua: ignore
   keys = {
@@ -65,7 +64,6 @@ local M = {
   },
   --TODO: to configure
   { "jay-babu/mason-nvim-dap.nvim", opts = {}, cmd = { "DapInstall", "DapUninstall" } },
-  { "jay-babu/mason-null-ls.nvim", opts = {}, cmd = { "NullInstall", "NullUninstall" } },
 }
 
 return M
