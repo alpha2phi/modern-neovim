@@ -79,3 +79,10 @@ vim.api.nvim_create_autocmd("VimLeave", {
 
 -- don't auto comment new line
 vim.api.nvim_create_autocmd("BufEnter", { command = [[set formatoptions-=cro]] })
+
+-- show line diagnostics
+vim.api.nvim_create_autocmd("CursorHold", {
+  callback = function()
+    vim.schedule(vim.diagnostic.open_float)
+  end,
+})
