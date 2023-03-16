@@ -112,6 +112,10 @@ return {
     end,
   },
   {
+    "rawnly/gist.nvim",
+    cmd = { "CreateGist", "CreateGistFromFile" },
+  },
+  {
     "aaronhallaert/advanced-git-search.nvim",
     config = function()
       require("telescope").load_extension "advanced_git_search"
