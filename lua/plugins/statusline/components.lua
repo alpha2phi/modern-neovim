@@ -1,4 +1,5 @@
 local icons = require "config.icons"
+local Job = require "plenary.job"
 
 local function fg(name)
   return function()
@@ -17,8 +18,20 @@ return {
   },
   git_repo = {
     function()
-      if vim.api.nvim_exec("Git rev-parse --is-inside-work-tree", true) == "true" then
-        return vim.fs.basename(vim.api.nvim_exec("Git rev-parse --show-toplevel", true))
+      local results = {}
+      local job = Job:new {
+        command = "git",
+        args = { "rev-parse", "--show-toplevel" },
+        cwd = vim.fn.expand "%:p:h",
+        on_stdout = function(_, line)
+          table.insert(results, line)
+        end,
+      }
+      job:sync()
+      if results[1] ~= nil then
+        return vim.fn.fnamemodify(results[1], ":t")
+      else
+        return ""
       end
     end,
   },
