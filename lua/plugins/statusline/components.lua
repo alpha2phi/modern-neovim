@@ -17,10 +17,9 @@ return {
   },
   git_repo = {
     function()
-      if vim.fn.trim(vim.fn.system "git rev-parse --is-inside-work-tree") == "true" then
-        return vim.fn.trim(vim.fn.system "basename `git rev-parse --show-toplevel`")
+      if vim.api.nvim_exec("Git rev-parse --is-inside-work-tree", true) == "true" then
+        return vim.fs.basename(vim.api.nvim_exec("Git rev-parse --show-toplevel", true))
       end
-      return ""
     end,
   },
   separator = {
