@@ -1,6 +1,6 @@
 local opt = vim.opt
 
-opt.formatoptions = "jcroqlnt" -- tcqj
+opt.formatoptions = "jqlnt" -- tcqj
 opt.shortmess:append { W = true, I = true, c = true }
 opt.breakindent = true
 opt.clipboard = "unnamedplus" -- Access system clipboard
