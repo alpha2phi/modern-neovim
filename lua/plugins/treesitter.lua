@@ -33,6 +33,8 @@ return {
         "help",
         "html",
         "lua",
+        "luadoc",
+        "luap",
         "markdown",
         "markdown_inline",
         "org",
