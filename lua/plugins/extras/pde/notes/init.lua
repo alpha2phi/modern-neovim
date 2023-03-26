@@ -1,9 +1,9 @@
 return {
   { "itchyny/calendar.vim", cmd = { "Calendar" } },
-  { "folke/twilight.nvim", opts = {}, cmd = { "Twilight", "TwilightEnable", "TwilightDisable" } },
-  { "folke/zen-mode.nvim", opts = {}, cmd = { "ZenMode" } },
+  { "folke/twilight.nvim", config = true, cmd = { "Twilight", "TwilightEnable", "TwilightDisable" } },
+  { "folke/zen-mode.nvim", config = true, cmd = { "ZenMode" } },
   { "dhruvasagar/vim-table-mode", ft = { "markdown", "org", "norg" } },
-  { "lukas-reineke/headlines.nvim", opts = {}, ft = { "markdown", "org", "norg" } },
+  { "lukas-reineke/headlines.nvim", config = true, ft = { "markdown", "org", "norg" } },
   {
     "jbyuki/nabla.nvim",
     --stylua: ignore
@@ -16,9 +16,15 @@ return {
   },
   {
     "vim-pandoc/vim-pandoc",
-    ft = { "pandoc", "markdown", "org", "norg", "tex", "latex", "json", "html" },
-    init = function()
-      vim.g["pandoc#filetypes#handled"] = { "pandoc", "markdown", "latex", "json", "html" }
+    event = "VeryLazy",
+    opts = { patterns = { "*.org", "*.norg", "*.tex" } },
+    config = function(_, opts)
+      vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile", "BufFilePost" }, {
+        pattern = opts.patterns,
+        callback = function()
+          vim.cmd.runtime [[ftplugin/pandoc.vim]]
+        end,
+      })
     end,
     dependencies = { "vim-pandoc/vim-pandoc-syntax" },
   },

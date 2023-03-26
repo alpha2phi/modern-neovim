@@ -11,5 +11,5 @@ return {
       require("orgmode").setup(opts)
     end,
   },
-  { "akinsho/org-bullets.nvim", opts = {}, ft = { "org" } },
+  { "akinsho/org-bullets.nvim", config = true, ft = { "org" } },
 }
