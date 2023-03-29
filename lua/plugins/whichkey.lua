@@ -45,6 +45,7 @@ return {
         },
         b = { name = "+Buffer" },
         d = { name = "+Debug" },
+        D = { name = "+Database" },
         f = { name = "+File" },
         h = { name = "+Help" },
         j = { name = "+Jump" },
