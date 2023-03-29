@@ -12,6 +12,7 @@ return {
       "kkharji/sqlite.lua",
       "aaronhallaert/advanced-git-search.nvim",
       "benfowler/telescope-luasnip.nvim",
+      "olacin/telescope-cc.nvim",
     },
     cmd = "Telescope",
     -- stylua: ignore
@@ -21,6 +22,7 @@ return {
       { "<leader>fo", "<cmd>Telescope frecency theme=dropdown previewer=false<cr>", desc = "Recent" },
       { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
       { "<leader>fr", "<cmd>Telescope file_browser<cr>", desc = "Browser" },
+      { "<leader>gc", "<cmd>Telescope conventional_commits<cr>", desc = "Conventional Commits" },
       { "<leader>ps", "<cmd>Telescope repo list<cr>", desc = "Search" },
       { "<leader>hs", "<cmd>Telescope help_tags<cr>", desc = "Search" },
       { "<leader>pp", function() require("telescope").extensions.project.project { display_type = "minimal" } end, desc = "List", },
@@ -92,6 +94,7 @@ return {
       telescope.load_extension "dap"
       telescope.load_extension "frecency"
       telescope.load_extension "luasnip"
+      telescope.load_extension "conventional_commits"
     end,
   },
   {
