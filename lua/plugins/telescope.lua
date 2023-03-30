@@ -39,6 +39,23 @@ return {
       local icons = require "config.icons"
       local actions = require "telescope.actions"
       local actions_layout = require "telescope.actions.layout"
+      local transform_mod = require("telescope.actions.mt").transform_mod
+      local custom_actions = transform_mod {
+        -- VisiData
+        visidata = function(prompt_bufnr)
+          -- Get the full path
+          local content = require("telescope.actions.state").get_selected_entry()
+          local full_path = content.cwd .. require("plenary.path").path.sep .. content.value
+
+          -- Close the Telescope window
+          require("telescope.actions").close(prompt_bufnr)
+
+          -- Open the file with VisiData
+          local utils = require "utils"
+          utils.open_term("vd " .. full_path, { direction = "float" })
+        end,
+      }
+
       local mappings = {
         i = {
           ["<C-j>"] = actions.move_selection_next,
@@ -46,6 +63,10 @@ return {
           ["<C-n>"] = actions.cycle_history_next,
           ["<C-p>"] = actions.cycle_history_prev,
           ["?"] = actions_layout.toggle_preview,
+          ["<C-s>"] = custom_actions.visidata,
+        },
+        n = {
+          ["s"] = custom_actions.visidata,
         },
       }
 
