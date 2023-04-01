@@ -60,12 +60,6 @@ end
 
 function M.setup(_, opts)
   lsp_utils.on_attach(function(client, buffer)
-    -- nvim-navbuddy
-    if client.name ~= "null-ls" then
-      local navbuddy = require "nvim-navbuddy"
-      navbuddy.attach(client, buffer)
-    end
-
     require("plugins.lsp.format").on_attach(client, buffer)
     require("plugins.lsp.keymaps").on_attach(client, buffer)
   end)

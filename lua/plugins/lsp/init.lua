@@ -14,7 +14,6 @@ return {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-nvim-lsp-signature-help",
       "jay-babu/mason-null-ls.nvim",
-      { "SmiteshP/nvim-navbuddy", dependencies = { "SmiteshP/nvim-navic" } },
     },
     opts = {
       servers = {
@@ -50,10 +49,6 @@ return {
     config = function(plugin, opts)
       require("plugins.lsp.servers").setup(plugin, opts)
     end,
-    --stylua: ignore
-    keys = {
-      { "<leader>vO", function() require("nvim-navbuddy").open() end, desc = "Code Outline (navbuddy)", },
-    },
   },
   {
     "williamboman/mason.nvim",
