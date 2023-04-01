@@ -45,6 +45,9 @@ return {
         visidata = function(prompt_bufnr)
           -- Get the full path
           local content = require("telescope.actions.state").get_selected_entry()
+          if content == nil then
+            return
+          end
           local full_path = content.cwd .. require("plenary.path").path.sep .. content.value
 
           -- Close the Telescope window
@@ -53,6 +56,23 @@ return {
           -- Open the file with VisiData
           local utils = require "utils"
           utils.open_term("vd " .. full_path, { direction = "float" })
+        end,
+
+        -- File browser
+        file_browser = function(prompt_bufnr)
+          -- Get the full path
+          local content = require("telescope.actions.state").get_selected_entry()
+          if content == nil then
+            return
+          end
+
+          local full_path = content.cwd .. require("plenary.path").path.sep .. content.value
+
+          -- Close the Telescope window
+          require("telescope.actions").close(prompt_bufnr)
+
+          -- Open file browser
+          vim.cmd("Telescope file_browser select_buffer=true path=" .. vim.fs.dirname(full_path))
         end,
       }
 
@@ -64,9 +84,10 @@ return {
           ["<C-p>"] = actions.cycle_history_prev,
           ["?"] = actions_layout.toggle_preview,
           ["<C-s>"] = custom_actions.visidata,
+          ["<C-r>"] = custom_actions.file_browser,
         },
         n = {
-          ["s"] = custom_actions.visidata,
+          ["r"] = custom_actions.file_browser,
         },
       }
 

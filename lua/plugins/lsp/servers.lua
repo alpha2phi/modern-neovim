@@ -60,6 +60,12 @@ end
 
 function M.setup(_, opts)
   lsp_utils.on_attach(function(client, buffer)
+    -- nvim-navbuddy
+    if client.name ~= "null-ls" then
+      local navbuddy = require "nvim-navbuddy"
+      navbuddy.attach(client, buffer)
+    end
+
     require("plugins.lsp.format").on_attach(client, buffer)
     require("plugins.lsp.keymaps").on_attach(client, buffer)
   end)
@@ -85,6 +91,11 @@ function M.setup(_, opts)
     end
     require("lspconfig")[server].setup(server_opts)
   end
+
+  -- Add bun for Node.js-based servers
+  local lspconfig_util = require "lspconfig.util"
+  local add_bun_prefix = require("plugins.lsp.bun").add_bun_prefix
+  lspconfig_util.on_setup = lspconfig_util.add_hook_before(lspconfig_util.on_setup, add_bun_prefix)
 
   -- get all the servers that are available thourgh mason-lspconfig
   local have_mason, mlsp = pcall(require, "mason-lspconfig")

@@ -34,7 +34,8 @@ return {
     },
     ft = { "markdown" },
   },
-  -- { "toppair/peek.nvim", run = "deno task --quiet build:fast" },
+  { "ellisonleao/glow.nvim", config = true, cmd = "Glow" },
+  { "toppair/peek.nvim", config = true, ft = { "markdown" }, build = "deno task --quiet build:fast" },
   -- glow.nvim
   -- https://github.com/rockerBOO/awesome-neovim#markdown-and-latex
 }
