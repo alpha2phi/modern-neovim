@@ -54,7 +54,7 @@ return {
   },
   {
     "monaqa/dial.nvim",
-    keys = { { "<C-a>", mode = { "n", "v" } }, { "<C-x>", mode = { "n", "v" } }, { "g<C-a>", mode = "v" }, { "g<C-x>", mode = "v" } },
+    keys = { { "<C-a>", mode = { "n", "v" } }, { "<C-x>", mode = { "n", "v" } }, { "g<C-a>", mode = { "v" } }, { "g<C-x>", mode = { "v" } } },
     -- stylua: ignore
     init = function()
       vim.api.nvim_set_keymap("n", "<C-a>", require("dial.map").inc_normal(), { desc = "Increment", noremap = true })
