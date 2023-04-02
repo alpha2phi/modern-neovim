@@ -87,6 +87,7 @@ return {
           ["<C-r>"] = custom_actions.file_browser,
         },
         n = {
+          ["s"] = custom_actions.visidata,
           ["r"] = custom_actions.file_browser,
         },
       }
