@@ -60,13 +60,17 @@ return {
 
         -- File browser
         file_browser = function(prompt_bufnr)
-          -- Get the full path
           local content = require("telescope.actions.state").get_selected_entry()
           if content == nil then
             return
           end
 
-          local full_path = content.cwd .. require("plenary.path").path.sep .. content.value
+          local full_path = content.cwd
+          if content.filename then
+            full_path = content.filename
+          elseif content.value then
+            full_path = full_path .. require("plenary.path").path.sep .. content.value
+          end
 
           -- Close the Telescope window
           require("telescope.actions").close(prompt_bufnr)
