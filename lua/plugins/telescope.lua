@@ -72,7 +72,8 @@ return {
           require("telescope.actions").close(prompt_bufnr)
 
           -- Open file browser
-          vim.cmd("Telescope file_browser select_buffer=true path=" .. vim.fs.dirname(full_path))
+          -- vim.cmd("Telescope file_browser select_buffer=true path=" .. vim.fs.dirname(full_path))
+          require("telescope").extensions.file_browser.file_browser { select_buffer = true, path = vim.fs.dirname(full_path) }
         end,
       }
 
