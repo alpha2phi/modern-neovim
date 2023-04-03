@@ -89,11 +89,11 @@ return {
           ["<C-p>"] = actions.cycle_history_prev,
           ["?"] = actions_layout.toggle_preview,
           ["<C-s>"] = custom_actions.visidata,
-          ["<C-r>"] = custom_actions.file_browser,
+          ["<C-b>"] = custom_actions.file_browser,
         },
         n = {
           ["s"] = custom_actions.visidata,
-          ["r"] = custom_actions.file_browser,
+          ["b"] = custom_actions.file_browser,
         },
       }
 
