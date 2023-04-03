@@ -89,6 +89,8 @@ vim.api.nvim_create_autocmd("VimLeave", {
 -- show line diagnostics
 vim.api.nvim_create_autocmd("CursorHold", {
   callback = function()
-    vim.schedule(vim.diagnostic.open_float)
+    if require("plugins.lsp.utils").show_diagnostics() then
+      vim.schedule(vim.diagnostic.open_float)
+    end
   end,
 })
