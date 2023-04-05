@@ -63,7 +63,7 @@ function M.on_attach(on_attach)
   })
 end
 
-local diagnostics_active = true
+local diagnostics_active = false
 
 function M.show_diagnostics()
   return diagnostics_active

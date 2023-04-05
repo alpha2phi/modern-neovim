@@ -1,5 +1,6 @@
 local opt = vim.opt
 
+opt.autoindent = true
 opt.formatoptions = "jqlnt" -- tcqj
 opt.shortmess:append { W = true, I = true, c = true }
 opt.breakindent = true
