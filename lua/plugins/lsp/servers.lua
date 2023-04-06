@@ -58,25 +58,8 @@ local function lsp_init()
   vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, config.float)
 end
 
-function M.override(client, bufnr)
-  local caps = client.server_capabilities
-
-  if caps.completionProvider then
-    vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
-  end
-
-  if caps.documentFormattingProvider then
-    vim.bo[bufnr].formatexpr = "v:lua.vim.lsp.formatexpr()"
-  end
-
-  if caps.definitionProvider then
-    vim.bo[bufnr].tagfunc = "v:lua.vim.lsp.tagfunc"
-  end
-end
-
 function M.setup(_, opts)
   lsp_utils.on_attach(function(client, bufnr)
-    M.override(client, bufnr)
     require("plugins.lsp.format").on_attach(client, bufnr)
     require("plugins.lsp.keymaps").on_attach(client, bufnr)
   end)
