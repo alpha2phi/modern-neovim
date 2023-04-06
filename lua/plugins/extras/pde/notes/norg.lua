@@ -1,6 +1,7 @@
 return {
   {
     "nvim-neorg/neorg",
+    enabled = false,
     ft = { "norg" },
     build = ":Neorg sync-parsers",
     opts = {
