@@ -10,6 +10,10 @@ keymap("n", "N", "Nzzzv")
 keymap("n", "g,", "g,zvzz")
 keymap("n", "g;", "g;zvzz")
 
+-- Paste
+keymap("n", "]p", "o<Esc>p", { desc = "Paste below" })
+keymap("n", "]P", "O<Esc>p", { desc = "Paste above" })
+
 -- Better escape using jk in insert and terminal mode
 keymap("i", "jk", "<ESC>")
 keymap("t", "jk", "<C-\\><C-n>")

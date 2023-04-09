@@ -25,6 +25,7 @@ function M.on_attach(client, buffer)
 
   self:map("<leader>cs", require("telescope.builtin").lsp_document_symbols, { desc = "Document Symbols" })
   self:map("<leader>cS", require("telescope.builtin").lsp_dynamic_workspace_symbols, { desc = "Workspace Symbols" })
+  self:map("<leader>cw", require("plugins.lsp.utils").toggle_diagnostics, { desc = "Toggle Inline Diagnostics" })
 end
 
 function M.new(client, buffer)

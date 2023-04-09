@@ -12,6 +12,7 @@ return {
     opts = {
       servers = {
         tsserver = {},
+        tailwindcss = {},
       },
       setup = {
         tsserver = function(_, opts)

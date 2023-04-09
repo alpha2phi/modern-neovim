@@ -54,7 +54,7 @@ return {
   },
   {
     "monaqa/dial.nvim",
-    keys = { "<C-a>", "<C-x>", { "<C-a>", "v" }, { "<C-x>", "v" }, { "g<C-a>", "v" }, { "g<C-x>", "v" } },
+    keys = { { "<C-a>", mode = { "n", "v" } }, { "<C-x>", mode = { "n", "v" } }, { "g<C-a>", mode = { "v" } }, { "g<C-x>", mode = { "v" } } },
     -- stylua: ignore
     init = function()
       vim.api.nvim_set_keymap("n", "<C-a>", require("dial.map").inc_normal(), { desc = "Increment", noremap = true })
@@ -76,7 +76,7 @@ return {
   {
     "numToStr/Comment.nvim",
     dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" },
-    keys = { "gc", "gcc", "gbc" },
+    keys = { { "gc", mode = { "n", "v" } }, { "gcc", mode = { "n", "v" } }, { "gbc", mode = { "n", "v" } } },
     config = function(_, _)
       local opts = {
         ignore = "^$",

@@ -33,6 +33,8 @@ return {
         "help",
         "html",
         "lua",
+        "luadoc",
+        "luap",
         "markdown",
         "markdown_inline",
         "org",
@@ -43,8 +45,8 @@ return {
         "yaml",
       },
       highlight = { enable = true, additional_vim_regex_highlighting = { "org", "markdown" } },
-      indent = { enable = true, disable = { "python" } },
-      context_commentstring = { enable = true },
+      indent = { enable = true },
+      context_commentstring = { enable = true, enable_autocmd = false },
       incremental_selection = {
         enable = true,
         keymaps = {

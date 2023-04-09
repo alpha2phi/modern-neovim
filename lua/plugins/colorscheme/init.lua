@@ -29,11 +29,8 @@ return {
       tokyonight.load()
     end,
   },
-  {
-    "catppuccin/nvim",
-    lazy = false,
-    name = "catppuccin",
-  },
+  { "catppuccin/nvim", lazy = false, enabled = false, name = "catppuccin" },
+  { "rebelot/kanagawa.nvim", lazy = false, name = "kanagawa" },
   {
     "ellisonleao/gruvbox.nvim",
     lazy = false,

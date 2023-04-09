@@ -1,15 +1,24 @@
---TODO:
--- https://github.com/WhiteBlackGoose/nvim-latex-preconfig/blob/master/init.lua
--- https://gitlab.com/teunphil/humanlatex#vimtex
 return {
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      servers = {
+        texlab = {},
+        ltex = {},
+      },
+    },
+  },
   {
     "lervag/vimtex",
     ft = { "tex" },
-    config = function()
-      -- Run compilation on start
-      vim.cmd [[
-        :autocmd BufNewFile,BufRead *.tex VimtexCompile
-      ]]
+    opts = { patterns = { "*.tex" } },
+    config = function(_, opts)
+      vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+        pattern = opts.patterns,
+        callback = function()
+          vim.cmd [[VimtexCompile]]
+        end,
+      })
 
       -- Live compilation
       vim.g.vimtex_compiler_latexmk = {
@@ -22,8 +31,23 @@ return {
           "-synctex=1",
         },
       }
-      vim.g.vimtex_view_method = "zathura"
+      vim.g.vimtex_view_method = "sioyek"
       vim.g.vimtex_fold_enabled = true
+      vim.g.vimtex_syntax_conceal = {
+        accents = 1,
+        ligatures = 1,
+        cites = 1,
+        fancy = 1,
+        spacing = 0, -- default: 1
+        greek = 1,
+        math_bounds = 1,
+        math_delimiters = 1,
+        math_fracs = 1,
+        math_super_sub = 1,
+        math_symbols = 1,
+        sections = 0,
+        styles = 1,
+      }
     end,
   },
 }

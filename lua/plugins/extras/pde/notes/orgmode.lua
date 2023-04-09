@@ -1,6 +1,7 @@
 return {
   {
     "nvim-orgmode/orgmode",
+    enabled = false,
     ft = { "org" },
     opts = {
       org_agenda_files = { vim.env.HOME .. "/org-notes/agenda/*" },
@@ -11,5 +12,5 @@ return {
       require("orgmode").setup(opts)
     end,
   },
-  { "akinsho/org-bullets.nvim", opts = {}, ft = { "org" } },
+  { "akinsho/org-bullets.nvim", enabled = false, config = true, ft = { "org" } },
 }

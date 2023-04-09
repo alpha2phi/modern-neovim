@@ -1,15 +1,17 @@
 local opt = vim.opt
 
-opt.formatoptions = "jcroqlnt" -- tcqj
+opt.autoindent = true
+opt.formatoptions = "jqlnt" -- tcqj
 opt.shortmess:append { W = true, I = true, c = true }
 opt.breakindent = true
 opt.clipboard = "unnamedplus" -- Access system clipboard
 opt.cmdheight = 1
 opt.completeopt = "menuone,noselect"
-opt.conceallevel = 3
+opt.conceallevel = 0
 opt.confirm = true
 opt.cursorline = true
 opt.expandtab = true
+opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 opt.foldcolumn = "1" -- '0' is not bad
 opt.foldenable = true
 opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
@@ -53,5 +55,7 @@ end
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
+
+vim.g.markdown_recommended_style = 0
 
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })

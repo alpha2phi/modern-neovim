@@ -12,6 +12,8 @@ return {
       "kkharji/sqlite.lua",
       "aaronhallaert/advanced-git-search.nvim",
       "benfowler/telescope-luasnip.nvim",
+      "olacin/telescope-cc.nvim",
+      "tsakirist/telescope-lazy.nvim",
     },
     cmd = "Telescope",
     -- stylua: ignore
@@ -21,6 +23,8 @@ return {
       { "<leader>fo", "<cmd>Telescope frecency theme=dropdown previewer=false<cr>", desc = "Recent" },
       { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
       { "<leader>fr", "<cmd>Telescope file_browser<cr>", desc = "Browser" },
+      { "<leader>gc", "<cmd>Telescope conventional_commits<cr>", desc = "Conventional Commits" },
+      { "<leader>zs", "<cmd>Telescope lazy<cr>", desc = "Search Plugins" },
       { "<leader>ps", "<cmd>Telescope repo list<cr>", desc = "Search" },
       { "<leader>hs", "<cmd>Telescope help_tags<cr>", desc = "Search" },
       { "<leader>pp", function() require("telescope").extensions.project.project { display_type = "minimal" } end, desc = "List", },
@@ -35,6 +39,48 @@ return {
       local icons = require "config.icons"
       local actions = require "telescope.actions"
       local actions_layout = require "telescope.actions.layout"
+      local transform_mod = require("telescope.actions.mt").transform_mod
+      local custom_actions = transform_mod {
+        -- VisiData
+        visidata = function(prompt_bufnr)
+          -- Get the full path
+          local content = require("telescope.actions.state").get_selected_entry()
+          if content == nil then
+            return
+          end
+          local full_path = content.cwd .. require("plenary.path").path.sep .. content.value
+
+          -- Close the Telescope window
+          require("telescope.actions").close(prompt_bufnr)
+
+          -- Open the file with VisiData
+          local utils = require "utils"
+          utils.open_term("vd " .. full_path, { direction = "float" })
+        end,
+
+        -- File browser
+        file_browser = function(prompt_bufnr)
+          local content = require("telescope.actions.state").get_selected_entry()
+          if content == nil then
+            return
+          end
+
+          local full_path = content.cwd
+          if content.filename then
+            full_path = content.filename
+          elseif content.value then
+            full_path = full_path .. require("plenary.path").path.sep .. content.value
+          end
+
+          -- Close the Telescope window
+          require("telescope.actions").close(prompt_bufnr)
+
+          -- Open file browser
+          -- vim.cmd("Telescope file_browser select_buffer=true path=" .. vim.fs.dirname(full_path))
+          require("telescope").extensions.file_browser.file_browser { select_buffer = true, path = vim.fs.dirname(full_path) }
+        end,
+      }
+
       local mappings = {
         i = {
           ["<C-j>"] = actions.move_selection_next,
@@ -42,6 +88,12 @@ return {
           ["<C-n>"] = actions.cycle_history_next,
           ["<C-p>"] = actions.cycle_history_prev,
           ["?"] = actions_layout.toggle_preview,
+          ["<C-s>"] = custom_actions.visidata,
+          ["<A-f>"] = custom_actions.file_browser,
+        },
+        n = {
+          ["s"] = custom_actions.visidata,
+          ["<A-f>"] = custom_actions.file_browser,
         },
       }
 
@@ -92,6 +144,8 @@ return {
       telescope.load_extension "dap"
       telescope.load_extension "frecency"
       telescope.load_extension "luasnip"
+      telescope.load_extension "conventional_commits"
+      telescope.load_extension "lazy"
     end,
   },
   {

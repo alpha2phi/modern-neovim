@@ -1,18 +1,25 @@
+local function augroup(name)
+  return vim.api.nvim_create_augroup("mnv_" .. name, { clear = true })
+end
+
 -- See `:help vim.highlight.on_yank()`
-local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function()
     vim.highlight.on_yank()
   end,
-  group = highlight_group,
+  group = augroup "highlight_yank",
   pattern = "*",
 })
 
 -- Check if we need to reload the file when it changed
-vim.api.nvim_create_autocmd("FocusGained", { command = "checktime" })
+vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
+  group = augroup "checktime",
+  command = "checktime",
+})
 
 -- go to last loc when opening a buffer
 vim.api.nvim_create_autocmd("BufReadPost", {
+  group = augroup "last_loc",
   callback = function()
     local mark = vim.api.nvim_buf_get_mark(0, '"')
     local lcount = vim.api.nvim_buf_line_count(0)
@@ -38,6 +45,7 @@ vim.on_key(toggle_hlsearch, ns)
 
 -- windows to close
 vim.api.nvim_create_autocmd("FileType", {
+  group = augroup "close_with_q",
   pattern = {
     "OverseerForm",
     "OverseerList",
@@ -78,12 +86,11 @@ vim.api.nvim_create_autocmd("VimLeave", {
   end,
 })
 
--- don't auto comment new line
-vim.api.nvim_create_autocmd("BufEnter", { command = [[set formatoptions-=cro]] })
-
 -- show line diagnostics
 vim.api.nvim_create_autocmd("CursorHold", {
   callback = function()
-    vim.schedule(vim.diagnostic.open_float)
+    if require("plugins.lsp.utils").show_diagnostics() then
+      vim.schedule(vim.diagnostic.open_float)
+    end
   end,
 })
