@@ -22,6 +22,7 @@ return {
       "JoosepAlviste/nvim-ts-context-commentstring",
       "RRethy/nvim-treesitter-endwise",
       "windwp/nvim-ts-autotag",
+      "nvim-treesitter/playground",
     },
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
