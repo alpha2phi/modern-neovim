@@ -4,9 +4,12 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       { "folke/neoconf.nvim", cmd = "Neoconf", config = true },
-      { "folke/neodev.nvim", opts = {
-        library = { plugins = { "neotest", "nvim-dap-ui" }, types = true },
-      } },
+      {
+        "folke/neodev.nvim",
+        opts = {
+          library = { plugins = { "neotest", "nvim-dap-ui" }, types = true },
+        },
+      },
       { "j-hui/fidget.nvim", config = true },
       { "smjonas/inc-rename.nvim", config = true },
       "williamboman/mason.nvim",
