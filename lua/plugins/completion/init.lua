@@ -9,6 +9,10 @@ return {
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
       "petertriho/cmp-git",
+      -- {
+      --   "tzachar/cmp-tabnine",
+      --   build = "./install.sh",
+      -- },
     },
     config = function()
       local cmp = require "cmp"
@@ -16,7 +20,19 @@ return {
       local neogen = require "neogen"
       local icons = require "config.icons"
       local compare = require "cmp.config.compare"
-
+      local source_names = {
+        nvim_lsp = "(LSP)",
+        -- cmp_tabnine = "(TN)",
+        path = "(Path)",
+        luasnip = "(Snippet)",
+        buffer = "(Buffer)",
+      }
+      local duplicates = {
+        buffer = 1,
+        path = 1,
+        nvim_lsp = 0,
+        luasnip = 1,
+      }
       local has_words_before = function()
         local line, col = unpack(vim.api.nvim_win_get_cursor(0))
         return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
@@ -29,6 +45,7 @@ return {
         sorting = {
           priority_weight = 2,
           comparators = {
+            -- require "cmp_tabnine.compare",
             compare.score,
             compare.recently_used,
             compare.offset,
@@ -95,6 +112,7 @@ return {
         sources = cmp.config.sources {
           { name = "nvim_lsp_signature_help" },
           { name = "nvim_lsp" },
+          -- { name = "cmp_tabnine" },
           { name = "luasnip" },
           { name = "buffer" },
           { name = "path" },
@@ -104,19 +122,7 @@ return {
         formatting = {
           fields = { "kind", "abbr", "menu" },
           format = function(entry, item)
-            local max_width = 0
-            local source_names = {
-              nvim_lsp = "(LSP)",
-              path = "(Path)",
-              luasnip = "(Snippet)",
-              buffer = "(Buffer)",
-            }
-            local duplicates = {
-              buffer = 1,
-              path = 1,
-              nvim_lsp = 0,
-              luasnip = 1,
-            }
+            local max_width = 80
             local duplicates_default = 0
             if max_width ~= 0 and #item.abbr > max_width then
               item.abbr = string.sub(item.abbr, 1, max_width - 1) .. icons.ui.Ellipsis
@@ -124,6 +130,18 @@ return {
             item.kind = icons.kind[item.kind]
             item.menu = source_names[entry.source.name]
             item.dup = duplicates[entry.source.name] or duplicates_default
+
+            -- if entry.source.name == "cmp_tabnine" then
+            --   local detail = (entry.completion_item.labelDetails or {}).detail
+            --   item.kind = ""
+            --   if detail and detail:find ".*%%.*" then
+            --     item.kind = item.kind .. " " .. detail
+            --   end
+
+            --   if (entry.completion_item.data or {}).multiline then
+            --     item.kind = item.kind .. " " .. "[ML]"
+            --   end
+            -- end
             return item
           end,
         },
@@ -153,6 +171,22 @@ return {
 
       -- Git
       require("cmp_git").setup { filetypes = { "NeogitCommitMessage" } }
+
+      -- TabNine
+      -- local tabnine = require "cmp_tabnine.config"
+      -- tabnine:setup {
+      --   max_lines = 1000,
+      --   max_num_results = 20,
+      --   sort = true,
+      --   run_on_every_keystroke = true,
+      --   snippet_placeholder = "..",
+      --   ignored_file_types = {
+      --     -- default is not to ignore
+      --     -- uncomment to ignore in lua:
+      --     -- lua = true
+      --   },
+      --   show_prediction_strength = false,
+      -- }
     end,
   },
   {
