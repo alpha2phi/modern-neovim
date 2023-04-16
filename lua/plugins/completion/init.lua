@@ -9,10 +9,10 @@ return {
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
       "petertriho/cmp-git",
-      -- {
-      --   "tzachar/cmp-tabnine",
-      --   build = "./install.sh",
-      -- },
+      {
+        "tzachar/cmp-tabnine",
+        build = "./install.sh",
+      },
     },
     config = function()
       local cmp = require "cmp"
@@ -22,10 +22,10 @@ return {
       local compare = require "cmp.config.compare"
       local source_names = {
         nvim_lsp = "(LSP)",
-        -- cmp_tabnine = "(TN)",
-        path = "(Path)",
         luasnip = "(Snippet)",
+        cmp_tabnine = "(TabNine)",
         buffer = "(Buffer)",
+        path = "(Path)",
       }
       local duplicates = {
         buffer = 1,
@@ -110,14 +110,14 @@ return {
           }),
         },
         sources = cmp.config.sources {
-          { name = "nvim_lsp_signature_help" },
-          { name = "nvim_lsp" },
-          -- { name = "cmp_tabnine" },
-          { name = "luasnip" },
-          { name = "buffer" },
-          { name = "path" },
-          { name = "git" },
-          { name = "orgmode" },
+          { name = "nvim_lsp_signature_help", group_index = 1 },
+          { name = "nvim_lsp", group_index = 1 },
+          { name = "cmp_tabnine", group_index = 1 },
+          { name = "luasnip", group_index = 1 },
+          { name = "buffer", group_index = 2 },
+          { name = "path", group_index = 2 },
+          { name = "git", group_index = 2 },
+          { name = "orgmode", group_index = 2 },
         },
         formatting = {
           fields = { "kind", "abbr", "menu" },
@@ -131,17 +131,9 @@ return {
             item.menu = source_names[entry.source.name]
             item.dup = duplicates[entry.source.name] or duplicates_default
 
-            -- if entry.source.name == "cmp_tabnine" then
-            --   local detail = (entry.completion_item.labelDetails or {}).detail
-            --   item.kind = ""
-            --   if detail and detail:find ".*%%.*" then
-            --     item.kind = item.kind .. " " .. detail
-            --   end
-
-            --   if (entry.completion_item.data or {}).multiline then
-            --     item.kind = item.kind .. " " .. "[ML]"
-            --   end
-            -- end
+            if entry.source.name == "cmp_tabnine" then
+              item.kind = ""
+            end
             return item
           end,
         },
@@ -173,20 +165,18 @@ return {
       require("cmp_git").setup { filetypes = { "NeogitCommitMessage" } }
 
       -- TabNine
-      -- local tabnine = require "cmp_tabnine.config"
-      -- tabnine:setup {
-      --   max_lines = 1000,
-      --   max_num_results = 20,
-      --   sort = true,
-      --   run_on_every_keystroke = true,
-      --   snippet_placeholder = "..",
-      --   ignored_file_types = {
-      --     -- default is not to ignore
-      --     -- uncomment to ignore in lua:
-      --     -- lua = true
-      --   },
-      --   show_prediction_strength = false,
-      -- }
+      local tabnine = require "cmp_tabnine.config"
+      tabnine:setup {
+        max_lines = 1000,
+        max_num_results = 20,
+        sort = true,
+        run_on_every_keystroke = true,
+        snippet_placeholder = "..",
+        ignored_file_types = { -- default is not to ignore
+          -- uncomment to ignore in lua:
+          -- lua = true
+        },
+      }
     end,
   },
   {
