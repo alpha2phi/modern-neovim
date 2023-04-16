@@ -1,8 +1,8 @@
 return {
   "jackMort/ChatGPT.nvim",
-  event = "VeryLazy",
+  cmd = { "ChatGPT", "ChatGPTRun", "ChatGPTActAs", "ChatGPTCompleteCode", "ChatGPTEditWithInstructions" },
   config = true,
-  enabled = false,
+  enabled = true,
   dependencies = {
     "MunifTanjim/nui.nvim",
     "nvim-lua/plenary.nvim",

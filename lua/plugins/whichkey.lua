@@ -43,6 +43,7 @@ return {
           q = { function() require("utils").quit() end, "Quit", },
           t = { "<cmd>tabclose<cr>", "Close Tab" },
         },
+        a = { name = "+AI" },
         b = { name = "+Buffer" },
         d = { name = "+Debug" },
         D = { name = "+Database" },
