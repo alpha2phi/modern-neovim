@@ -118,4 +118,5 @@ return {
     event = "VeryLazy",
     config = true,
   },
+  { "rafcamlet/nvim-luapad", cmd = { "LuaRun", "Luapad" } },
 }
