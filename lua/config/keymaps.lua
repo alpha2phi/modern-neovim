@@ -49,5 +49,5 @@ keymap("n", "<S-Left>", "<cmd>vertical resize -2<CR>")
 keymap("n", "<S-Right>", "<cmd>vertical resize +2<CR>")
 
 -- Insert blank line
-keymap("n", "]<Space>", "o<Esc>", default_opts)
-keymap("n", "[<Space>", "O<Esc>", default_opts)
+keymap("n", "]<Space>", "o<Esc>")
+keymap("n", "[<Space>", "O<Esc>")
