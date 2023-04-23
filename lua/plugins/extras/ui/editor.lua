@@ -3,7 +3,6 @@ return {
     "xiyaowong/nvim-transparent",
     cmd = { "TransparentEnable", "TransparentDisable", "TransparentToggle" },
     opts = {
-      enable = false, -- boolean: enable transparent
       extra_groups = { -- table/string: additional groups that should be cleared
         -- In particular, when you set it to 'all', that means all available groups
 
@@ -15,11 +14,18 @@ return {
         "BufferLineSeparator",
         "BufferLineIndicatorSelected",
       },
-      exclude = {}, -- table: groups you don't want to clear
+      exclude_groups = {}, -- table: groups you don't want to clear
     },
     config = function(_, opts)
       require("transparent").setup(opts)
     end,
   },
-  -- TODO: colorizer
+  {
+    "gen740/SmoothCursor.nvim",
+    enabled = false,
+    event = { "BufReadPre" },
+    config = function()
+      require("smoothcursor").setup { fancy = { enable = true } }
+    end,
+  },
 }

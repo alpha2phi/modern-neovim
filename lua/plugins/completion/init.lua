@@ -13,6 +13,12 @@ return {
         "tzachar/cmp-tabnine",
         build = "./install.sh",
       },
+      { "jcdickinson/codeium.nvim", config = true, enabled = false },
+      {
+        "jcdickinson/http.nvim",
+        build = "cargo build --workspace --release",
+        enabled = false,
+      },
     },
     config = function()
       local cmp = require "cmp"
@@ -24,6 +30,7 @@ return {
         nvim_lsp = "(LSP)",
         luasnip = "(Snippet)",
         cmp_tabnine = "(TabNine)",
+        codeium = "(Codeium)",
         buffer = "(Buffer)",
         path = "(Path)",
       }
@@ -113,6 +120,7 @@ return {
           { name = "nvim_lsp_signature_help", group_index = 1 },
           { name = "nvim_lsp", group_index = 1 },
           { name = "cmp_tabnine", group_index = 1 },
+          { name = "codeium", group_index = 1 },
           { name = "luasnip", group_index = 1 },
           { name = "buffer", group_index = 2 },
           { name = "path", group_index = 2 },
@@ -133,6 +141,8 @@ return {
 
             if entry.source.name == "cmp_tabnine" then
               item.kind = ""
+            elseif entry.source.name == "codeium" then
+              item.kind = ""
             end
             return item
           end,
