@@ -31,6 +31,7 @@ return {
             components.diagnostics,
             components.noice_command,
             components.noice_mode,
+            -- { require("NeoComposer.ui").status_recording },
             components.separator,
             components.lsp_client,
           },

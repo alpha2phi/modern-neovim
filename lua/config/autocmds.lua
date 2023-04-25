@@ -17,7 +17,7 @@ vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
   command = "checktime",
 })
 
--- go to last loc when opening a buffer
+-- Go to last loction when opening a buffer
 vim.api.nvim_create_autocmd("BufReadPost", {
   group = augroup "last_loc",
   callback = function()

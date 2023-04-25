@@ -14,6 +14,12 @@ return {
       "benfowler/telescope-luasnip.nvim",
       "olacin/telescope-cc.nvim",
       "tsakirist/telescope-lazy.nvim",
+      {
+        "ecthelionvi/NeoComposer.nvim",
+        dependencies = { "kkharji/sqlite.lua" },
+        enabled = false,
+        opts = {},
+      },
     },
     cmd = "Telescope",
     -- stylua: ignore
@@ -146,6 +152,7 @@ return {
       telescope.load_extension "luasnip"
       telescope.load_extension "conventional_commits"
       telescope.load_extension "lazy"
+      -- telescope.load_extension "macros"
     end,
   },
   {
