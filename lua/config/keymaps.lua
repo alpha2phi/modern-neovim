@@ -10,6 +10,10 @@ keymap("n", "N", "Nzzzv")
 keymap("n", "g,", "g,zvzz")
 keymap("n", "g;", "g;zvzz")
 
+-- Scrolling
+keymap("n", "<C-d>", "<C-d>zz")
+keymap("n", "<C-u>", "<C-u>zz")
+
 -- Paste
 keymap("n", "]p", "o<Esc>p", { desc = "Paste below" })
 keymap("n", "]P", "O<Esc>p", { desc = "Paste above" })
