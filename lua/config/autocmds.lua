@@ -86,14 +86,14 @@ vim.api.nvim_create_autocmd("VimLeave", {
   end,
 })
 
--- show line diagnostics
-vim.api.nvim_create_autocmd("CursorHold", {
-  callback = function()
-    if require("plugins.lsp.utils").show_diagnostics() then
-      vim.schedule(vim.diagnostic.open_float)
-    end
-  end,
-})
+-- -- show line diagnostics
+-- vim.api.nvim_create_autocmd("CursorHold", {
+--   callback = function()
+--     if require("plugins.lsp.utils").show_diagnostics() then
+--       vim.schedule(vim.diagnostic.open_float)
+--     end
+--   end,
+-- })
 
 -- Auto create dir when saving a file, in case some intermediate directory does not exist
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
