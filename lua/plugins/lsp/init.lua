@@ -85,7 +85,7 @@ return {
           nls.builtins.formatting.stylua,
           nls.builtins.formatting.black,
           nls.builtins.formatting.shfmt,
-          nls.builtins.diagnostics.ruff.with { extra_args = { "--max-line-length=180" } },
+          -- nls.builtins.diagnostics.ruff.with { extra_args = { "--max-line-length=180" } },
         },
       }
     end,

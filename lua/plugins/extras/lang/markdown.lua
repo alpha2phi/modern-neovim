@@ -6,6 +6,7 @@ return {
       -- make sure mason installs the server
       servers = {
         marksman = {},
+        -- zk = {},
       },
     },
   },
