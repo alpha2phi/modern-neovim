@@ -82,7 +82,7 @@ vim.api.nvim_create_autocmd("TermEnter", {
 
 vim.api.nvim_create_autocmd("VimLeave", {
   callback = function()
-    vim.cmd [[set guicursor=a:ver100]]
+    vim.cmd [[set guicursor=a:ver25]]
   end,
 })
 
@@ -115,8 +115,15 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
-  group = augroup "auto-format-options",
+  group = augroup "auto_format_options",
   callback = function()
     vim.cmd "set formatoptions-=cro"
   end,
+})
+
+-- start git messages in insert mode
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup "buf_check",
+  pattern = { "NeogitCommitMessage" },
+  command = "startinsert | 1",
 })
