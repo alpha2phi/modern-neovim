@@ -31,7 +31,6 @@ return {
       ensure_installed = {
         "bash",
         "dockerfile",
-        "help",
         "html",
         "lua",
         "luadoc",
