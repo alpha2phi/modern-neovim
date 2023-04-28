@@ -58,7 +58,7 @@ return {
     opts = {
       ensure_installed = {
         "stylua",
-        "ruff",
+        -- "ruff",
         "debugpy",
         "codelldb",
       },
