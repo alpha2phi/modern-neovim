@@ -28,4 +28,12 @@ return {
       require("smoothcursor").setup { fancy = { enable = true } }
     end,
   },
+  {
+    "declancm/cinnamon.nvim",
+    enabled = false,
+    event = { "BufReadPre" },
+    config = function()
+      require("cinnamon").setup()
+    end,
+  },
 }

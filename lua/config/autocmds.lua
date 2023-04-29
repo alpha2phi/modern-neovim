@@ -17,7 +17,7 @@ vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
   command = "checktime",
 })
 
--- go to last loc when opening a buffer
+-- Go to last loction when opening a buffer
 vim.api.nvim_create_autocmd("BufReadPost", {
   group = augroup "last_loc",
   callback = function()
@@ -82,15 +82,48 @@ vim.api.nvim_create_autocmd("TermEnter", {
 
 vim.api.nvim_create_autocmd("VimLeave", {
   callback = function()
-    vim.cmd [[set guicursor=a:ver100]]
+    vim.cmd [[set guicursor=a:ver25]]
   end,
 })
 
--- show line diagnostics
+-- -- show line diagnostics
 vim.api.nvim_create_autocmd("CursorHold", {
   callback = function()
     if require("plugins.lsp.utils").show_diagnostics() then
       vim.schedule(vim.diagnostic.open_float)
     end
   end,
+})
+
+-- Auto create dir when saving a file, in case some intermediate directory does not exist
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+  group = augroup "auto_create_dir",
+  callback = function(event)
+    local file = vim.loop.fs_realpath(event.match) or event.match
+    vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
+  end,
+})
+
+-- wrap and check for spell in text filetypes
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup "wrap_spell",
+  pattern = { "gitcommit", "markdown" },
+  callback = function()
+    vim.opt_local.wrap = true
+    vim.opt_local.spell = true
+  end,
+})
+
+vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+  group = augroup "auto_format_options",
+  callback = function()
+    vim.cmd "set formatoptions-=cro"
+  end,
+})
+
+-- start git messages in insert mode
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup "buf_check",
+  pattern = { "NeogitCommitMessage" },
+  command = "startinsert | 1",
 })

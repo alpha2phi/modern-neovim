@@ -14,8 +14,6 @@ return {
       { "smjonas/inc-rename.nvim", config = true },
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-nvim-lsp-signature-help",
       "jay-babu/mason-null-ls.nvim",
     },
     opts = {
@@ -60,7 +58,7 @@ return {
     opts = {
       ensure_installed = {
         "stylua",
-        "ruff",
+        -- "ruff",
         "debugpy",
         "codelldb",
       },
@@ -87,7 +85,7 @@ return {
           nls.builtins.formatting.stylua,
           nls.builtins.formatting.black,
           nls.builtins.formatting.shfmt,
-          nls.builtins.diagnostics.ruff.with { extra_args = { "--max-line-length=180" } },
+          -- nls.builtins.diagnostics.ruff.with { extra_args = { "--max-line-length=180" } },
         },
       }
     end,

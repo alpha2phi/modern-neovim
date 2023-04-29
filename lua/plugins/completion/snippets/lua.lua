@@ -3,6 +3,11 @@ local s = ls.snippet
 local i = ls.insert_node
 local fmt = require("luasnip.extras.fmt").fmt
 local l = require("luasnip.extras").lambda
+local t = ls.text_node
+
+local newline = function(text)
+  return t { "", text }
+end
 
 local snippets = {
   ls.parser.parse_snippet("lm", "local M = {}\n\nfunction M.setup()\n  $1 \nend\n\nreturn M"),
@@ -28,5 +33,8 @@ local snippets = {
       i(1, "module"),
     })
   ),
+
+  ls.parser.parse_snippet("ign", "--stylua: ignore"),
 }
+
 return snippets

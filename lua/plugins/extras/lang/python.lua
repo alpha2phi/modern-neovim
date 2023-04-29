@@ -21,6 +21,9 @@ return {
             },
           },
         },
+        ruff_lsp = {
+          settings = {},
+        },
       },
       setup = {
         pyright = function(_, _)

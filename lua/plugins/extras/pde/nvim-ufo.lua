@@ -1,6 +1,8 @@
 local handler = function(virtText, lnum, endLnum, width, truncate)
   local newVirtText = {}
-  local suffix = ("  %d "):format(endLnum - lnum)
+  local totalLines = vim.api.nvim_buf_line_count(0)
+  local foldedLines = endLnum - lnum
+  local suffix = ("  %d %d%%"):format(foldedLines, foldedLines / totalLines * 100)
   local sufWidth = vim.fn.strdisplaywidth(suffix)
   local targetWidth = width - sufWidth
   local curWidth = 0
@@ -22,6 +24,8 @@ local handler = function(virtText, lnum, endLnum, width, truncate)
     end
     curWidth = curWidth + chunkWidth
   end
+  local rAlignAppndx = math.max(math.min(vim.opt.textwidth["_value"], width - 1) - curWidth - sufWidth, 0)
+  suffix = (" "):rep(rAlignAppndx) .. suffix
   table.insert(newVirtText, { suffix, "MoreMsg" })
   return newVirtText
 end

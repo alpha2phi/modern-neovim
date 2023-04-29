@@ -31,7 +31,6 @@ return {
       ensure_installed = {
         "bash",
         "dockerfile",
-        "help",
         "html",
         "lua",
         "luadoc",
@@ -43,6 +42,7 @@ return {
         "regex",
         "latex",
         "vim",
+        "vimdoc",
         "yaml",
       },
       highlight = { enable = true, additional_vim_regex_highlighting = { "org", "markdown" } },

@@ -34,6 +34,7 @@ opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize" }
 opt.shiftround = true
 opt.shiftwidth = 2
 opt.showmode = false
+opt.showcmd = false
 opt.sidescrolloff = 8
 opt.signcolumn = "yes"
 opt.smartcase = true
