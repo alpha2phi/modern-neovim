@@ -1,16 +1,19 @@
 return {
   {
-    "SmiteshP/nvim-navbuddy",
-    event = "VeryLazy",
+    "neovim/nvim-lspconfig",
     dependencies = {
-      "neovim/nvim-lspconfig",
-      "SmiteshP/nvim-navic",
-      "MunifTanjim/nui.nvim",
+      {
+        "SmiteshP/nvim-navbuddy",
+        dependencies = {
+          "SmiteshP/nvim-navic",
+          "MunifTanjim/nui.nvim",
+        },
+        opts = { lsp = { auto_attach = true } },
+      },
     },
     --stylua: ignore
     keys = {
       { "<leader>vO", function() require("nvim-navbuddy").open() end, desc = "Code Outline (navbuddy)", },
     },
-    opts = { lsp = { auto_attach = true } },
   },
 }
