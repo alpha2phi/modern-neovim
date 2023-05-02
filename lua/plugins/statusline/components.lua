@@ -41,7 +41,9 @@ return {
     end,
   },
   diff = {
-    "diff",
+    function()
+      return vim.b.gitsigns_status
+    end,
     colored = false,
   },
   diagnostics = {
