@@ -17,6 +17,7 @@ class TestOpenAIGPT(unittest.TestCase):
 
     def setUp(self) -> None:
         self.api_key = os.getenv("OPENAI_API_KEY")
+        openai.api_key = self.api_key
 
     def test_api_key(self):
         self.assertIsNotNone(self.api_key, "API key is not configured")
@@ -30,6 +31,9 @@ class TestOpenAIGPT(unittest.TestCase):
             max_tokens=MAX_TOKENS,
         )
         print(response)
+        text = response["choices"][0]["text"].strip()
+        print(text)
+        self.assertIsNotNone(response, "Chat response is empty")
 
     def test_chat(self):
         response = openai.ChatCompletion.create(
@@ -40,4 +44,5 @@ class TestOpenAIGPT(unittest.TestCase):
                 {"role": "user", "content": "Write a Python hello world program"}
             ],
         )
-        print(response)
+        content = response["choices"][0]["message"]["content"].strip()
+        self.assertIsNotNone(content, "Chat response is empty")
