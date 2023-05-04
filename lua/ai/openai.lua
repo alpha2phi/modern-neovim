@@ -4,7 +4,7 @@ local Job = require "plenary.job"
 
 local OPENAI_COMPLETION_URL = "https://api.openai.com/v1/completions"
 local OPENAI_COMPLETION_MODEL = "text-davinci-003"
-local OPENAI_CHAT_URL = "https://api.openai.com/v1/completions"
+local OPENAI_CHAT_URL = "https://api.openai.com/v1/chat/completions"
 local OPENAI_CHAT_MODEL = "gpt-3.5-turbo"
 local TEMPERATURE = 1
 local TOP_P = 1
@@ -33,35 +33,17 @@ local function get_prompt()
   return prompt
 end
 
-function M.chat()
-  print "todo"
-end
-
-function M.completion(text)
-  local ft = vim.bo.filetype
-  local buf = vim.api.nvim_get_current_buf()
-
+local function http_request(url, request)
   local api_key = get_api_key()
   if api_key == nil then
     vim.notify "OpenAI API key not found"
-    return
+    return nil
   end
-
-  local prompt = text or get_prompt() or ""
-
-  local request = {}
-  request["model"] = OPENAI_COMPLETION_MODEL
-  request["max_tokens"] = MAX_TOKENS
-  request["top_p"] = TOP_P
-  request["temperature"] = TEMPERATURE
-  request["prompt"] = prompt
   local body = vim.fn.json_encode(request)
-
-  local completion = ""
   local job = Job:new {
     command = "curl",
     args = {
-      OPENAI_COMPLETION_URL,
+      url,
       "-H",
       "Content-Type: application/json",
       "-H",
@@ -76,24 +58,57 @@ function M.completion(text)
     local ok, parsed = pcall(vim.json.decode, table.concat(result, ""))
     if not ok then
       vim.notify "Failed to parse OpenAI result"
-      return
+      return nil
     end
-
-    if parsed ~= nil and parsed["choices"] ~= nil then
-      completion = parsed["choices"][1]["text"]
-      local lines = {}
-      local delimiter = "\n"
-
-      for match in (completion .. delimiter):gmatch("(.-)" .. delimiter) do
-        table.insert(lines, match)
-      end
-      vim.api.nvim_buf_set_lines(buf, -1, -1, false, lines)
-    end
+    return parsed
   end
+  return nil
+end
+
+function M.chat(input)
+  local prompt = get_prompt() or input or ""
+  local request = {}
+  request["model"] = OPENAI_CHAT_MODEL
+  request["temperature"] = TEMPERATURE
+  request["top_p"] = TOP_P
+  msgs = {}
+  msg = {}
+  msg["role"] = "user"
+  msg["content"] = prompt
+  table.insert(msgs, msg)
+  request["messages"] = msgs
+
+  local result = http_request(OPENAI_CHAT_URL, request)
+  vim.print(result)
+  local text = ""
+  if result ~= nil and result["choices"] ~= nil then
+    text = result["choices"][1]["message"]["content"]
+  end
+  return text
+end
+
+function M.completion(input)
+  local prompt = get_prompt() or input or ""
+
+  local request = {}
+  request["model"] = OPENAI_COMPLETION_MODEL
+  request["max_tokens"] = MAX_TOKENS
+  request["temperature"] = TEMPERATURE
+  request["top_p"] = TOP_P
+  request["prompt"] = prompt
+
+  local result = http_request(OPENAI_COMPLETION_URL, request)
+  local text = ""
+  if result ~= nil and result["choices"] ~= nil then
+    text = result["choices"][1]["text"]
+  end
+  return text
 end
 
 -- local output = vim.api.nvim_call_function("OpenAIGPTCompletion", { "Python hello world program" })
 -- vim.print(output)
-M.completion "Python hello world program"
+
+local result = M.chat "Python language hello world program"
+vim.print(result)
 
 return M
