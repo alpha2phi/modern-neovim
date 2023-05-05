@@ -66,6 +66,8 @@ vim.api.nvim_create_autocmd("FileType", {
     "toggleterm",
     "tsplayground",
     "vim",
+    "neoai-input",
+    "neoai-output",
   },
   callback = function(event)
     vim.bo[event.buf].buflisted = false
