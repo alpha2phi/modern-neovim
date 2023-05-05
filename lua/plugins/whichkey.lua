@@ -54,7 +54,7 @@ return {
         n = { name = "+Notes" },
         p = { name = "+Project" },
         -- o = { name = "+Orgmode" },
-        -- r = { name = "+Run" },
+        r = { name = "+Refactor" },
         t = { name = "+Test", N = { name = "Neotest" }, o = { "Overseer" } },
         v = { name = "+View" },
         z = { name = "+System" },
