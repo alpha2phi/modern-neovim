@@ -8,6 +8,8 @@ local M = {}
 M.output_popup = nil
 M.input_popup = nil
 M.layout = nil
+M.ai = nil
+M.ai_type = "chat"
 
 ---@param prompt string
 M.submit_prompt = function(prompt) end
@@ -56,7 +58,7 @@ M.focus = function()
   vim.api.nvim_set_current_win(M.input_popup.winid)
 end
 
-M.create_ui = function()
+M.create_ui = function(ai, ai_type)
   -- Destroy UI if already open
   if M.is_open() then
     return
@@ -110,7 +112,7 @@ M.create_ui = function()
     },
   }
 
-  local component_heights = M.get_component_heights(config.options.ui.output_popup_height)
+  local component_heights = M.get_component_heights(80)
   M.layout = Layout(
     {
       relative = "editor",
@@ -119,7 +121,7 @@ M.create_ui = function()
         col = "100%",
       },
       size = {
-        width = config.options.ui.width .. "%",
+        width = 30 .. "%",
         height = component_heights.layout,
       },
     },
@@ -137,7 +139,10 @@ M.create_ui = function()
     M.destroy_ui()
   end)
 
-  chat.new_chat_history()
+  M.ai = ai
+  if ai_type ~= nil then
+    M.ai_type = ai_type
+  end
 
   local input_buffer = M.input_popup.bufnr
   local output_buffer = M.output_popup.bufnr
@@ -150,12 +155,12 @@ M.create_ui = function()
   end
 
   local opts = { noremap = true, silent = true }
-  if string.lower(config.options.ui.submit) == "<enter>" then
+  if string.lower "<Enter>" == "<enter>" then
     vim.api.nvim_buf_set_keymap(input_buffer, "i", "<C-Enter>", "<Enter>", opts)
   end
-  vim.api.nvim_buf_set_keymap(input_buffer, "i", config.options.ui.submit, "<cmd>lua require('neoai.ui').submit_prompt()<cr>", opts)
+  vim.api.nvim_buf_set_keymap(input_buffer, "i", "<Enter>", "<cmd>lua require('ai.ui').submit_prompt()<cr>", opts)
 
-  local key = config.options.mappings["select_up"]
+  local key = "<C-k>"
   if key ~= nil then
     local keys = {}
     if type(key) == "table" then
@@ -164,10 +169,10 @@ M.create_ui = function()
       keys = { key }
     end
     for _, k in ipairs(keys) do
-      vim.api.nvim_buf_set_keymap(input_buffer, "n", k, "<cmd>lua vim.api.nvim_set_current_win(require('neoai.ui').output_popup.winid)<cr>", opts)
+      vim.api.nvim_buf_set_keymap(input_buffer, "n", k, "<cmd>lua vim.api.nvim_set_current_win(require('ai.ui').output_popup.winid)<cr>", opts)
     end
   end
-  key = config.options.mappings["select_down"]
+  key = "<C-j>"
   if key ~= nil then
     local keys = {}
     if type(key) == "table" then
@@ -176,29 +181,31 @@ M.create_ui = function()
       keys = { key }
     end
     for _, k in ipairs(keys) do
-      vim.api.nvim_buf_set_keymap(output_buffer, "n", k, "<cmd>lua vim.api.nvim_set_current_win(require('neoai.ui').input_popup.winid)<cr>", opts)
+      vim.api.nvim_buf_set_keymap(output_buffer, "n", k, "<cmd>lua vim.api.nvim_set_current_win(require('ai.ui').input_popup.winid)<cr>", opts)
     end
   end
 
   M.set_destroy_key_mappings(input_buffer)
 end
 
--- This function sets a keymap for the input buffer. In normal mode, pressing
--- the '<Esc>' or <Ctrl-c> key triggers the 'neoai.ui' module's 'destroy_ui' function, which
 M.set_destroy_key_mappings = function(input_buffer)
   local mappings = {
     "<Esc>",
     "<C-c>",
   }
   for _, key in ipairs(mappings) do
-    vim.api.nvim_buf_set_keymap(input_buffer, "n", key, "<cmd>lua require('neoai.ui').destroy_ui()<cr>", { noremap = true, silent = true })
+    vim.api.nvim_buf_set_keymap(input_buffer, "n", key, "<cmd>lua require('ai.ui').destroy_ui()<cr>", { noremap = true, silent = true })
   end
 end
 
 M.send_prompt = function(prompt)
-  chat.send_prompt(prompt, M.append_to_output, true, function(output)
-    utils.save_to_registers(output)
-  end)
+  local output = ""
+  if M.ai_type == "chat" then
+    output = M.ai.chat(prompt)
+  else
+    output = M.ai.completion(prompt)
+  end
+  M.append_to_output("\n\n" .. output, 0)
 end
 
 M.destroy_ui = function()
@@ -209,7 +216,6 @@ M.destroy_ui = function()
   M.submit_prompt = function()
     -- Empty function
   end
-  chat.reset()
 end
 
 M.is_open = function()
@@ -222,22 +228,21 @@ end
 M.append_to_output = function(txt, type)
   local lines = vim.split(txt, "\n", {})
 
-  local ns = vim.api.nvim_get_namespaces().neoai_output
+  local ns = vim.api.nvim_get_namespaces().alpha2phi_ai_output
 
   if ns == nil then
-    ns = vim.api.nvim_create_namespace "neoai_output"
+    ns = vim.api.nvim_create_namespace "alpha2phi_ai_output"
   end
 
   local hl = "Normal"
   if type == 1 then
-    -- hl = "NeoAIInput"
     hl = "ErrorMsg"
   end
 
   local length = #lines
 
   if M.output_popup == nil then
-    vim.notify("NeoAI window needs to be open", vim.log.levels.ERROR)
+    vim.notify("AI window needs to be open", vim.log.levels.ERROR)
     return
   end
   local buffer = M.output_popup.bufnr

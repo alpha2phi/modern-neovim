@@ -55,7 +55,6 @@ def completion(nvim: Nvim, args) -> str:
     if api_key is not None:
         openai.api_key = api_key
         prompt = get_prompt(nvim, args)
-        nvim.out_write(prompt + "\n")
         response = openai.Completion.create(
             model=MODEL_COMPLETION,
             prompt=prompt,

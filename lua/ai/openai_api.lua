@@ -79,7 +79,6 @@ function M.chat(input)
   request["messages"] = msgs
 
   local result = http_request(OPENAI_CHAT_URL, request)
-  vim.print(result)
   local text = ""
   if result ~= nil and result["choices"] ~= nil then
     text = result["choices"][1]["message"]["content"]
@@ -104,11 +103,5 @@ function M.completion(input)
   end
   return text
 end
-
--- local output = vim.api.nvim_call_function("OpenAIGPTCompletion", { "Python hello world program" })
--- vim.print(output)
-
-local result = M.chat "Python language hello world program"
-vim.print(result)
 
 return M
