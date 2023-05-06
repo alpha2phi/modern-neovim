@@ -5,7 +5,7 @@ opt.formatoptions = "jqlnt" -- tcqj
 opt.shortmess:append { W = true, I = true, c = true }
 opt.breakindent = true
 opt.clipboard = "unnamedplus" -- Access system clipboard
-opt.cmdheight = 1
+opt.cmdheight = 0
 opt.completeopt = "menuone,noselect"
 opt.conceallevel = 0
 opt.confirm = true

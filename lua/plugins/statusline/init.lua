@@ -1,8 +1,10 @@
 return {
   {
     "nvim-lualine/lualine.nvim",
+    dependencies = {
+      "meuter/lualine-so-fancy.nvim",
+    },
     event = "VeryLazy",
-
     config = function()
       local components = require "plugins.statusline.components"
 
@@ -24,11 +26,12 @@ return {
           globalstatus = true,
         },
         sections = {
-          lualine_a = { "mode" },
+          lualine_a = { { "fancy_mode", width = 3 } },
           lualine_b = { components.git_repo, "branch" },
           lualine_c = {
-            components.diff,
-            components.diagnostics,
+            { "fancy_cwd", substitute_home = true },
+            { "fancy_diff" },
+            { "fancy_diagnostics" },
             components.noice_command,
             components.noice_mode,
             -- { require("NeoComposer.ui").status_recording },

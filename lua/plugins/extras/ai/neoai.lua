@@ -15,6 +15,7 @@ return {
     "NeoAIInjectCode",
     "NeoAIInjectContext",
     "NeoAIInjectContextCode",
+    "NeoAIShortcut",
   },
   keys = {
     { "<leader>as", desc = "Summarize Text" },

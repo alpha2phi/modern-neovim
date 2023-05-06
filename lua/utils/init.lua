@@ -52,6 +52,10 @@ function M.find_files()
   end
 end
 
+function M.reload_module(name)
+  require("plenary.reload").reload_module(name)
+end
+
 ---@param plugin string
 function M.has(plugin)
   return require("lazy.core.config").plugins[plugin] ~= nil
