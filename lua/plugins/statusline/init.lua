@@ -30,7 +30,7 @@ return {
           lualine_b = { components.git_repo, "branch" },
           lualine_c = {
             { "fancy_cwd", substitute_home = true },
-            { "fancy_diff" },
+            components.diff,
             { "fancy_diagnostics" },
             components.noice_command,
             components.noice_mode,
