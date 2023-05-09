@@ -30,6 +30,7 @@ return {
       sync_install = false,
       ensure_installed = {
         "bash",
+        -- "dapl_repl",
         "dockerfile",
         "html",
         "lua",
