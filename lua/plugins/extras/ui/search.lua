@@ -54,7 +54,7 @@ vim.o.qftf = "{info -> v:lua._G.qftf(info)}"
 
 return {
   {
-    "windwp/nvim-spectre",
+    "nvim-pack/nvim-spectre",
     -- stylua: ignore
     keys = {
       { "<leader>sr", function() require("spectre").open() end, desc = "Search and Replace (Spectre)" },
