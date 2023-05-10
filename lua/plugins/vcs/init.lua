@@ -9,6 +9,7 @@ return {
     cmd = "Neogit",
     opts = {
       integrations = { diffview = true },
+      disable_commit_confirmation = false,
     },
     keys = {
       { "<leader>gs", "<cmd>Neogit kind=tab<cr>", desc = "Status" },
