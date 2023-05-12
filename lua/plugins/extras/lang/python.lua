@@ -22,7 +22,11 @@ return {
           },
         },
         ruff_lsp = {
-          settings = {},
+          init_options = {
+            settings = {
+              args = { "--max-line-length=180" },
+            },
+          },
         },
       },
       setup = {
