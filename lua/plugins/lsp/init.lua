@@ -58,6 +58,7 @@ return {
     opts = {
       ensure_installed = {
         "stylua",
+        "shfmt",
       },
     },
     config = function(_, opts)
