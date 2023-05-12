@@ -15,9 +15,8 @@ return {
       "mrjones2014/legendary.nvim",
     },
     event = "VeryLazy",
-    config = function()
-      local wk = require "which-key"
-      wk.setup {
+    opts = {
+      setup = {
         show_help = true,
         plugins = { spelling = true },
         key_labels = { ["<leader>"] = "SPC" },
@@ -35,8 +34,10 @@ return {
           spacing = 3, -- spacing between columns
           align = "left", -- align columns left, center or right
         },
-      }
-      wk.register({
+      },
+      defaults = {
+        prefix = "<leader>",
+        mode = { "n", "v" },
         w = { "<cmd>update!<CR>", "Save" },
         -- stylua: ignore
         q = { name = "Quit",
@@ -63,7 +64,6 @@ return {
           name = "+Search",
           c = { function() require("utils.coding").cht() end, "Cheatsheets", },
           o = { function() require("utils.coding").stack_overflow() end, "Stack Overflow", },
-          -- n = { name = "+Noice" },
         },
         c = {
           name = "+Code",
@@ -81,7 +81,12 @@ return {
             c = "Class",
           },
         },
-      }, { prefix = "<leader>", mode = { "n", "v" } })
+      },
+    },
+    config = function(_, opts)
+      local wk = require "which-key"
+      wk.setup(opts.setup)
+      wk.register(opts.defaults)
     end,
   },
 }

@@ -1,6 +1,6 @@
 local M = {}
 
-local bun_servers = { "tsserver", "volar", "tailwindcss", "eslint", "pyright" }
+local bun_servers = { "tsserver", "volar", "tailwindcss", "eslint" }
 
 local function is_bun_server(name)
   for _, server in ipairs(bun_servers) do

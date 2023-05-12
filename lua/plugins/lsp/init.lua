@@ -58,9 +58,6 @@ return {
     opts = {
       ensure_installed = {
         "stylua",
-        -- "ruff",
-        "debugpy",
-        "codelldb",
       },
     },
     config = function(_, opts)
@@ -78,14 +75,13 @@ return {
     "jose-elias-alvarez/null-ls.nvim",
     event = "BufReadPre",
     dependencies = { "mason.nvim" },
-    config = function()
+    opts = function()
       local nls = require "null-ls"
-      nls.setup {
+      return {
+        root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
         sources = {
           nls.builtins.formatting.stylua,
-          nls.builtins.formatting.black,
           nls.builtins.formatting.shfmt,
-          -- nls.builtins.diagnostics.ruff.with { extra_args = { "--max-line-length=180" } },
         },
       }
     end,

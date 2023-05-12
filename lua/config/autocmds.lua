@@ -129,3 +129,14 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = { "NeogitCommitMessage" },
   command = "startinsert | 1",
 })
+
+-- Start insert mode
+vim.api.nvim_create_autocmd({ "TermOpen" }, {
+  group = augroup "auto_start_insert",
+  callback = function(event)
+    local ft = vim.bo.filetype
+    if ft == nil or ft == "" then
+      vim.cmd.startinsert()
+    end
+  end,
+})

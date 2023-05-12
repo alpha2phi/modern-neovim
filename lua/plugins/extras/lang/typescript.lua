@@ -5,7 +5,18 @@ return {
       vim.list_extend(opts.ensure_installed, { "javascript", "typescript", "tsx" })
     end,
   },
-
+  {
+    "jose-elias-alvarez/null-ls.nvim",
+    opts = function(_, opts)
+      table.insert(opts.sources, require "typescript.extensions.null-ls.code-actions")
+    end,
+  },
+  {
+    "williamboman/mason.nvim",
+    opts = function(_, opts)
+      vim.list_extend(opts.ensure_installed, { "js-debug-adapter" }) -- TODO: To configure debugging
+    end,
+  },
   {
     "neovim/nvim-lspconfig",
     dependencies = { "jose-elias-alvarez/typescript.nvim" },

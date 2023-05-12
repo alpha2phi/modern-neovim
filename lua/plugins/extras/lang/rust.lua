@@ -11,6 +11,12 @@ return {
     end,
   },
   {
+    "williamboman/mason.nvim",
+    opts = function(_, opts)
+      vim.list_extend(opts.ensure_installed, { "codelldb" })
+    end,
+  },
+  {
     "neovim/nvim-lspconfig",
     dependencies = { "simrat39/rust-tools.nvim", "rust-lang/rust.vim" },
     opts = {

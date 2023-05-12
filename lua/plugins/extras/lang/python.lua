@@ -6,6 +6,19 @@ return {
     end,
   },
   {
+    "jose-elias-alvarez/null-ls.nvim",
+    opts = function(_, opts)
+      local nls = require "null-ls"
+      table.insert(opts.sources, nls.builtins.formatting.black)
+    end,
+  },
+  {
+    "williamboman/mason.nvim",
+    opts = function(_, opts)
+      vim.list_extend(opts.ensure_installed, { "debugpy", "black" })
+    end,
+  },
+  {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
@@ -23,7 +36,11 @@ return {
           },
         },
         ruff_lsp = {
-          settings = {},
+          init_options = {
+            settings = {
+              args = { "--max-line-length=180" },
+            },
+          },
         },
       },
       setup = {
