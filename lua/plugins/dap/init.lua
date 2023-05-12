@@ -64,7 +64,16 @@ local M = {
     end,
   },
   --TODO: to configure
-  { "jay-babu/mason-nvim-dap.nvim", opts = {}, cmd = { "DapInstall", "DapUninstall" } },
+  {
+    "jay-babu/mason-nvim-dap.nvim",
+    dependencies = "mason.nvim",
+    cmd = { "DapInstall", "DapUninstall" },
+    opts = {
+      automatic_setup = true,
+      handlers = {},
+      ensure_installed = {},
+    },
+  },
 }
 
 return M
