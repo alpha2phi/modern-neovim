@@ -1,8 +1,6 @@
 local opt = vim.opt
 
 opt.autoindent = true
-opt.formatoptions = "jqlnt" -- tcqj
-opt.shortmess:append { W = true, I = true, c = true }
 opt.breakindent = true
 opt.clipboard = "unnamedplus" -- Access system clipboard
 opt.cmdheight = 0
@@ -16,6 +14,7 @@ opt.foldcolumn = "1" -- '0' is not bad
 opt.foldenable = true
 opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
 opt.foldlevelstart = 99
+opt.formatoptions = "jqlnt" -- tcqj
 opt.hidden = true
 opt.hlsearch = false
 opt.ignorecase = true
@@ -33,13 +32,15 @@ opt.scrolloff = 8
 opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize" }
 opt.shiftround = true
 opt.shiftwidth = 2
-opt.showmode = false
+opt.shortmess:append { W = true, I = true, c = true, C = true }
 opt.showcmd = false
+opt.showmode = false
 opt.sidescrolloff = 8
 opt.signcolumn = "yes"
 opt.smartcase = true
 opt.smartindent = true
 opt.splitbelow = true
+opt.splitkeep = "screen"
 opt.splitright = true
 opt.tabstop = 2
 opt.termguicolors = true
@@ -48,11 +49,6 @@ opt.title = true
 opt.undofile = true
 opt.updatetime = 200
 opt.wildmode = "longest:full,full"
-
-if vim.fn.has "nvim-0.9.0" == 1 then
-  opt.splitkeep = "screen"
-  opt.shortmess:append { C = true }
-end
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
