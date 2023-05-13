@@ -40,7 +40,7 @@ return {
         mode = { "n", "v" },
         w = { "<cmd>update!<CR>", "Save" },
         -- stylua: ignore
-        q = { name = "Quit",
+        q = { name = "Quit/Session",
           q = { function() require("utils").quit() end, "Quit", },
           t = { "<cmd>tabclose<cr>", "Close Tab" },
         },
