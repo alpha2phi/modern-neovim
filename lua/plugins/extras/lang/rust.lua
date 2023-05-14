@@ -30,8 +30,6 @@ return {
       },
       setup = {
         rust_analyzer = function(_, opts)
-          -- local install_root_dir = vim.fn.stdpath "data" .. "/mason"
-          -- local extension_path = install_root_dir .. "/packages/codelldb/extension/"
           local mason_registry = require "mason-registry"
           local codelldb = mason_registry.get_package "codelldb"
           local extension_path = codelldb:get_install_path() .. "/extension/"
@@ -74,6 +72,11 @@ return {
     opts = {
       setup = {
         codelldb = function()
+          local mason_registry = require "mason-registry"
+          local codelldb = mason_registry.get_package "codelldb"
+          local extension_path = codelldb:get_install_path() .. "/extension/"
+          local codelldb_path = extension_path .. "adapter/codelldb"
+
           local dap = require "dap"
           dap.adapters.codelldb = {
             type = "server",
