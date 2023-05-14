@@ -1,8 +1,3 @@
-local install_root_dir = vim.fn.stdpath "data" .. "/mason"
-local extension_path = install_root_dir .. "/packages/codelldb/extension/"
-local codelldb_path = extension_path .. "adapter/codelldb"
-local liblldb_path = extension_path .. "lldb/lib/liblldb.so"
-
 return {
   {
     "nvim-treesitter/nvim-treesitter",
@@ -35,6 +30,14 @@ return {
       },
       setup = {
         rust_analyzer = function(_, opts)
+          -- local install_root_dir = vim.fn.stdpath "data" .. "/mason"
+          -- local extension_path = install_root_dir .. "/packages/codelldb/extension/"
+          local mason_registry = require "mason-registry"
+          local codelldb = mason_registry.get_package "codelldb"
+          local extension_path = codelldb:get_install_path() .. "/extension/"
+          local codelldb_path = extension_path .. "adapter/codelldb"
+          local liblldb_path = extension_path .. "lldb/lib/liblldb.so"
+
           local lsp_utils = require "plugins.lsp.utils"
           lsp_utils.on_attach(function(client, buffer)
             -- stylua: ignore
