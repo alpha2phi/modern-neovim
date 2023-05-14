@@ -24,6 +24,7 @@ local M = {
     { "<leader>dS", function() require("dap.ui.widgets").scopes() end, desc = "Scopes", },
     { "<leader>di", function() require("dap").step_into() end, desc = "Step Into", },
     { "<leader>do", function() require("dap").step_over() end, desc = "Step Over", },
+    { "<leader>dl", function() require("dap").run_last() end, desc = "Run Last" },
     { "<leader>dp", function() require("dap").pause.toggle() end, desc = "Pause", },
     { "<leader>dq", function() require("dap").close() end, desc = "Quit", },
     { "<leader>dr", function() require("dap").repl.toggle() end, desc = "Toggle REPL", },
