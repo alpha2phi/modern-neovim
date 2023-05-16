@@ -121,5 +121,10 @@ return {
     event = "VeryLazy",
     config = true,
   },
+  -- {
+  --   "ray-x/lsp_signature.nvim",
+  --   event = "VeryLazy",
+  --   opts = {},
+  -- },
   { "rafcamlet/nvim-luapad", cmd = { "LuaRun", "Luapad" } },
 }
