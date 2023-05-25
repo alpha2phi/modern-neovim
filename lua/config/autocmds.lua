@@ -67,6 +67,7 @@ vim.api.nvim_create_autocmd("FileType", {
     "vim",
     "neoai-input",
     "neoai-output",
+    "notify",
   },
   callback = function(event)
     vim.bo[event.buf].buflisted = false
