@@ -28,11 +28,11 @@ return {
             return true
           end
         end,
-        sort_by = function(buffer_a, buffer_b)
-          local mod_a = ((vim.loop.fs_stat(buffer_a.path) or {}).mtime or {}).sec or 0
-          local mod_b = ((vim.loop.fs_stat(buffer_b.path) or {}).mtime or {}).sec or 0
-          return mod_a > mod_b
-        end,
+        -- sort_by = function(buffer_a, buffer_b)
+        --   local mod_a = ((vim.loop.fs_stat(buffer_a.path) or {}).mtime or {}).sec or 0
+        --   local mod_b = ((vim.loop.fs_stat(buffer_b.path) or {}).mtime or {}).sec or 0
+        --   return mod_a > mod_b
+        -- end,
       },
     },
   },
