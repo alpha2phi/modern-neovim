@@ -9,7 +9,6 @@ return {
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
       "petertriho/cmp-git",
-      -- "hrsh7th/cmp-nvim-lsp-signature-help",
       {
         "tzachar/cmp-tabnine",
         build = "./install.sh",
@@ -31,8 +30,6 @@ return {
       local source_names = {
         nvim_lsp = "(LSP)",
         luasnip = "(Snippet)",
-        -- cmp_tabnine = "(TabNine)",
-        -- codeium = "(Codeium)",
         buffer = "(Buffer)",
         path = "(Path)",
       }
@@ -54,7 +51,6 @@ return {
         sorting = {
           priority_weight = 2,
           comparators = {
-            -- require "cmp_tabnine.compare",
             compare.score,
             compare.recently_used,
             compare.offset,
@@ -119,9 +115,7 @@ return {
           }),
         },
         sources = cmp.config.sources {
-          -- { name = "nvim_lsp_signature_help", group_index = 1 },
           { name = "nvim_lsp", group_index = 1 },
-          -- { name = "cmp_tabnine", group_index = 1 },
           { name = "codeium", group_index = 1 },
           { name = "luasnip", group_index = 1 },
           { name = "buffer", group_index = 2 },
@@ -130,7 +124,6 @@ return {
           { name = "orgmode", group_index = 2 },
         },
         formatting = {
-          fields = { "kind", "abbr", "menu" },
           format = function(entry, item)
             local max_width = 80
             local duplicates_default = 0
@@ -141,11 +134,6 @@ return {
             item.menu = source_names[entry.source.name]
             item.dup = duplicates[entry.source.name] or duplicates_default
 
-            -- if entry.source.name == "cmp_tabnine" then
-            --   item.kind = ""
-            -- elseif entry.source.name == "codeium" then
-            --   item.kind = ""
-            -- end
             return item
           end,
         },
@@ -175,20 +163,6 @@ return {
 
       -- Git
       require("cmp_git").setup { filetypes = { "NeogitCommitMessage" } }
-
-      -- TabNine
-      -- local tabnine = require "cmp_tabnine.config"
-      -- tabnine:setup {
-      --   max_lines = 1000,
-      --   max_num_results = 20,
-      --   sort = true,
-      --   run_on_every_keystroke = true,
-      --   snippet_placeholder = "..",
-      --   ignored_file_types = { -- default is not to ignore
-      --     -- uncomment to ignore in lua:
-      --     -- lua = true
-      --   },
-      -- }
     end,
   },
   {
