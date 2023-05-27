@@ -21,7 +21,7 @@ return {
         enabled = false,
       },
     },
-    config = function()
+    opts = function()
       local cmp = require "cmp"
       local luasnip = require "luasnip"
       local neogen = require "neogen"
@@ -44,7 +44,7 @@ return {
         return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
       end
 
-      cmp.setup {
+      return {
         completion = {
           completeopt = "menu,menuone,noinsert",
         },
@@ -138,6 +138,10 @@ return {
           end,
         },
       }
+    end,
+    config = function(_, opts)
+      local cmp = require "cmp"
+      cmp.setup(opts)
 
       -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
       cmp.setup.cmdline({ "/", "?" }, {
