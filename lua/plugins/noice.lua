@@ -10,6 +10,15 @@ return {
         ["cmp.entry.get_documentation"] = true,
       },
     },
+    routes = {
+      {
+        filter = {
+          event = "msg_show",
+          find = "%d+L, %d+B",
+        },
+        view = "mini",
+      },
+    },
     presets = {
       bottom_search = true, -- use a classic bottom cmdline for search
       command_palette = true, -- position the cmdline and popupmenu together
