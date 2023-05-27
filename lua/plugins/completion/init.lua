@@ -137,6 +137,12 @@ return {
             return item
           end,
         },
+        window = {
+          documentation = {
+            border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+            winhighlight = "NormalFloat:NormalFloat,FloatBorder:TelescopeBorder",
+          },
+        },
       }
     end,
     config = function(_, opts)
