@@ -46,6 +46,9 @@ return {
           end)
         end,
       },
+      format = {
+        timeout_ms = 3000,
+      },
     },
     config = function(plugin, opts)
       require("plugins.lsp.servers").setup(plugin, opts)
