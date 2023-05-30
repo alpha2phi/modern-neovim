@@ -19,7 +19,7 @@ return {
     opts = {
       -- char = "▏",
       char = "│",
-      filetype_exclude = { "help", "alpha", "dashboard", "NvimTree", "Trouble", "lazy" },
+      filetype_exclude = { "help", "alpha", "dashboard", "NvimTree", "Trouble", "lazy", "mason" },
       show_trailing_blankline_indent = false,
       show_current_context = false,
     },
