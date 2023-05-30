@@ -122,12 +122,17 @@ return {
   {
     "nvimdev/lspsaga.nvim",
     event = "VeryLazy",
-    config = true,
+    opts = {
+      symbol_in_winbar = {
+        enable = false,
+      },
+    },
   },
+  { "Bekaboo/dropbar.nvim", event = "VeryLazy" },
   -- {
   --   "ray-x/lsp_signature.nvim",
   --   event = "VeryLazy",
   --   opts = {},
   -- },
-  { "rafcamlet/nvim-luapad", cmd = { "LuaRun", "Luapad" } },
+  -- { "rafcamlet/nvim-luapad", cmd = { "LuaRun", "Luapad" } },
 }
