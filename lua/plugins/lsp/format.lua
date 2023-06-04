@@ -29,7 +29,7 @@ function M.format()
     filter = function(client)
       return vim.tbl_contains(client_ids, client.id)
     end,
-  }, require("base.lsp.utils").opts("nvim-lspconfig").format or {}))
+  }, require("plugins.lsp.utils").opts("nvim-lspconfig").format or {}))
 end
 
 function M.notify(formatters)
