@@ -116,8 +116,7 @@ local function insert_cell(content)
   local bufnr = vim.api.nvim_get_current_buf()
   local line = vim.api.nvim_win_get_cursor(0)[1]
   highlight_cell_marker(bufnr, line)
-  vim.cmd "normal!o"
-  vim.cmd "normal!o"
+  vim.cmd "normal!2o"
   vim.cmd "normal!k"
 end
 local function insert_code_cell()

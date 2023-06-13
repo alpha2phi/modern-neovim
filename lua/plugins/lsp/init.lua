@@ -128,7 +128,13 @@ return {
       },
     },
   },
-  { "Bekaboo/dropbar.nvim", event = "VeryLazy" },
+  {
+    "Bekaboo/dropbar.nvim",
+    event = "VeryLazy",
+    enabled = function()
+      return vim.fn.has "nvim-0.10.0" == 1
+    end,
+  },
   -- {
   --   "ray-x/lsp_signature.nvim",
   --   event = "VeryLazy",
