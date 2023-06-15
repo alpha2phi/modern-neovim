@@ -39,12 +39,12 @@ keymap("v", ">", ">gv")
 keymap("v", "p", '"_dp')
 
 -- Move Lines
-keymap("n", "<A-j>", ":m .+1<CR>==")
-keymap("v", "<A-j>", ":m '>+1<CR>gv=gv")
-keymap("i", "<A-j>", "<Esc>:m .+1<CR>==gi")
-keymap("n", "<A-k>", ":m .-2<CR>==")
-keymap("v", "<A-k>", ":m '<-2<CR>gv=gv")
-keymap("i", "<A-k>", "<Esc>:m .-2<CR>==gi")
+-- keymap("n", "<A-j>", ":m .+1<CR>==")
+-- keymap("v", "<A-j>", ":m '>+1<CR>gv=gv")
+-- keymap("i", "<A-j>", "<Esc>:m .+1<CR>==gi")
+-- keymap("n", "<A-k>", ":m .-2<CR>==")
+-- keymap("v", "<A-k>", ":m '<-2<CR>gv=gv")
+-- keymap("i", "<A-k>", "<Esc>:m .-2<CR>==gi")
 
 -- Resize window using <shift> arrow keys
 keymap("n", "<S-Up>", "<cmd>resize +2<CR>")

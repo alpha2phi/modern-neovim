@@ -20,6 +20,7 @@ return {
   -- },
   {
     "echasnovski/mini.move",
+    enabled = false,
     opts = {},
     keys = { "<<M-h>", "<M-l>", "<M-j>", "<M-k>" },
     config = function(_, opts)
