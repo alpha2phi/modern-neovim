@@ -265,12 +265,19 @@ end
 return {
   {
     "anuvyklack/hydra.nvim",
-    event = { "BufReadPre" },
-    config = function(_, _)
+    event = { "VeryLazy" },
+    opts = {
+      specs = {
+        gitsigns = gitsigns_menu,
+        dap = dap_menu,
+        quick = quick_menu,
+      },
+    },
+    config = function(_, opts)
       local hydra = require "hydra"
-      hydra(gitsigns_menu())
-      hydra(dap_menu())
-      hydra(quick_menu())
+      for s, _ in pairs(opts.specs) do
+        hydra(opts.specs[s]())
+      end
     end,
   },
 }
