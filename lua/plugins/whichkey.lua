@@ -36,7 +36,7 @@ return {
         },
       },
       defaults = {
-        prefix = "<A>",
+        prefix = "<leader>",
         mode = { "n", "v" },
         w = { "<cmd>update!<CR>", "Save" },
         -- stylua: ignore
