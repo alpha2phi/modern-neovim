@@ -25,7 +25,7 @@ local function show_cell_markers()
   local total_lines = vim.api.nvim_buf_line_count(bufnr)
   for line = 1, total_lines do
     local line_content = vim.api.nvim_buf_get_lines(bufnr, line - 1, line, false)[1]
-    if line_content:find(CELL_MARKER) then
+    if line_content ~= "" and line_content:find(CELL_MARKER) then
       highlight_cell_marker(bufnr, line)
     end
   end
@@ -35,7 +35,7 @@ local function show_cell_marker()
   local bufnr = vim.api.nvim_get_current_buf()
   local line = vim.api.nvim_win_get_cursor(0)[1]
   local line_content = vim.api.nvim_buf_get_lines(bufnr, line - 1, line, false)[1]
-  if line_content:find(CELL_MARKER) then
+  if line_content ~= "" and line_content:find(CELL_MARKER) then
     highlight_cell_marker(bufnr, line)
   else
     vim.fn.sign_unplace(CELL_MARKER_SIGN, { buffer = bufnr, id = line })
@@ -65,7 +65,7 @@ local function select_cell()
       break
     end
   end
-  if start_line and not end_line then
+  if not end_line then
     end_line = line_count
   end
   return current_row, current_col, start_line, end_line
@@ -89,6 +89,7 @@ local function delete_cell()
     vim.api.nvim_win_set_cursor(0, { start_line, 0 })
     vim.cmd("normal!V " .. rows_to_select .. "j")
     vim.cmd "normal!d"
+    vim.cmd "normal!k"
   end
 end
 
@@ -110,10 +111,14 @@ end
 
 local function insert_cell(content)
   local _, _, _, end_line = select_cell()
-  vim.api.nvim_win_set_cursor(0, { end_line - 1, 0 })
+  local bufnr = vim.api.nvim_get_current_buf()
+  if end_line ~= 1 then
+    vim.api.nvim_win_set_cursor(0, { end_line - 1, 0 })
+  else
+    vim.api.nvim_win_set_cursor(0, { end_line, 0 })
+  end
 
   vim.cmd("normal!o" .. content)
-  local bufnr = vim.api.nvim_get_current_buf()
   local line = vim.api.nvim_win_get_cursor(0)[1]
   highlight_cell_marker(bufnr, line)
   vim.cmd "normal!2o"
@@ -153,7 +158,7 @@ return {
         end,
       })
 
-      vim.api.nvim_create_autocmd({ "CursorHold", "InsertLeave" }, {
+      vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
         group = vim.api.nvim_create_augroup("au_check_cell_marker", { clear = true }),
         pattern = { "*.py", "*.ipynb" },
         callback = function()
@@ -189,6 +194,8 @@ return {
     end,
     -- stylua: ignore
     keys = {
+      { "<leader>x", desc = "+REPL" },
+      { "<leader>xm", desc = "+Mark" },
       { "<A-e>", execute_cell, desc = "Execute Cell" },
       { "<A-i>", insert_code_cell, desc = "Insert Code Cell" },
       { "<A-r>", insert_markdown_cell, desc = "Insert Markdown Cell" },
@@ -205,10 +212,10 @@ return {
       { "<leader>xI", function() require("iron.core").send(nil, string.char(03)) end, desc = "Interrupt" },
       { "<leader>xq", function() require("iron.core").close_repl() end, desc = "Close REPL" },
       { "<leader>xc", function() require("iron.core").send(nil, string.char(12)) end, desc = "Clear" },
-      { "<leader>xMs", function() require("iron.core").send_mark() end, desc = "Send Mark" },
-      { "<leader>xMm", function() require("iron.core").run_motion("mark_motion") end, desc = "Mark Motion" },
-      { "<leader>xMv", function() require("iron.core").mark_visual() end, mode = {"v"}, desc = "Mark Visual" },
-      { "<leader>xMr", function() require("iron.marks").drop_last() end, desc = "Remove Mark" },
+      { "<leader>xms", function() require("iron.core").send_mark() end, desc = "Send Mark" },
+      { "<leader>xmm", function() require("iron.core").run_motion("mark_motion") end, desc = "Mark Motion" },
+      { "<leader>xmv", function() require("iron.core").mark_visual() end, mode = {"v"}, desc = "Mark Visual" },
+      { "<leader>xmr", function() require("iron.marks").drop_last() end, desc = "Remove Mark" },
       { "<leader>xR", "<cmd>IronRepl<cr>", desc = "REPL" },
       { "<leader>xS", "<cmd>IronRestart<cr>", desc = "Restart" },
       { "<leader>xF", "<cmd>IronFocus<cr>", desc = "Focus" },
@@ -218,15 +225,5 @@ return {
       local iron = require "iron.core"
       iron.setup(opts)
     end,
-  },
-  {
-    "folke/which-key.nvim",
-    event = "VeryLazy",
-    opts = {
-      defaults = {
-        ["<leader>x"] = { name = "+REPL" },
-        ["<leader>xm"] = { name = "+Mark" },
-      },
-    },
   },
 }
