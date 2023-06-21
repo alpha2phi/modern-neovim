@@ -14,7 +14,7 @@ return {
     r = true,
     react = true,
     rust = true,
-    solidty = true,
+    solidity = true,
     svelte = true,
     tailwind = true,
     typescript = true,
