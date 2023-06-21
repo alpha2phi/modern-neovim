@@ -21,13 +21,7 @@ return {
             },
           },
         },
-        ruff_lsp = {
-          init_options = {
-            settings = {
-              args = { "--max-line-length=180" },
-            },
-          },
-        },
+        ruff_lsp = {},
       },
       setup = {
         pyright = function(_, _)
