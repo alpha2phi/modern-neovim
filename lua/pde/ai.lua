@@ -22,7 +22,6 @@ return {
   },
   {
     "jackMort/ChatGPT.nvim",
-    enabled = false,
     cmd = { "ChatGPT", "ChatGPTRun", "ChatGPTActAs", "ChatGPTCompleteCode", "ChatGPTEditWithInstructions" },
     keys = {
       { "<leader>ac", desc = "Complete Code" },
