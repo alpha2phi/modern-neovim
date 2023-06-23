@@ -1,5 +1,6 @@
 return {
   pde = {
+    ai = true,
     angular = true,
     cpp = true,
     csharp = false,

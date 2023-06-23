@@ -2,7 +2,7 @@ return {
   "jackMort/ChatGPT.nvim",
   cmd = { "ChatGPT", "ChatGPTRun", "ChatGPTActAs", "ChatGPTCompleteCode", "ChatGPTEditWithInstructions" },
   config = true,
-  enabled = true,
+  enabled = false,
   dependencies = {
     "MunifTanjim/nui.nvim",
     "nvim-lua/plenary.nvim",
