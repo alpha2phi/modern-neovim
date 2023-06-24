@@ -5,10 +5,9 @@ return {
       "meuter/lualine-so-fancy.nvim",
     },
     event = "VeryLazy",
-    config = function()
+    opts = function()
       local components = require "plugins.statusline.components"
-
-      require("lualine").setup {
+      return {
         options = {
           icons_enabled = true,
           theme = "auto",
@@ -29,6 +28,7 @@ return {
           lualine_a = { { "fancy_mode", width = 3 } },
           lualine_b = { components.git_repo, "branch" },
           lualine_c = {
+            "filename",
             { "fancy_cwd", substitute_home = true },
             components.diff,
             { "fancy_diagnostics" },
@@ -38,7 +38,7 @@ return {
             components.separator,
             components.lsp_client,
           },
-          lualine_x = { "filename", components.spaces, "encoding", "fileformat", "filetype", "progress" },
+          lualine_x = { components.spaces, "encoding", "fileformat", "filetype", "progress" },
           lualine_y = {},
           lualine_z = { "location" },
         },
