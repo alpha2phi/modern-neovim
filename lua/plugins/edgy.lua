@@ -4,14 +4,14 @@ return {
     event = "VeryLazy",
     keys = {
       {
-        "<leader>ue",
+        "<leader>ze",
         function()
           require("edgy").toggle()
         end,
         desc = "Edgy Toggle",
       },
       -- stylua: ignore
-      { "<leader>uE", function() require("edgy").select() end, desc = "Edgy Select Window" },
+      { "<leader>zE", function() require("edgy").select() end, desc = "Edgy Select Window" },
     },
     opts = {
       bottom = {
@@ -52,30 +52,6 @@ return {
       },
       left = {
         { title = "Neotest Summary", ft = "neotest-summary" },
-        {
-          title = "Neo-Tree Git",
-          ft = "neo-tree",
-          filter = function(buf)
-            return vim.b[buf].neo_tree_source == "git_status"
-          end,
-          pinned = true,
-          open = "Neotree position=right git_status",
-        },
-        {
-          title = "Neo-Tree Buffers",
-          ft = "neo-tree",
-          filter = function(buf)
-            return vim.b[buf].neo_tree_source == "buffers"
-          end,
-          pinned = true,
-          open = "Neotree position=top buffers",
-        },
-        {
-          ft = "Outline",
-          pinned = true,
-          open = "SymbolsOutline",
-        },
-        "neo-tree",
       },
       keys = {
         -- increase width
