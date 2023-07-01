@@ -65,8 +65,8 @@ return {
     "jackMort/ChatGPT.nvim",
     cmd = { "ChatGPT", "ChatGPTRun", "ChatGPTActAs", "ChatGPTCompleteCode", "ChatGPTEditWithInstructions" },
     keys = {
-      { "<leader>aa", desc = "Chat" },
-      { "<leader>ac", desc = "Complete Code" },
+      { "<leader>aa", "<cmd>ChatGPT<cr>", desc = "Chat" },
+      { "<leader>ac", "<cmd>ChatGPTCompleteCode<cr>", desc = "Complete Code" },
     },
     opts = {},
     dependencies = {
