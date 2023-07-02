@@ -18,15 +18,15 @@ return {
   --     require("mini.jump").setup(opts)
   --   end,
   -- },
-  {
-    "echasnovski/mini.move",
-    enabled = false,
-    opts = {},
-    keys = { "<<M-h>", "<M-l>", "<M-j>", "<M-k>" },
-    config = function(_, opts)
-      require("mini.move").setup(opts)
-    end,
-  },
+  -- {
+  --   "echasnovski/mini.move",
+  --   enabled = false,
+  --   opts = {},
+  --   keys = { "<<M-h>", "<M-l>", "<M-j>", "<M-k>" },
+  --   config = function(_, opts)
+  --     require("mini.move").setup(opts)
+  --   end,
+  -- },
   {
     "echasnovski/mini.ai",
     event = "VeryLazy",
@@ -209,5 +209,10 @@ return {
         end,
       })
     end,
+  },
+  {
+    "echasnovski/mini.hipatterns",
+    event = "BufReadPre",
+    opts = {},
   },
 }
