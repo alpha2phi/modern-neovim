@@ -66,7 +66,8 @@ return {
     cmd = { "ChatGPT", "ChatGPTRun", "ChatGPTActAs", "ChatGPTCompleteCode", "ChatGPTEditWithInstructions" },
     keys = {
       { "<leader>aa", "<cmd>ChatGPT<cr>", desc = "Chat" },
-      { "<leader>ac", "<cmd>ChatGPTCompleteCode<cr>", desc = "Complete Code" },
+      { "<leader>ac", "<cmd>ChatGPTRun complete_code<cr>", mode = { "n", "v" }, desc = "Complete Code" },
+      { "<leader>ae", "<cmd>ChatGPTEditWithInstructions<cr>", mode = { "n", "v" }, desc = "Edit with Instructions" },
     },
     opts = {},
     dependencies = {
