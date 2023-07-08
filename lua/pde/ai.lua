@@ -48,7 +48,6 @@ return {
     end,
   },
   {
-
     "Exafunction/codeium.vim",
     event = "InsertEnter",
     enabled = true,

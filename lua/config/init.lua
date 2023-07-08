@@ -9,7 +9,7 @@ return {
     java = false,
     json = true,
     julia = true,
-    jupyter = false,
+    jupyter = true,
     lua = true,
     python = true,
     r = true,
