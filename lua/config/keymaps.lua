@@ -15,8 +15,8 @@ keymap("n", "<C-d>", "<C-d>zz")
 keymap("n", "<C-u>", "<C-u>zz")
 
 -- Paste
-keymap("n", "]p", "o<Esc>p", { desc = "Paste below" })
-keymap("n", "]P", "O<Esc>p", { desc = "Paste above" })
+-- keymap("n", "]p", "o<Esc>p", { desc = "Paste below" })
+-- keymap("n", "]P", "O<Esc>p", { desc = "Paste above" })
 
 -- Better escape using jk in insert and terminal mode
 keymap("i", "jk", "<ESC>")

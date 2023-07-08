@@ -5,7 +5,7 @@ return {
     config = true,
   },
   {
-    "TimUntersberger/neogit",
+    "NeogitOrg/neogit",
     cmd = "Neogit",
     opts = {
       integrations = { diffview = true },

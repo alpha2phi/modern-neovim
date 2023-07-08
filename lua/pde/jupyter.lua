@@ -2,44 +2,52 @@ if not require("config").pde.jupyter then
   return {}
 end
 
-local CELL_MARKER_COLOR = "#C5C5C5"
-local CELL_MARKER = "^# %%%%"
-local CELL_MARKER_SIGN = "cell_marker_sign"
+local function get_commenter()
+  local commenter = { python = "# ", lua = "-- ", julia = "# ", fennel = ";; ", scala = "// ", r = "# " }
+  local bufnr = vim.api.nvim_get_current_buf()
+  local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
+  if ft == nil or ft == "" then
+    return commenter["python"]
+  elseif commenter[ft] == nil then
+    return commenter["python"]
+  end
 
-vim.api.nvim_set_hl(0, "cell_marker_hl", { bg = CELL_MARKER_COLOR })
-vim.fn.sign_define(CELL_MARKER_SIGN, { linehl = "cell_marker_hl" })
+  return commenter[ft]
+end
 
-local function highlight_cell_marker(bufnr, line)
-  local sign_name = CELL_MARKER_SIGN
-  local sign_text = "%%"
-  vim.fn.sign_place(line, CELL_MARKER_SIGN, sign_name, bufnr, {
-    lnum = line,
-    priority = 10,
-    text = sign_text,
-  })
+local CELL_MARKER = get_commenter() .. "%%"
+vim.api.nvim_set_hl(0, "CellMarkerHl", { default = true, bg = "#c5c5c5", fg = "#111111" })
+
+local function miniai_spec(mode)
+  local start_line = vim.fn.search("^" .. CELL_MARKER, "bcnW")
+
+  if start_line == 0 then
+    start_line = 1
+  else
+    if mode == "i" then
+      start_line = start_line + 1
+    end
+  end
+
+  local end_line = vim.fn.search("^" .. CELL_MARKER, "nW") - 1
+  if end_line == -1 then
+    end_line = vim.fn.line "$"
+  end
+
+  local last_col = math.max(vim.fn.getline(end_line):len(), 1)
+
+  local from = { line = start_line, col = 1 }
+  local to = { line = end_line, col = last_col }
+
+  return { from = from, to = to }
 end
 
 local function show_cell_markers()
-  local bufnr = vim.api.nvim_get_current_buf()
-  vim.fn.sign_unplace(CELL_MARKER_SIGN, { buffer = bufnr })
-  local total_lines = vim.api.nvim_buf_line_count(bufnr)
-  for line = 1, total_lines do
-    local line_content = vim.api.nvim_buf_get_lines(bufnr, line - 1, line, false)[1]
-    if line_content ~= "" and line_content:find(CELL_MARKER) then
-      highlight_cell_marker(bufnr, line)
-    end
-  end
-end
-
-local function show_cell_marker()
-  local bufnr = vim.api.nvim_get_current_buf()
-  local line = vim.api.nvim_win_get_cursor(0)[1]
-  local line_content = vim.api.nvim_buf_get_lines(bufnr, line - 1, line, false)[1]
-  if line_content ~= "" and line_content:find(CELL_MARKER) then
-    highlight_cell_marker(bufnr, line)
-  else
-    vim.fn.sign_unplace(CELL_MARKER_SIGN, { buffer = bufnr, id = line })
-  end
+  require("mini.hipatterns").enable(0, {
+    highlighters = {
+      marker = { pattern = "^" .. get_commenter() .. "%%%%", group = "CellMarkerHl" },
+    },
+  })
 end
 
 local function select_cell()
@@ -52,7 +60,7 @@ local function select_cell()
 
   for line = current_row, 1, -1 do
     local line_content = vim.api.nvim_buf_get_lines(bufnr, line - 1, line, false)[1]
-    if line_content:find(CELL_MARKER) then
+    if line_content:find("^" .. CELL_MARKER) then
       start_line = line
       break
     end
@@ -60,10 +68,14 @@ local function select_cell()
   local line_count = vim.api.nvim_buf_line_count(bufnr)
   for line = current_row + 1, line_count do
     local line_content = vim.api.nvim_buf_get_lines(bufnr, line - 1, line, false)[1]
-    if line_content:find(CELL_MARKER) then
+    if line_content:find("^" .. CELL_MARKER) then
       end_line = line
       break
     end
+  end
+
+  if not start_line then
+    start_line = 1
   end
   if not end_line then
     end_line = line_count
@@ -74,9 +86,8 @@ end
 local function execute_cell()
   local current_row, current_col, start_line, end_line = select_cell()
   if start_line and end_line then
-    local rows_to_select = end_line - start_line - 2
-    vim.api.nvim_win_set_cursor(0, { start_line + 1, 0 })
-    vim.cmd("normal!V " .. rows_to_select .. "j")
+    vim.fn.setpos("'<", { 0, start_line + 1, 0, 0 })
+    vim.fn.setpos("'>", { 0, end_line - 1, 0, 0 })
     require("iron.core").visual_send()
     vim.api.nvim_win_set_cursor(0, { current_row, current_col })
   end
@@ -96,7 +107,7 @@ end
 local function navigate_cell(up)
   local is_up = up or false
   local _, _, start_line, end_line = select_cell()
-  if is_up and start_line then
+  if is_up and start_line ~= 1 then
     vim.api.nvim_win_set_cursor(0, { start_line - 1, 0 })
   elseif end_line then
     local bufnr = vim.api.nvim_get_current_buf()
@@ -109,27 +120,114 @@ local function navigate_cell(up)
   end
 end
 
-local function insert_cell(content)
-  local _, _, _, end_line = select_cell()
-  local bufnr = vim.api.nvim_get_current_buf()
-  if end_line ~= 1 then
-    vim.api.nvim_win_set_cursor(0, { end_line - 1, 0 })
+local function move_cell(dir)
+  local search_res
+  local result
+  if dir == "d" then
+    search_res = vim.fn.search("^" .. CELL_MARKER, "W")
+    if search_res == 0 then
+      result = "last"
+    end
   else
-    vim.api.nvim_win_set_cursor(0, { end_line, 0 })
+    search_res = vim.fn.search("^" .. CELL_MARKER, "bW")
+    if search_res == 0 then
+      result = "first"
+      vim.api.nvim_win_set_cursor(0, { 1, 0 })
+    end
   end
 
-  vim.cmd("normal!o" .. content)
-  local line = vim.api.nvim_win_get_cursor(0)[1]
-  highlight_cell_marker(bufnr, line)
-  vim.cmd "normal!2o"
-  vim.cmd "normal!k"
+  return result
 end
-local function insert_code_cell()
-  insert_cell "# %%"
+
+local function insert_cell_before(content)
+  content = content or CELL_MARKER
+  local cell_object = miniai_spec "a"
+  vim.api.nvim_buf_set_lines(0, cell_object.from.line - 1, cell_object.from.line - 1, false, { content, "" })
+  move_cell "u"
+end
+
+local function insert_cell_after(content)
+  content = content or CELL_MARKER
+  vim.print(content)
+  local cell_object = miniai_spec "a"
+  vim.api.nvim_buf_set_lines(0, cell_object.to.line, cell_object.to.line, false, { content, "" })
+  move_cell "d"
 end
 
 local function insert_markdown_cell()
-  insert_cell "# %% [markdown]"
+  insert_cell_after(CELL_MARKER .. " [markdown]")
+end
+
+local function repl_menu()
+  local cmd = require("hydra.keymap-util").cmd
+
+  local hint = [[
+ ^
+ _a_: Insert Cell After
+ _b_: Insert Cell Before
+ _e_: Execute Cell
+ _j_: Next Cell
+ _k_: Previous Cell
+ _m_: Insert Markdown Cell
+ _x_: Delete Cell
+ ^
+ _s_: Send Motion
+ _l_: Send Line
+ _t_: Send Until Cursor
+ _f_: Send File
+ ^
+ _R_: Show REPL
+ _C_: Close REPL
+ _S_: Restart REPL
+ _F_: Focus
+ _H_: Hide
+ ^
+ _c_: Clear
+ _L_: Clear Highlight
+ _<CR>_: ENTER
+ _I_: Interrupt
+ ^
+ ^ ^  _q_: Quit 
+]]
+
+  return {
+    name = "REPL",
+    hint = hint,
+    config = {
+      color = "pink",
+      invoke_on_body = true,
+      hint = {
+        border = "rounded",
+        position = "top-middle",
+      },
+    },
+    mode = "n",
+    body = "<A-n>",
+    -- stylua: ignore
+    heads = {
+      { "a", insert_cell_after, desc = "Insert Cell After", },
+      { "b", insert_cell_before, desc = "Insert Cell Before", },
+      { "e", execute_cell, desc = "Execute Cell", },
+      { "j", navigate_cell , desc = "Next Cell", },
+      { "k", function() navigate_cell(true) end, desc = "Previous Cell", },
+      { "m", insert_markdown_cell, desc = "Insert Markdown Cell", },
+      { "x", delete_cell, desc = "Delete Cell", },
+      { "s", function() require("iron.core").run_motion("send_motion") end, desc = "Send Motion" },
+      { "l", function() require("iron.core").send_line() end, desc = "Send Line" },
+      { "t", function() require("iron.core").send_until_cursor() end, desc = "Send Until Cursor" },
+      { "f", function() require("iron.core").send_file() end, desc = "Send File" },
+      { "L", function() require("iron.marks").clear_hl() end, mode = {"v"}, desc = "Clear Highlight" },
+      { "<CR>", function() require("iron.core").send(nil, string.char(13)) end, desc = "ENTER" },
+      { "I", function() require("iron.core").send(nil, string.char(03)) end, desc = "Interrupt" },
+      { "C", function() require("iron.core").close_repl() end, desc = "Close REPL" },
+      { "c", function() require("iron.core").send(nil, string.char(12)) end, desc = "Clear" },
+      { "R", cmd("IronRepl"), desc = "REPL" },
+      { "S", cmd("IronRestart"), desc = "Restart" },
+      { "F", cmd("IronFocus"), desc = "Focus" },
+      { "H", cmd("IronHide"), desc = "Hide" },
+      { "q", nil, { exit = true, nowait = true, desc = "Exit" } },
+    },
+  }
 end
 
 return {
@@ -152,17 +250,9 @@ return {
       -- Autocmd to set cell markers
       vim.api.nvim_create_autocmd({ "BufEnter" }, { -- "BufWriteCmd"
         group = vim.api.nvim_create_augroup("au_show_cell_markers", { clear = true }),
-        pattern = { "*.py", "*.ipynb" },
-        callback = function()
-          vim.schedule(show_cell_markers)
-        end,
-      })
-
-      vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-        group = vim.api.nvim_create_augroup("au_check_cell_marker", { clear = true }),
-        pattern = { "*.py", "*.ipynb" },
-        callback = function()
-          vim.schedule(show_cell_marker)
+        pattern = { "*.py", "*.r", "*.ipynb", "*.jl", "*.scala", "*.lua", "*.fnl" },
+        callback = function(event)
+          show_cell_markers()
         end,
       })
     end,
@@ -179,6 +269,7 @@ return {
 
           repl_definition = {
             python = require("iron.fts.python").ipython,
+            scala = require("iron.fts.scala").scala,
           },
           -- How the repl window will be displayed
           -- See below for more information
@@ -197,8 +288,6 @@ return {
       { "<leader>x", desc = "+REPL" },
       { "<leader>xm", desc = "+Mark" },
       { "<A-e>", execute_cell, desc = "Execute Cell" },
-      { "<A-i>", insert_code_cell, desc = "Insert Code Cell" },
-      { "<A-r>", insert_markdown_cell, desc = "Insert Markdown Cell" },
       { "<A-x>", delete_cell, desc = "Delete Cell" },
       { "<A-j>", navigate_cell, desc = "Next Cell" },
       { "<A-k>", function() navigate_cell(true) end, desc = "Previous Cell" },
@@ -207,10 +296,10 @@ return {
       { "<leader>xl", function() require("iron.core").send_line() end, desc = "Send Line" },
       { "<leader>xt", function() require("iron.core").send_until_cursor() end, desc = "Send Until Cursor" },
       { "<leader>xf", function() require("iron.core").send_file() end, desc = "Send File" },
-      { "<leader>xH", function() require("iron.marks").clear_hl() end, mode = {"v"}, desc = "Clear Highlight" },
+      { "<leader>xL", function() require("iron.marks").clear_hl() end, mode = {"v"}, desc = "Clear Highlight" },
       { "<leader>x<cr>", function() require("iron.core").send(nil, string.char(13)) end, desc = "ENTER" },
       { "<leader>xI", function() require("iron.core").send(nil, string.char(03)) end, desc = "Interrupt" },
-      { "<leader>xq", function() require("iron.core").close_repl() end, desc = "Close REPL" },
+      { "<leader>xC", function() require("iron.core").close_repl() end, desc = "Close REPL" },
       { "<leader>xc", function() require("iron.core").send(nil, string.char(12)) end, desc = "Clear" },
       { "<leader>xms", function() require("iron.core").send_mark() end, desc = "Send Mark" },
       { "<leader>xmm", function() require("iron.core").run_motion("mark_motion") end, desc = "Mark Motion" },
@@ -224,6 +313,30 @@ return {
     config = function(_, opts)
       local iron = require "iron.core"
       iron.setup(opts)
+    end,
+  },
+  {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    opts = {
+      defaults = {
+        ["<leader>x"] = { name = "+REPL" },
+        ["<leader>xm"] = { name = "+Mark" },
+      },
+    },
+  },
+  {
+    "anuvyklack/hydra.nvim",
+    opts = {
+      specs = {
+        repl = repl_menu,
+      },
+    },
+  },
+  {
+    "echasnovski/mini.ai",
+    opts = function(_, opts)
+      opts.custom_textobjects = vim.tbl_extend("force", opts.custom_textobjects, { h = miniai_spec })
     end,
   },
 }
