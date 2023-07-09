@@ -5,6 +5,7 @@ return {
     cpp = false,
     csharp = false,
     elixir = false,
+    flutter = true,
     go = false,
     html = true,
     java = false,

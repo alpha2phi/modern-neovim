@@ -91,7 +91,7 @@ return {
     opts = function(_, opts)
       vim.list_extend(opts.adapters, {
         require "neotest-python" {
-          dap = { justMyCode = false },
+          dap = { justmycode = false },
           runner = "unittest",
         },
       })
