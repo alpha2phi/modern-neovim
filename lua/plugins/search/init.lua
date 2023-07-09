@@ -106,4 +106,10 @@ return {
       { "<leader>sR", function() require("ssr").open() end, mode = {"n", "x"}, desc = "Search and Replace (SSR)" },
     },
   },
+  {
+    "AckslD/muren.nvim",
+    event = "VeryLazy",
+    enabled = false,
+    config = true,
+  },
 }
