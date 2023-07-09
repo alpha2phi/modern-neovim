@@ -23,6 +23,6 @@ end
 
 -- InvokeLuaAPI()
 
--- Completion_UI()
+Completion_UI()
 
-Chat_UI()
+-- Chat_UI()

@@ -158,7 +158,7 @@ M.create_ui = function(ai, ai_type)
   if string.lower "<Enter>" == "<enter>" then
     vim.api.nvim_buf_set_keymap(input_buffer, "i", "<C-Enter>", "<Enter>", opts)
   end
-  vim.api.nvim_buf_set_keymap(input_buffer, "i", "<Enter>", "<cmd>lua require('ai.ui').submit_prompt()<cr>", opts)
+  vim.api.nvim_buf_set_keymap(input_buffer, "i", "<Enter>", "<cmd>lua require('utils.ai.ui').submit_prompt()<cr>", opts)
 
   local key = "<C-k>"
   if key ~= nil then
@@ -169,7 +169,7 @@ M.create_ui = function(ai, ai_type)
       keys = { key }
     end
     for _, k in ipairs(keys) do
-      vim.api.nvim_buf_set_keymap(input_buffer, "n", k, "<cmd>lua vim.api.nvim_set_current_win(require('ai.ui').output_popup.winid)<cr>", opts)
+      vim.api.nvim_buf_set_keymap(input_buffer, "n", k, "<cmd>lua vim.api.nvim_set_current_win(require('utils.ai.ui').output_popup.winid)<cr>", opts)
     end
   end
   key = "<C-j>"
@@ -181,7 +181,7 @@ M.create_ui = function(ai, ai_type)
       keys = { key }
     end
     for _, k in ipairs(keys) do
-      vim.api.nvim_buf_set_keymap(output_buffer, "n", k, "<cmd>lua vim.api.nvim_set_current_win(require('ai.ui').input_popup.winid)<cr>", opts)
+      vim.api.nvim_buf_set_keymap(output_buffer, "n", k, "<cmd>lua vim.api.nvim_set_current_win(require('utils.ai.ui').input_popup.winid)<cr>", opts)
     end
   end
 
@@ -194,7 +194,7 @@ M.set_destroy_key_mappings = function(input_buffer)
     "<C-c>",
   }
   for _, key in ipairs(mappings) do
-    vim.api.nvim_buf_set_keymap(input_buffer, "n", key, "<cmd>lua require('ai.ui').destroy_ui()<cr>", { noremap = true, silent = true })
+    vim.api.nvim_buf_set_keymap(input_buffer, "n", key, "<cmd>lua require('utils.ai.ui').destroy_ui()<cr>", { noremap = true, silent = true })
   end
 end
 

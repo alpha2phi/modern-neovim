@@ -1,4 +1,4 @@
-local ui = require "ai.ui"
+local ui = require "utils.ai.ui"
 
 local M = {}
 
