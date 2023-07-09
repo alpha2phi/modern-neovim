@@ -44,8 +44,8 @@ return {
           lsp_utils.on_attach(function(client, buffer)
             -- stylua: ignore
             if client.name == "rust_analyzer" then
-              vim.keymap.set("n", "<leader>cR", "<cmd>RustRunnables<cr>", { buffer = buffer, desc = "Runnables" })
-              vim.keymap.set("n", "<leader>cl", function() vim.lsp.codelens.run() end, { buffer = buffer, desc = "Code Lens" })
+              vim.keymap.set("n", "<leader>lR", "<cmd>RustRunnables<cr>", { buffer = buffer, desc = "Runnables" })
+              vim.keymap.set("n", "<leader>ll", function() vim.lsp.codelens.run() end, { buffer = buffer, desc = "Code Lens" })
             end
           end)
 

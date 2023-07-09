@@ -65,8 +65,8 @@ return {
           c = { function() require("utils.coding").cht() end, "Cheatsheets", },
           o = { function() require("utils.coding").stack_overflow() end, "Stack Overflow", },
         },
-        c = {
-          name = "+Code",
+        l = {
+          name = "+Language",
           g = { name = "Annotation" },
           x = {
             name = "Swap Next",

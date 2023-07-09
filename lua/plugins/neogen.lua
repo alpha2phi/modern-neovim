@@ -38,9 +38,9 @@ return {
   },
   --stylua: ignore
   keys = {
-    { "<leader>cgd", function() require("neogen").generate() end, desc = "Annotation", },
-    { "<leader>cgc", function() require("neogen").generate { type = "class" } end, desc = "Class", },
-    { "<leader>cgf", function() require("neogen").generate { type = "func" } end, desc = "Function", },
-    { "<leader>cgt", function() require("neogen").generate { type = "type" } end, desc = "Type", },
+    { "<leader>lgd", function() require("neogen").generate() end, desc = "Annotation", },
+    { "<leader>lgc", function() require("neogen").generate { type = "class" } end, desc = "Class", },
+    { "<leader>lgf", function() require("neogen").generate { type = "func" } end, desc = "Function", },
+    { "<leader>lgt", function() require("neogen").generate { type = "type" } end, desc = "Type", },
   },
 }

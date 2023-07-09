@@ -58,7 +58,7 @@ return {
     "williamboman/mason.nvim",
     build = ":MasonUpdate",
     cmd = "Mason",
-    keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
+    keys = { { "<leader>lm", "<cmd>Mason<cr>", desc = "Mason" } },
     opts = {
       ensure_installed = {
         "stylua",
@@ -115,8 +115,8 @@ return {
     cmd = { "TroubleToggle", "Trouble" },
     opts = { use_diagnostic_signs = true },
     keys = {
-      { "<leader>cd", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics" },
-      { "<leader>cD", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics" },
+      { "<leader>ld", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics" },
+      { "<leader>lD", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics" },
     },
   },
   {

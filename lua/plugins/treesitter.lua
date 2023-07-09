@@ -7,8 +7,8 @@ local swap_next, swap_prev = (function()
 
   local n, p = {}, {}
   for key, obj in pairs(swap_objects) do
-    n[string.format("<leader>cx%s", key)] = obj
-    p[string.format("<leader>cX%s", key)] = obj
+    n[string.format("<leader>lx%s", key)] = obj
+    p[string.format("<leader>lX%s", key)] = obj
   end
 
   return n, p

@@ -5,7 +5,7 @@ return {
   opts = {},
   keys = {
     {
-      "<leader>cn",
+      "<leader>ln",
       function()
         require("ts-node-action").node_action()
       end,

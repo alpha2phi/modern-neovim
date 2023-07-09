@@ -19,7 +19,6 @@ require("lazy").setup {
     { import = "plugins.ui" },
     { import = "plugins.notes" },
     { import = "plugins.ai" },
-    { import = "plugins.extras.lang" },
     { import = "pde" },
   },
   defaults = { lazy = true, version = nil },
