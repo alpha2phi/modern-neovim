@@ -31,24 +31,19 @@ return {
       { "<leader>tNS", "<cmd>w|lua require('neotest').summary.toggle()<cr>", desc = "Summary" },
     },
     dependencies = {
-      "vim-test/vim-test",
-      "nvim-neotest/neotest-python",
-      "nvim-neotest/neotest-plenary",
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "antoinemadec/FixCursorHold.nvim",
       "nvim-neotest/neotest-vim-test",
-      "rouge8/neotest-rust",
+      "vim-test/vim-test",
+      "stevearc/overseer.nvim",
     },
-    config = function()
-      local opts = {
+    opts = function()
+      return {
         adapters = {
-          require "neotest-python" {
-            dap = { justMyCode = false },
-            runner = "unittest",
-          },
-          require "neotest-plenary",
           require "neotest-vim-test" {
             ignore_file_types = { "python", "vim", "lua" },
           },
-          require "neotest-rust",
         },
         status = { virtual_text = true },
         output = { open_on_run = true },
@@ -70,6 +65,17 @@ return {
           force_default = true,
         },
       }
+    end,
+    config = function(_, opts)
+      local neotest_ns = vim.api.nvim_create_namespace "neotest"
+      vim.diagnostic.config({
+        virtual_text = {
+          format = function(diagnostic)
+            local message = diagnostic.message:gsub("\n", " "):gsub("\t", " "):gsub("%s+", " "):gsub("^%s+", "")
+            return message
+          end,
+        },
+      }, neotest_ns)
       require("neotest").setup(opts)
     end,
   },

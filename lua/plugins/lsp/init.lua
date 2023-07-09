@@ -4,12 +4,6 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       { "folke/neoconf.nvim", cmd = "Neoconf", config = true },
-      {
-        "folke/neodev.nvim",
-        opts = {
-          library = { plugins = { "neotest", "nvim-dap-ui" }, types = true },
-        },
-      },
       { "j-hui/fidget.nvim", config = true },
       { "smjonas/inc-rename.nvim", config = true },
       "williamboman/mason.nvim",
@@ -18,34 +12,9 @@ return {
     },
     opts = {
       servers = {
-        lua_ls = {
-          settings = {
-            Lua = {
-              workspace = {
-                checkThirdParty = false,
-              },
-              completion = { callSnippet = "Replace" },
-              telemetry = { enable = false },
-              hint = {
-                enable = false,
-              },
-            },
-          },
-        },
         dockerls = {},
       },
-      setup = {
-        lua_ls = function(_, _)
-          local lsp_utils = require "plugins.lsp.utils"
-          lsp_utils.on_attach(function(client, buffer)
-            -- stylua: ignore
-            if client.name == "lua_ls" then
-              vim.keymap.set("n", "<leader>dX", function() require("osv").run_this() end, { buffer = buffer, desc = "OSV Run" })
-              vim.keymap.set("n", "<leader>dL", function() require("osv").launch({ port = 8086 }) end, { buffer = buffer, desc = "OSV Launch" })
-            end
-          end)
-        end,
-      },
+      setup = {},
       format = {
         timeout_ms = 3000,
       },
@@ -61,7 +30,6 @@ return {
     keys = { { "<leader>lm", "<cmd>Mason<cr>", desc = "Mason" } },
     opts = {
       ensure_installed = {
-        "stylua",
         "shfmt",
       },
     },
@@ -92,7 +60,6 @@ return {
       return {
         root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
         sources = {
-          nls.builtins.formatting.stylua,
           nls.builtins.formatting.shfmt,
         },
       }
