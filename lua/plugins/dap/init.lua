@@ -64,7 +64,6 @@ local M = {
       { "rcarriga/nvim-dap-ui" },
       { "theHamsta/nvim-dap-virtual-text" },
       { "nvim-telescope/telescope-dap.nvim" },
-      { "jbyuki/one-small-step-for-vimkind" },
       { "jay-babu/mason-nvim-dap.nvim" },
       { "LiadOz/nvim-dap-repl-highlights", opts = {} },
     },
@@ -93,11 +92,7 @@ local M = {
     { "<leader>du", function() require("dap").step_out() end, desc = "Step Out", },
   },
     opts = {
-      setup = {
-        osv = function(_, _)
-          require("plugins.dap.lua").setup()
-        end,
-      },
+      setup = {},
     },
     config = function(plugin, opts)
       local icons = require "config.icons"
