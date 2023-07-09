@@ -4,18 +4,18 @@ local function InvokePythonAPI()
 end
 
 local function InvokeLuaAPI()
-  local ai = require "ai.openai_api"
+  local ai = require "utils.ai.openai_api"
   local result = ai.chat "Write a hello world program in Rust"
   vim.print(result)
 end
 
 local function Chat_UI()
-  local ai = require "ai"
+  local ai = require "utils.ai"
   ai.toggle(true, "chat", "Write a HTTP server in Node.js")
 end
 
 local function Completion_UI()
-  local ai = require "ai"
+  local ai = require "utils.ai"
   ai.toggle(true, "completion", "Write a HTTP server in Go language")
 end
 
