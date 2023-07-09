@@ -316,16 +316,6 @@ return {
     end,
   },
   {
-    "folke/which-key.nvim",
-    event = "VeryLazy",
-    opts = {
-      defaults = {
-        ["<leader>x"] = { name = "+REPL" },
-        ["<leader>xm"] = { name = "+Mark" },
-      },
-    },
-  },
-  {
     "anuvyklack/hydra.nvim",
     opts = {
       specs = {
