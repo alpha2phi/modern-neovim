@@ -5,7 +5,7 @@ end
 local function get_commenter()
   local commenter = { python = "# ", lua = "-- ", julia = "# ", fennel = ";; ", scala = "// ", r = "# " }
   local bufnr = vim.api.nvim_get_current_buf()
-  local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
+  local ft = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
   if ft == nil or ft == "" then
     return commenter["python"]
   elseif commenter[ft] == nil then

@@ -134,7 +134,8 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd({ "TermOpen" }, {
   group = augroup "auto_start_insert",
   callback = function(event)
-    local hide = vim.bo.bufhidden
+    local bufnr = event.buf
+    local hide = vim.api.nvim_get_option_value("bufhidden", { buf = bufnr })
     if hide ~= "hide" then
       vim.cmd.startinsert()
     end
