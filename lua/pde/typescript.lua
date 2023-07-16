@@ -17,7 +17,7 @@ return {
   },
   {
     "pmizio/typescript-tools.nvim",
-    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    dependencies = { "folke/neoconf.nvim", cmd = "Neoconf", config = true },
     opts = {},
     config = function(_, opts)
       require("plugins.lsp.utils").on_attach(function(client, bufnr)
