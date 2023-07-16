@@ -9,40 +9,35 @@ return {
       vim.list_extend(opts.ensure_installed, { "javascript", "typescript", "tsx" })
     end,
   },
-  -- {
-  --   "williamboman/mason.nvim",
-  --   opts = function(_, opts)
-  --     table.insert(opts.ensure_installed, "js-debug-adapter")
-  --   end,
-  -- },
+  {
+    "williamboman/mason.nvim",
+    opts = function(_, opts)
+      vim.list_extend(opts.ensure_installed, { "typescript-language-server", "js-debug-adapter" })
+    end,
+  },
+  {
+    "pmizio/typescript-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    opts = {},
+    config = function(_, opts)
+      require("plugins.lsp.utils").on_attach(function(client, bufnr)
+        if client.name == "tsserver" then
+          vim.keymap.set("n", "<leader>lo", "<cmd>TSToolsOrganizeImports<cr>", { buffer = bufnr, desc = "Organize Imports" })
+          vim.keymap.set("n", "<leader>lO", "<cmd>TSToolsSortImports<cr>", { buffer = bufnr, desc = "Sort Imports" })
+          vim.keymap.set("n", "<leader>lR", "<cmd>TSToolsRemoveUnusedImports<cr>", { buffer = bufnr, desc = "Removed Unused Imports" })
+          vim.keymap.set("n", "<leader>lF", "<cmd>TSToolsFixAll<cr>", { buffer = bufnr, desc = "Fix All" })
+          vim.keymap.set("n", "<leader>lA", "<cmd>TSToolsAddMissingImports<cr>", { buffer = bufnr, desc = "Add Missing Imports" })
+        end
+      end)
+      require("typescript-tools").setup(opts)
+    end,
+  },
   {
     "neovim/nvim-lspconfig",
-    dependencies = { "jose-elias-alvarez/typescript.nvim" },
+    dependencies = { "pmizio/typescript-tools.nvim" },
     opts = {
       -- make sure mason installs the server
       servers = {
-        ---Typescript
-        tsserver = {
-          settings = {
-            typescript = {
-              format = {
-                indentSize = vim.o.shiftwidth,
-                convertTabsToSpaces = vim.o.expandtab,
-                tabSize = vim.o.tabstop,
-              },
-            },
-            javascript = {
-              format = {
-                indentSize = vim.o.shiftwidth,
-                convertTabsToSpaces = vim.o.expandtab,
-                tabSize = vim.o.tabstop,
-              },
-            },
-            completions = {
-              completeFunctionCalls = true,
-            },
-          },
-        },
         -- ESLint
         eslint = {
           settings = {
@@ -52,18 +47,6 @@ return {
         },
       },
       setup = {
-        tsserver = function(_, opts)
-          require("plugins.lsp.utils").on_attach(function(client, bufnr)
-            if client.name == "tsserver" then
-              -- stylua: ignore
-              vim.keymap.set("n", "<leader>lo", "<cmd>TypescriptOrganizeImports<CR>", { buffer = bufnr, desc = "Organize Imports" })
-              -- stylua: ignore
-              vim.keymap.set("n", "<leader>lR", "<cmd>TypescriptRenameFile<CR>", { desc = "Rename File", buffer = bufnr })
-            end
-          end)
-          require("typescript").setup { server = opts }
-          return true
-        end,
         eslint = function()
           vim.api.nvim_create_autocmd("BufWritePre", {
             callback = function(event)
@@ -81,33 +64,29 @@ return {
     },
   },
   {
-    "jose-elias-alvarez/null-ls.nvim",
-    opts = function(_, opts)
-      table.insert(opts.sources, require "typescript.extensions.null-ls.code-actions")
-    end,
-  },
-  {
     "mfussenegger/nvim-dap",
-    dependencies = {
-      { "mxsdev/nvim-dap-vscode-js" },
-      {
-        "microsoft/vscode-js-debug",
-        build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
-      },
-    },
     opts = {
       setup = {
         vscode_js_debug = function()
           local function get_js_debug()
-            local path = vim.fn.stdpath "data"
-            return path .. "/lazy/vscode-js-debug"
+            local install_path = require("mason-registry").get_package("js-debug-adapter"):get_install_path()
+            return install_path .. "/js-debug/src/dapDebugServer.js"
           end
 
-          require("dap-vscode-js").setup {
-            node_path = "node",
-            debugger_path = get_js_debug(),
-            adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" },
-          }
+          for _, adapter in ipairs { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" } do
+            require("dap").adapters[adapter] = {
+              type = "server",
+              host = "localhost",
+              port = "${port}",
+              executable = {
+                command = "node",
+                args = {
+                  get_js_debug(),
+                  "${port}",
+                },
+              },
+            }
+          end
 
           for _, language in ipairs { "typescript", "javascript" } do
             require("dap").configurations[language] = {
