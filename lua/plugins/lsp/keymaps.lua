@@ -3,11 +3,14 @@ local M = {}
 function M.on_attach(client, buffer)
   local self = M.new(client, buffer)
 
-  self:map("gd", "Telescope lsp_definitions", { desc = "Goto Definition" })
+  -- stylua: ignore
+  self:map("gd", function() require("telescope.builtin").lsp_definitions({ reuse_win = true }) end, { desc = "Goto Definition" })
   self:map("gr", "Telescope lsp_references", { desc = "References" })
   self:map("gD", "Lspsaga peek_definition", { desc = "Peek Definition" })
-  self:map("gI", "Telescope lsp_implementations", { desc = "Goto Implementation" })
-  self:map("gb", "Telescope lsp_type_definitions", { desc = "Goto Type Definition" })
+  -- stylua: ignore
+  self:map("gI", function() require("telescope.builtin").lsp_implementations({ reuse_win = true }) end, { desc = "Goto Implementation" })
+  -- stylua: ignore
+  self:map("gy", function() require("telescope.builtin").lsp_type_definitions({ reuse_win = true }) end, { desc = "Goto Type Definition" })
   self:map("K", "Lspsaga hover_doc", { desc = "Hover" })
   self:map("gK", vim.lsp.buf.signature_help, { desc = "Signature Help", has = "signatureHelp" })
   self:map("]d", M.diagnostic_goto(true), { desc = "Next Diagnostic" })
