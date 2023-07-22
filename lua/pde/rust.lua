@@ -54,9 +54,9 @@ return {
             },
           },
         },
+        taplo = {},
       },
       setup = {
-        taplo = {},
         rust_analyzer = function(_, opts)
           local codelldb_path, liblldb_path = get_codelldb()
           local lsp_utils = require "plugins.lsp.utils"
