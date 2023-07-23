@@ -52,6 +52,7 @@ return {
       },
       left = {
         { title = "Neotest Summary", ft = "neotest-summary" },
+        { ft = "hydra_hint", title = "Hydra", size = { height = 0.5 }, pinned = true },
       },
       keys = {
         -- increase width
