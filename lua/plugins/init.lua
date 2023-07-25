@@ -72,7 +72,12 @@ return {
       vim.g.matchup_matchparen_offscreen = { method = "popup" }
     end,
   },
-  { "tpope/vim-surround", event = "BufReadPre" },
+  { "tpope/vim-surround", event = "BufReadPre", enabled = false },
+  {
+    "kylechui/nvim-surround",
+    event = "BufReadPre",
+    opts = {},
+  },
   {
     "numToStr/Comment.nvim",
     dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" },
