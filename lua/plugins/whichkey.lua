@@ -11,6 +11,7 @@ return {
   },
   {
     "folke/which-key.nvim",
+    enabled = true,
     dependencies = {
       "mrjones2014/legendary.nvim",
     },
