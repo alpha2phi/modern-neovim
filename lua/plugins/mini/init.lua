@@ -225,6 +225,9 @@ return {
   {
     "echasnovski/mini.clue",
     enabled = true,
+    cond = function()
+      return require("config").keymenu.mini_clue
+    end,
     event = "VeryLazy",
     opts = function()
       local map_leader = function(suffix, rhs, desc)
@@ -275,22 +278,38 @@ return {
 
         clues = {
           { mode = "n", keys = "<Leader>a", desc = "+AI" },
+          { mode = "x", keys = "<Leader>a", desc = "+AI" },
           { mode = "n", keys = "<Leader>b", desc = "+Buffer" },
           { mode = "n", keys = "<Leader>d", desc = "+Debug" },
+          { mode = "x", keys = "<Leader>d", desc = "+Debug" },
           { mode = "n", keys = "<Leader>D", desc = "+Database" },
           { mode = "n", keys = "<Leader>f", desc = "+File" },
           { mode = "n", keys = "<Leader>h", desc = "+Help" },
           { mode = "n", keys = "<Leader>j", desc = "+Jump" },
           { mode = "n", keys = "<Leader>g", desc = "+Git" },
+          { mode = "x", keys = "<Leader>g", desc = "+Git" },
           { mode = "n", keys = "<Leader>gh", desc = "+Hunk" },
+          { mode = "x", keys = "<Leader>gh", desc = "+Hunk" },
           { mode = "n", keys = "<Leader>gt", desc = "+Toggle" },
           { mode = "n", keys = "<Leader>n", desc = "+Notes" },
           { mode = "n", keys = "<Leader>l", desc = "+Language" },
+          { mode = "x", keys = "<Leader>l", desc = "+Language" },
           { mode = "n", keys = "<Leader>lg", desc = "+Annotation" },
+          { mode = "n", keys = "<Leader>lx", desc = "+Swap Next" },
+          { mode = "n", keys = "<Leader>lxf", desc = "+Function" },
+          { mode = "n", keys = "<Leader>lxp", desc = "+Parameter" },
+          { mode = "n", keys = "<Leader>lxc", desc = "+Class" },
+          { mode = "n", keys = "<Leader>lX", desc = "+Swap Previous" },
+          { mode = "n", keys = "<Leader>lXf", desc = "+Function" },
+          { mode = "n", keys = "<Leader>lXp", desc = "+Parameter" },
+          { mode = "n", keys = "<Leader>lXc", desc = "+Class" },
           { mode = "n", keys = "<Leader>p", desc = "+Project" },
           { mode = "n", keys = "<Leader>q", desc = "+Quit/Session" },
+          { mode = "x", keys = "<Leader>q", desc = "+Quit/Session" },
           { mode = "n", keys = "<Leader>r", desc = "+Refactor" },
+          { mode = "x", keys = "<Leader>r", desc = "+Refactor" },
           { mode = "n", keys = "<Leader>s", desc = "+Search" },
+          { mode = "x", keys = "<Leader>s", desc = "+Search" },
           { mode = "n", keys = "<Leader>t", desc = "+Test" },
           { mode = "n", keys = "<Leader>tN", desc = "+Neotest" },
           { mode = "n", keys = "<Leader>to", desc = "+Overseer" },
