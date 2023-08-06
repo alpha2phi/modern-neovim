@@ -224,11 +224,23 @@ return {
   },
   {
     "echasnovski/mini.clue",
-    enabled = false,
+    enabled = true,
     event = "VeryLazy",
     opts = function()
+      local map_leader = function(suffix, rhs, desc)
+        vim.keymap.set({ "n", "x" }, "<Leader>" .. suffix, rhs, { desc = desc })
+      end
+      map_leader("w", "<cmd>update!<CR>", "Save")
+      map_leader("qq", require("utils").quit, "Quit")
+      map_leader("qt", "<cmd>tabclose<cr>", "Close Tab")
+      map_leader("sc", require("utils.coding").cht, "Cheatsheets")
+      map_leader("so", require("utils.coding").stack_overflow, "Stack Overflow")
+
       local miniclue = require "mini.clue"
       return {
+        window = {
+          delay = vim.o.timeoutlen,
+        },
         triggers = {
           -- Leader triggers
           { mode = "n", keys = "<Leader>" },
@@ -262,7 +274,28 @@ return {
         },
 
         clues = {
-          -- Enhance this by adding descriptions for <Leader> mapping groups
+          { mode = "n", keys = "<Leader>a", desc = "+AI" },
+          { mode = "n", keys = "<Leader>b", desc = "+Buffer" },
+          { mode = "n", keys = "<Leader>d", desc = "+Debug" },
+          { mode = "n", keys = "<Leader>D", desc = "+Database" },
+          { mode = "n", keys = "<Leader>f", desc = "+File" },
+          { mode = "n", keys = "<Leader>h", desc = "+Help" },
+          { mode = "n", keys = "<Leader>j", desc = "+Jump" },
+          { mode = "n", keys = "<Leader>g", desc = "+Git" },
+          { mode = "n", keys = "<Leader>gh", desc = "+Hunk" },
+          { mode = "n", keys = "<Leader>gt", desc = "+Toggle" },
+          { mode = "n", keys = "<Leader>n", desc = "+Notes" },
+          { mode = "n", keys = "<Leader>l", desc = "+Language" },
+          { mode = "n", keys = "<Leader>lg", desc = "+Annotation" },
+          { mode = "n", keys = "<Leader>p", desc = "+Project" },
+          { mode = "n", keys = "<Leader>q", desc = "+Quit/Session" },
+          { mode = "n", keys = "<Leader>r", desc = "+Refactor" },
+          { mode = "n", keys = "<Leader>s", desc = "+Search" },
+          { mode = "n", keys = "<Leader>t", desc = "+Test" },
+          { mode = "n", keys = "<Leader>tN", desc = "+Neotest" },
+          { mode = "n", keys = "<Leader>to", desc = "+Overseer" },
+          { mode = "n", keys = "<Leader>v", desc = "+View" },
+          { mode = "n", keys = "<Leader>z", desc = "+System" },
           miniclue.gen_clues.builtin_completion(),
           miniclue.gen_clues.g(),
           miniclue.gen_clues.marks(),

@@ -285,8 +285,8 @@ return {
     end,
     -- stylua: ignore
     keys = {
-      { "<leader>x", desc = "+REPL" },
-      { "<leader>xm", desc = "+Mark" },
+      { "<leader>x", function() end, desc = "+REPL" },
+      { "<leader>xm", function() end, desc = "+Mark" },
       { "<A-e>", execute_cell, desc = "Execute Cell" },
       { "<A-x>", delete_cell, desc = "Delete Cell" },
       { "<A-j>", navigate_cell, desc = "Next Cell" },
