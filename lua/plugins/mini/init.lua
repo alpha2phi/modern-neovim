@@ -224,7 +224,6 @@ return {
   },
   {
     "echasnovski/mini.clue",
-    enabled = true,
     cond = function()
       return require("config").keymenu.mini_clue
     end,
@@ -315,11 +314,28 @@ return {
           { mode = "n", keys = "<Leader>to", desc = "+Overseer" },
           { mode = "n", keys = "<Leader>v", desc = "+View" },
           { mode = "n", keys = "<Leader>z", desc = "+System" },
+
+          -- Submodes
+          { mode = "n", keys = "<Leader>tNF", postkeys = "<Leader>tN" },
+          { mode = "n", keys = "<Leader>tNL", postkeys = "<Leader>tN" },
+          { mode = "n", keys = "<Leader>tNa", postkeys = "<Leader>tN" },
+          { mode = "n", keys = "<Leader>tNf", postkeys = "<Leader>tN" },
+          { mode = "n", keys = "<Leader>tNl", postkeys = "<Leader>tN" },
+          { mode = "n", keys = "<Leader>tNn", postkeys = "<Leader>tN" },
+          { mode = "n", keys = "<Leader>tNN", postkeys = "<Leader>tN" },
+          { mode = "n", keys = "<Leader>tNo", postkeys = "<Leader>tN" },
+          { mode = "n", keys = "<Leader>tNs", postkeys = "<Leader>tN" },
+          { mode = "n", keys = "<Leader>tNS", postkeys = "<Leader>tN" },
+
           miniclue.gen_clues.builtin_completion(),
           miniclue.gen_clues.g(),
           miniclue.gen_clues.marks(),
           miniclue.gen_clues.registers(),
-          miniclue.gen_clues.windows(),
+          miniclue.gen_clues.windows {
+            submode_move = false,
+            submode_navigate = false,
+            submode_resize = true,
+          },
           miniclue.gen_clues.z(),
         },
       }
