@@ -11,7 +11,9 @@ return {
   },
   {
     "folke/which-key.nvim",
-    enabled = true,
+    cond = function()
+      return require("config").keymenu.which_key
+    end,
     dependencies = {
       "mrjones2014/legendary.nvim",
     },

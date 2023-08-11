@@ -1,4 +1,8 @@
 return {
+  keymenu = {
+    which_key = false,
+    mini_clue = true,
+  },
   pde = {
     ai = true,
     angular = false,

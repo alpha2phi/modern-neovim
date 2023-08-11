@@ -92,6 +92,7 @@ return {
                 end
                 vim.keymap.set(mode, lhs, rhs, { silent = true, desc = desc, buffer = bufnr, noremap = true })
               end
+              map("n", "<leader>lc", function() end, "+Crates")
               map("n", "<leader>lcy", "<cmd>lua require'crates'.open_repository()<cr>", "Open Repository")
               map("n", "<leader>lcp", "<cmd>lua require'crates'.show_popup()<cr>", "Show Popup")
               map("n", "<leader>lci", "<cmd>lua require'crates'.show_crate_popup()<cr>", "Show Info")
@@ -126,7 +127,6 @@ return {
   {
     "Saecki/crates.nvim",
     event = { "BufRead Cargo.toml" },
-    keys = { { "<leader>lc", desc = "+Crates" } },
     opts = {
       null_ls = {
         enabled = true,

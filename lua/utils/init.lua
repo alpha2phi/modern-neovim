@@ -50,6 +50,14 @@ function M.fg(name)
   return fg and { fg = string.format("#%06x", fg) }
 end
 
+function M.bg(group, color)
+  vim.cmd("hi " .. group .. " guibg=" .. color)
+end
+
+function M.fg_bg(group, fg_color, bg_color)
+  vim.cmd("hi " .. group .. " guifg=" .. fg_color .. " guibg=" .. bg_color)
+end
+
 function M.find_files()
   local opts = {}
   local telescope = require "telescope.builtin"
