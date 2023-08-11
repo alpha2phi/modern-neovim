@@ -103,34 +103,78 @@ return {
         n = {
           ["s"] = custom_actions.visidata,
           ["<A-f>"] = custom_actions.file_browser,
+          n = { ["q"] = require("telescope.actions").close },
         },
       }
 
       local opts = {
         defaults = {
-          prompt_prefix = icons.ui.Telescope .. " ",
-          selection_caret = icons.ui.Forward .. " ",
+          -- prompt_prefix = icons.ui.Telescope .. " ",
+          -- selection_caret = icons.ui.Forward .. " ",
+          -- border = {},
+          -- borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+          -- color_devicons = true,
           mappings = mappings,
+          vimgrep_arguments = {
+            "rg",
+            "-L",
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+            "--smart-case",
+          },
+          prompt_prefix = "   ",
+          selection_caret = "  ",
+          entry_prefix = "  ",
+          initial_mode = "insert",
+          selection_strategy = "reset",
+          sorting_strategy = "ascending",
+          layout_strategy = "horizontal",
+          layout_config = {
+            horizontal = {
+              prompt_position = "top",
+              preview_width = 0.55,
+              results_width = 0.8,
+            },
+            vertical = {
+              mirror = false,
+            },
+            width = 0.87,
+            height = 0.80,
+            preview_cutoff = 120,
+          },
+          file_sorter = require("telescope.sorters").get_fuzzy_file,
+          file_ignore_patterns = { "node_modules" },
+          generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
+          path_display = { "truncate" },
+          winblend = 0,
           border = {},
           borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
           color_devicons = true,
+          set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
+          file_previewer = require("telescope.previewers").vim_buffer_cat.new,
+          grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
+          qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
+          buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
         },
-        pickers = {
-          find_files = {
-            theme = "dropdown",
-            previewer = false,
-            hidden = true,
-            find_command = { "rg", "--files", "--hidden", "-g", "!.git" },
-          },
-          git_files = {
-            theme = "dropdown",
-            previewer = false,
-          },
-          buffers = {
-            theme = "dropdown",
-            previewer = false,
-          },
-        },
+        -- pickers = {
+        --   find_files = {
+        --     theme = "dropdown",
+        --     previewer = false,
+        --     hidden = true,
+        --     find_command = { "rg", "--files", "--hidden", "-g", "!.git" },
+        --   },
+        --   git_files = {
+        --     theme = "dropdown",
+        --     -- previewer = false,
+        --   },
+        --   buffers = {
+        --     theme = "dropdown",
+        --     previewer = false,
+        --   },
+        -- },
         extensions = {
           file_browser = {
             theme = "dropdown",
@@ -158,6 +202,20 @@ return {
       telescope.load_extension "noice"
       telescope.load_extension "notify"
       -- telescope.load_extension "macros"
+
+      -- Highlights
+      local fg_bg = require("utils").fg_bg
+      -- local bg = require("utils").bg
+      local colors = require "plugins.colorscheme.colors"
+      fg_bg("TelescopePreviewTitle", colors.black, colors.green)
+      fg_bg("TelescopePromptTitle", colors.black, colors.red)
+      fg_bg("TelescopeResultsTitle", colors.darker_black, colors.blue)
+      -- fg_bg("TelescopeBorder", colors.darker_black, colors.darker_black)
+      -- fg_bg("TelescopePromptBorder", colors.black2, colors.black2)
+      -- fg_bg("TelescopePromptNormal", colors.white, colors.black2)
+      -- fg_bg("TelescopePromptPrefix", colors.red, colors.black2)
+      -- bg("TelescopeNormal", colors.darker_black)
+      -- bg("TelescopeSelection", colors.black2)
     end,
   },
   {
