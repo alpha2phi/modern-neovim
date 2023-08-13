@@ -71,6 +71,7 @@ return {
   },
   {
     "abecodes/tabout.nvim",
+    enabled = false,
     event = "InsertEnter",
     dependencies = {
       "nvim-treesitter/nvim-treesitter",

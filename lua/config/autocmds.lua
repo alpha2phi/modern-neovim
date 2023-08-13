@@ -130,14 +130,15 @@ vim.api.nvim_create_autocmd("FileType", {
   command = "startinsert | 1",
 })
 
--- Start insert mode
-vim.api.nvim_create_autocmd({ "TermOpen" }, {
-  group = augroup "auto_start_insert",
-  callback = function(event)
-    local bufnr = event.buf
-    local hide = vim.api.nvim_get_option_value("bufhidden", { buf = bufnr })
-    if hide ~= "hide" then
-      vim.cmd.startinsert()
-    end
-  end,
-})
+-- -- Start insert mode
+-- vim.api.nvim_create_autocmd({ "TermOpen" }, {
+--   group = augroup "auto_start_insert",
+--   callback = function(event)
+--     local bufnr = event.buf
+--     local hide = vim.api.nvim_get_option_value("bufhidden", { buf = bufnr })
+--     local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
+--     if hide ~= "hide" and filetype ~= "harpoon" then
+--       vim.cmd.startinsert()
+--     end
+--   end,
+-- })

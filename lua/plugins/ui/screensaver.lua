@@ -1,6 +1,7 @@
 return {
   {
     "tamton-aquib/duck.nvim",
+    enabled = false,
     keys = {
       -- stylua: ignore
       { "<leader>zd", function() require("duck").hatch() end, desc = "Duck Hatch" },
@@ -10,6 +11,7 @@ return {
   },
   {
     "folke/drop.nvim",
+    enabled = false,
     event = "VeryLazy",
     opts = function()
       math.randomseed(os.time())
