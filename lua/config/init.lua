@@ -1,7 +1,7 @@
 return {
   keymenu = {
-    which_key = false,
-    mini_clue = true,
+    which_key = true,
+    mini_clue = false,
   },
   pde = {
     ai = true,
