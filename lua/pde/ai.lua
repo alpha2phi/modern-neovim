@@ -138,4 +138,10 @@ return {
       }
     end,
   },
+  {
+    "sourcegraph/sg.nvim",
+    event = "VeryLazy",
+    opts = {},
+    dependencies = { "nvim-lua/plenary.nvim" },
+  },
 }

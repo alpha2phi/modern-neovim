@@ -28,4 +28,9 @@ return {
       end,
     },
   },
+  {
+    "tzachar/highlight-undo.nvim",
+    event = "VeryLazy",
+    opts = {},
+  },
 }

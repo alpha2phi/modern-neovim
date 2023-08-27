@@ -341,4 +341,38 @@ return {
       }
     end,
   },
+  {
+    "echasnovski/mini.operators",
+    event = "VeryLazy",
+    opts = {
+      -- Evaluate text and replace with output
+      evaluate = {
+        prefix = "g=",
+        func = nil,
+      },
+
+      -- Exchange text regions
+      exchange = {
+        prefix = "gx",
+        reindent_linewise = true,
+      },
+
+      -- Multiply (duplicate) text
+      multiply = {
+        prefix = "gm",
+      },
+
+      -- Replace text with register
+      replace = {
+        prefix = "gR",
+        reindent_linewise = true,
+      },
+
+      -- Sort text
+      sort = {
+        prefix = "gs",
+        func = nil,
+      },
+    },
+  },
 }
