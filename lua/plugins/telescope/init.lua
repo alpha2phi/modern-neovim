@@ -61,14 +61,22 @@ return {
           if content == nil then
             return
           end
-          local full_path = content.cwd .. require("plenary.path").path.sep .. content.value
+          local file_path = ""
+          if content.filename then
+            file_path = content.filename
+          elseif content.value then
+            if content.cwd then
+              file_path = content.cwd
+            end
+            file_path = file_path .. require("plenary.path").path.sep .. content.value
+          end
 
           -- Close the Telescope window
           require("telescope.actions").close(prompt_bufnr)
 
           -- Open the file with VisiData
           local utils = require "utils"
-          utils.open_term("vd " .. full_path, { direction = "float" })
+          utils.open_term("vd " .. file_path, { direction = "float" })
         end,
 
         -- File browser
@@ -78,14 +86,14 @@ return {
             return
           end
 
-          local file_path = ""
+          local file_dir = ""
           if content.filename then
-            full_path = content.filename
+            file_dir = vim.fs.dirname(content.filename)
           elseif content.value then
             if content.cwd then
-              full_path = content.cwd
+              file_dir = content.cwd
             end
-            full_path = full_path .. require("plenary.path").path.sep .. content.value
+            file_dir = file_dir .. require("plenary.path").path.sep .. content.value
           end
 
           -- Close the Telescope window
@@ -93,7 +101,7 @@ return {
 
           -- Open file browser
           -- vim.cmd("Telescope file_browser select_buffer=true path=" .. vim.fs.dirname(full_path))
-          require("telescope").extensions.file_browser.file_browser { select_buffer = true, path = vim.fs.dirname(full_path) }
+          require("telescope").extensions.file_browser.file_browser { select_buffer = true, path = file_dir }
         end,
 
         -- Toggleterm
@@ -103,6 +111,7 @@ return {
           if content == nil then
             return
           end
+
           local file_dir = ""
           if content.filename then
             file_dir = vim.fs.dirname(content.filename)
