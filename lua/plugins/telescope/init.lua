@@ -21,6 +21,7 @@ return {
         opts = {},
       },
       "jvgrootveld/telescope-zoxide",
+      "nvim-telescope/telescope-live-grep-args.nvim",
     },
     cmd = "Telescope",
     -- stylua: ignore
@@ -31,6 +32,7 @@ return {
       { "<leader>fo", "<cmd>Telescope frecency theme=dropdown previewer=false<cr>", desc = "Recent" },
       { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
       { "<leader>fc", "<cmd>cd %:p:h<cr>", desc = "Change WorkDir" },
+      { "<leader>fg", function() require("telescope").extensions.live_grep_args.live_grep_args() end, desc = "Live Grep", },
       { "<leader>fr", "<cmd>Telescope file_browser<cr>", desc = "Browser" },
       { "<leader>fz", "<cmd>Telescope zoxide list<cr>", desc = "Recent Folders" },
       { "<leader>gc", "<cmd>Telescope conventional_commits<cr>", desc = "Conventional Commits" },
@@ -105,7 +107,6 @@ return {
             file_path = file_path .. require("plenary.path").path.sep .. content.value
           end
           local file_dir = vim.fs.dirname(file_path)
-          vim.print(file_dir)
 
           -- Close the Telescope window
           require("telescope.actions").close(prompt_bufnr)
@@ -225,6 +226,7 @@ return {
       telescope.load_extension "noice"
       telescope.load_extension "notify"
       telescope.load_extension "zoxide"
+      telescope.load_extension "live_grep_args"
 
       -- Highlights
       local fg_bg = require("utils").fg_bg
