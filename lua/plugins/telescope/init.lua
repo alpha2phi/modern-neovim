@@ -78,10 +78,13 @@ return {
             return
           end
 
-          local full_path = content.cwd
+          local file_path = ""
           if content.filename then
             full_path = content.filename
           elseif content.value then
+            if content.cwd then
+              full_path = content.cwd
+            end
             full_path = full_path .. require("plenary.path").path.sep .. content.value
           end
 
@@ -100,13 +103,15 @@ return {
           if content == nil then
             return
           end
-          local file_path = content.cwd
+          local file_dir = ""
           if content.filename then
-            file_path = content.filename
+            file_dir = vim.fs.dirname(content.filename)
           elseif content.value then
-            file_path = file_path .. require("plenary.path").path.sep .. content.value
+            if content.cwd then
+              file_dir = content.cwd
+            end
+            file_dir = file_dir .. require("plenary.path").path.sep .. content.value
           end
-          local file_dir = vim.fs.dirname(file_path)
 
           -- Close the Telescope window
           require("telescope.actions").close(prompt_bufnr)
