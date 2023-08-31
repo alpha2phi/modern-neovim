@@ -20,6 +20,7 @@ return {
         enabled = false,
         opts = {},
       },
+      "jvgrootveld/telescope-zoxide",
     },
     cmd = "Telescope",
     -- stylua: ignore
@@ -31,6 +32,7 @@ return {
       { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
       { "<leader>fc", "<cmd>cd %:p:h<cr>", desc = "Change WorkDir" },
       { "<leader>fr", "<cmd>Telescope file_browser<cr>", desc = "Browser" },
+      { "<leader>fz", "<cmd>Telescope zoxide list<cr>", desc = "Recent Folders" },
       { "<leader>gc", "<cmd>Telescope conventional_commits<cr>", desc = "Conventional Commits" },
       { "<leader>zs", "<cmd>Telescope lazy<cr>", desc = "Search Plugins" },
       { "<leader>ps", "<cmd>Telescope repo list<cr>", desc = "Search" },
@@ -196,6 +198,7 @@ return {
       telescope.load_extension "lazy"
       telescope.load_extension "noice"
       telescope.load_extension "notify"
+      telescope.load_extension "zoxide"
 
       -- Highlights
       local fg_bg = require("utils").fg_bg
