@@ -90,6 +90,30 @@ return {
           -- vim.cmd("Telescope file_browser select_buffer=true path=" .. vim.fs.dirname(full_path))
           require("telescope").extensions.file_browser.file_browser { select_buffer = true, path = vim.fs.dirname(full_path) }
         end,
+
+        -- Toggleterm
+        toggle_term = function(prompt_bufnr)
+          -- Get the full path
+          local content = require("telescope.actions.state").get_selected_entry()
+          if content == nil then
+            return
+          end
+          local file_path = content.cwd
+          if content.filename then
+            file_path = content.filename
+          elseif content.value then
+            file_path = file_path .. require("plenary.path").path.sep .. content.value
+          end
+          local file_dir = vim.fs.dirname(file_path)
+          vim.print(file_dir)
+
+          -- Close the Telescope window
+          require("telescope.actions").close(prompt_bufnr)
+
+          -- Open terminal
+          local utils = require "utils"
+          utils.open_term(nil, { direction = "float", dir = file_dir })
+        end,
       }
 
       local mappings = {
@@ -101,9 +125,11 @@ return {
           ["?"] = actions_layout.toggle_preview,
           ["<C-s>"] = custom_actions.visidata,
           ["<A-f>"] = custom_actions.file_browser,
+          ["<C-z>"] = custom_actions.toggle_term,
         },
         n = {
           ["s"] = custom_actions.visidata,
+          ["z"] = custom_actions.toggle_term,
           ["<A-f>"] = custom_actions.file_browser,
           n = { ["q"] = require("telescope.actions").close },
         },

@@ -13,11 +13,12 @@ function M.open_term(cmd, opts)
   opts.direction = opts.direction or "float"
   opts.on_open = opts.on_open or default_on_open
   opts.on_exit = opts.on_exit or nil
+  opts.dir = opts.dir or "git_dir"
 
   local Terminal = require("toggleterm.terminal").Terminal
   local new_term = Terminal:new {
     cmd = cmd,
-    dir = "git_dir",
+    dir = opts.dir,
     auto_scroll = false,
     close_on_exit = false,
     start_in_insert = false,
