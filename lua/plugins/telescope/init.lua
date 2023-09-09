@@ -29,6 +29,7 @@ return {
       { "<leader><space>", require("utils").find_files, desc = "Find Files" },
       { "<leader>ff", require("utils").telescope("files"), desc = "Find Files (Root Dir)" },
       { "<leader>fF", require("utils").telescope("files", { cwd = false }), desc = "Find Files (Cwd)" },
+      { "<leader>gf", require("plugins.telescope.pickers").git_diff_picker, desc = "Diff Files" },
       { "<leader>fo", "<cmd>Telescope frecency theme=dropdown previewer=false<cr>", desc = "Recent" },
       { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
       { "<leader>fc", "<cmd>cd %:p:h<cr>", desc = "Change WorkDir" },

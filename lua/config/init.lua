@@ -16,7 +16,7 @@ return {
     java = false,
     json = true,
     julia = false,
-    jupyter = true,
+    jupyter = false,
     lua = true,
     python = true,
     r = false,
