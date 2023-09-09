@@ -92,9 +92,9 @@ function M.setup(_, opts)
   -- lspconfig_util.on_setup = lspconfig_util.add_hook_before(lspconfig_util.on_setup, add_bun_prefix)
 
   -- get all the servers that are available thourgh mason-lspconfig
-  local have_mason, mlsp = pcall(require, "mason-lspconfig")
+  local has_mason, mlsp = pcall(require, "mason-lspconfig")
   local all_mslp_servers = {}
-  if have_mason then
+  if has_mason then
     all_mslp_servers = vim.tbl_keys(require("mason-lspconfig.mappings.server").lspconfig_to_package)
   end
 
@@ -111,7 +111,7 @@ function M.setup(_, opts)
     end
   end
 
-  if have_mason then
+  if has_mason then
     mlsp.setup { ensure_installed = ensure_installed }
     mlsp.setup_handlers { setup }
   end
