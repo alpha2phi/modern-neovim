@@ -8,7 +8,7 @@ return {
     "jbyuki/nabla.nvim",
     --stylua: ignore
     keys = {
-      { "<leader>nn", function() require("nabla").popup() end, desc = "Notation", },
+      { "<leader>nN", function() require("nabla").popup() end, desc = "Notation", },
     },
     config = function()
       require("nabla").enable_virt()
@@ -31,6 +31,7 @@ return {
       { "<leader>nc", function() require("knap").close_viewer() end, desc = "Close Preview", },
       { "<leader>nt", function() require("knap").close_viewer() end, desc = "Toggle Preview", },
       { "<leader>nj", function() require("knap").forward_jump() end, desc = "Forward jump", },
+      { "<leader>nn", function() require("utils").launch_notepad() end, desc = "Temporary Notepad", },
     },
     ft = { "markdown", "tex" },
   },

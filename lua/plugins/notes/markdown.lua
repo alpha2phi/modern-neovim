@@ -36,7 +36,7 @@ return {
     enabled = false,
     ft = { "markdown" },
   },
-  { "ellisonleao/glow.nvim", config = true, cmd = "Glow", enabled = false },
+  { "ellisonleao/glow.nvim", config = true, cmd = "Glow", enabled = true },
   { "toppair/peek.nvim", config = true, ft = { "markdown" }, enabled = false, build = "deno task --quiet build:fast" },
   -- glow.nvim
   -- https://github.com/rockerBOO/awesome-neovim#markdown-and-latex

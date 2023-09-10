@@ -24,4 +24,25 @@ return {
       }
     end,
   },
+  {
+    "giusgad/pets.nvim",
+    enabled = false,
+    cmd = {
+      "PetsNew",
+      "PetsNewCustom",
+      "PetsList",
+      "PetsKill",
+      "PetsKillAll",
+      "PetsRemove",
+      "PetsRemoveAll",
+      "PetsPauseToggle",
+      "PetsHideToggle",
+      "PetsIdleToggle",
+      "PetsSleepToggle",
+    },
+    requires = {
+      "giusgad/hologram.nvim",
+      "MunifTanjim/nui.nvim",
+    },
+  },
 }
