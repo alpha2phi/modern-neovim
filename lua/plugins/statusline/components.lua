@@ -132,4 +132,17 @@ return {
     end,
     color = Utils.fg "Statement",
   },
+  battery = {
+    function()
+      local enabled = require("pigeon.config").options.battery.enabled
+      local battery = require("pigeon.battery").battery()
+
+      if enabled then
+        return battery
+      else
+        return ""
+      end
+    end,
+    colored = true,
+  },
 }

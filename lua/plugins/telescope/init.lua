@@ -20,6 +20,8 @@ return {
         enabled = false,
         opts = {},
       },
+      "jvgrootveld/telescope-zoxide",
+      "nvim-telescope/telescope-live-grep-args.nvim",
     },
     cmd = "Telescope",
     -- stylua: ignore
@@ -27,10 +29,13 @@ return {
       { "<leader><space>", require("utils").find_files, desc = "Find Files" },
       { "<leader>ff", require("utils").telescope("files"), desc = "Find Files (Root Dir)" },
       { "<leader>fF", require("utils").telescope("files", { cwd = false }), desc = "Find Files (Cwd)" },
+      { "<leader>gf", require("plugins.telescope.pickers").git_diff_picker, desc = "Diff Files" },
       { "<leader>fo", "<cmd>Telescope frecency theme=dropdown previewer=false<cr>", desc = "Recent" },
       { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
       { "<leader>fc", "<cmd>cd %:p:h<cr>", desc = "Change WorkDir" },
+      { "<leader>fg", function() require("telescope").extensions.live_grep_args.live_grep_args() end, desc = "Live Grep", },
       { "<leader>fr", "<cmd>Telescope file_browser<cr>", desc = "Browser" },
+      { "<leader>fz", "<cmd>Telescope zoxide list<cr>", desc = "Recent Folders" },
       { "<leader>gc", "<cmd>Telescope conventional_commits<cr>", desc = "Conventional Commits" },
       { "<leader>zs", "<cmd>Telescope lazy<cr>", desc = "Search Plugins" },
       { "<leader>ps", "<cmd>Telescope repo list<cr>", desc = "Search" },
@@ -57,14 +62,22 @@ return {
           if content == nil then
             return
           end
-          local full_path = content.cwd .. require("plenary.path").path.sep .. content.value
+          local file_path = ""
+          if content.filename then
+            file_path = content.filename
+          elseif content.value then
+            if content.cwd then
+              file_path = content.cwd
+            end
+            file_path = file_path .. require("plenary.path").path.sep .. content.value
+          end
 
           -- Close the Telescope window
           require("telescope.actions").close(prompt_bufnr)
 
           -- Open the file with VisiData
           local utils = require "utils"
-          utils.open_term("vd " .. full_path, { direction = "float" })
+          utils.open_term("vd " .. file_path, { direction = "float" })
         end,
 
         -- File browser
@@ -74,11 +87,14 @@ return {
             return
           end
 
-          local full_path = content.cwd
+          local file_dir = ""
           if content.filename then
-            full_path = content.filename
+            file_dir = vim.fs.dirname(content.filename)
           elseif content.value then
-            full_path = full_path .. require("plenary.path").path.sep .. content.value
+            if content.cwd then
+              file_dir = content.cwd
+            end
+            file_dir = file_dir .. require("plenary.path").path.sep .. content.value
           end
 
           -- Close the Telescope window
@@ -86,7 +102,33 @@ return {
 
           -- Open file browser
           -- vim.cmd("Telescope file_browser select_buffer=true path=" .. vim.fs.dirname(full_path))
-          require("telescope").extensions.file_browser.file_browser { select_buffer = true, path = vim.fs.dirname(full_path) }
+          require("telescope").extensions.file_browser.file_browser { select_buffer = true, path = file_dir }
+        end,
+
+        -- Toggleterm
+        toggle_term = function(prompt_bufnr)
+          -- Get the full path
+          local content = require("telescope.actions.state").get_selected_entry()
+          if content == nil then
+            return
+          end
+
+          local file_dir = ""
+          if content.filename then
+            file_dir = vim.fs.dirname(content.filename)
+          elseif content.value then
+            if content.cwd then
+              file_dir = content.cwd
+            end
+            file_dir = file_dir .. require("plenary.path").path.sep .. content.value
+          end
+
+          -- Close the Telescope window
+          require("telescope.actions").close(prompt_bufnr)
+
+          -- Open terminal
+          local utils = require "utils"
+          utils.open_term(nil, { direction = "float", dir = file_dir })
         end,
       }
 
@@ -99,9 +141,11 @@ return {
           ["?"] = actions_layout.toggle_preview,
           ["<C-s>"] = custom_actions.visidata,
           ["<A-f>"] = custom_actions.file_browser,
+          ["<C-z>"] = custom_actions.toggle_term,
         },
         n = {
           ["s"] = custom_actions.visidata,
+          ["z"] = custom_actions.toggle_term,
           ["<A-f>"] = custom_actions.file_browser,
           n = { ["q"] = require("telescope.actions").close },
         },
@@ -196,6 +240,8 @@ return {
       telescope.load_extension "lazy"
       telescope.load_extension "noice"
       telescope.load_extension "notify"
+      telescope.load_extension "zoxide"
+      telescope.load_extension "live_grep_args"
 
       -- Highlights
       local fg_bg = require("utils").fg_bg

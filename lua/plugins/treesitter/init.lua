@@ -123,12 +123,20 @@ return {
   {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
+    enabled = false,
     config = function()
       local npairs = require "nvim-autopairs"
       npairs.setup {
         check_ts = true,
       }
     end,
+  },
+  {
+    "altermo/ultimate-autopair.nvim",
+    enabled = true,
+    event = { "InsertEnter", "CmdlineEnter" },
+    branch = "v0.6",
+    opts = {},
   },
   {
     "ckolkey/ts-node-action",

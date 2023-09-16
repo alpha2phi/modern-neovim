@@ -144,4 +144,16 @@ return {
     opts = {},
     dependencies = { "nvim-lua/plenary.nvim" },
   },
+  {
+    "piersolenski/wtf.nvim",
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+    },
+    opts = {},
+    --stylua: ignore
+    keys = {
+      { "<leader>sD", function() require("wtf").ai() end, desc = "Search Diagnostic with AI" },
+      { "<leader>sd", function() require("wtf").search() end, desc = "Search Diagnostic with Google" },
+    },
+  },
 }

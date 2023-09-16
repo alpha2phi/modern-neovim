@@ -3,6 +3,7 @@ return {
     "nvim-lualine/lualine.nvim",
     dependencies = {
       "meuter/lualine-so-fancy.nvim",
+      { "Pheon-Dev/pigeon", opts = {} },
     },
     event = "VeryLazy",
     opts = function()
@@ -38,7 +39,7 @@ return {
             components.separator,
             components.lsp_client,
           },
-          lualine_x = { components.spaces, "encoding", "fileformat", "filetype", "progress" },
+          lualine_x = { components.battery, components.spaces, "encoding", "fileformat", "filetype", "progress" },
           lualine_y = {},
           lualine_z = { "location" },
         },
