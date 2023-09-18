@@ -2,32 +2,24 @@ return {
   {
     "folke/styler.nvim",
     event = "VeryLazy",
-    config = function()
-      require("styler").setup {
-        themes = {
-          markdown = { colorscheme = "gruvbox" },
-          help = { colorscheme = "gruvbox" },
-        },
-      }
-    end,
+    opts = {
+      themes = {
+        markdown = { colorscheme = "tokyonight" },
+        help = { colorscheme = "tokyonight" },
+      },
+    },
   },
   {
     "folke/tokyonight.nvim",
-    lazy = false,
-    priority = 1000,
+    lazy = true,
     opts = {
-      style = "storm",
+      style = "moon",
       transparent = false,
       styles = {
         sidebars = "transparent",
         floats = "transparent",
       },
     },
-    config = function(_, opts)
-      local tokyonight = require "tokyonight"
-      tokyonight.setup(opts)
-      tokyonight.load()
-    end,
   },
   {
     "catppuccin/nvim",
@@ -37,6 +29,7 @@ return {
       integrations = {
         alpha = true,
         cmp = true,
+        flash = true,
         gitsigns = true,
         illuminate = true,
         indent_blankline = { enabled = true },
@@ -64,10 +57,20 @@ return {
       },
     },
   },
-  { "rebelot/kanagawa.nvim", lazy = false, name = "kanagawa" },
+  { "rebelot/kanagawa.nvim", lazy = true, name = "kanagawa" },
+  { "sainnhe/gruvbox-material", lazy = true, name = "gruvbox-material" },
+  {
+    "sainnhe/everforest",
+    lazy = false,
+    name = "everforest",
+    config = function()
+      vim.cmd.colorscheme "gruvbox-material"
+    end,
+  },
   {
     "ellisonleao/gruvbox.nvim",
-    lazy = false,
+    enabled = false,
+    lazy = true,
     config = function()
       require("gruvbox").setup()
     end,

@@ -52,21 +52,6 @@ return {
     end,
   },
   {
-    "jose-elias-alvarez/null-ls.nvim",
-    event = "BufReadPre",
-    dependencies = { "mason.nvim" },
-    opts = function()
-      local nls = require "null-ls"
-      return {
-        root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
-        sources = {
-          nls.builtins.formatting.shfmt,
-        },
-      }
-    end,
-  },
-  { "jay-babu/mason-null-ls.nvim", opts = { ensure_installed = nil, automatic_installation = true, automatic_setup = false } },
-  {
     "utilyre/barbecue.nvim",
     event = "VeryLazy",
     dependencies = {
@@ -105,10 +90,43 @@ return {
       return vim.fn.has "nvim-0.10.0" == 1
     end,
   },
+  {
+    "jose-elias-alvarez/null-ls.nvim",
+    event = "BufReadPre",
+    dependencies = { "mason.nvim" },
+    opts = function()
+      local nls = require "null-ls"
+      return {
+        root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
+        sources = {
+          nls.builtins.formatting.shfmt,
+        },
+      }
+    end,
+  },
+  { "jay-babu/mason-null-ls.nvim", opts = { ensure_installed = nil, automatic_installation = true, automatic_setup = false } },
   -- {
   --   "ray-x/lsp_signature.nvim",
   --   event = "VeryLazy",
   --   opts = {},
   -- },
   -- { "rafcamlet/nvim-luapad", cmd = { "LuaRun", "Luapad" } },
+  {
+    "stevearc/conform.nvim",
+    event = "BufReadPre",
+    opts = {},
+  },
+  {
+    "mfussenegger/nvim-lint",
+    event = "BufReadPre",
+    opts = { ft = {} },
+    config = function(_, opts)
+      require("lint").linters_by_ft = opts.ft
+      vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+        callback = function()
+          require("lint").try_lint()
+        end,
+      })
+    end,
+  },
 }

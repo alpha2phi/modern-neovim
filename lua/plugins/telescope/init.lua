@@ -32,6 +32,7 @@ return {
       { "<leader>gf", require("plugins.telescope.pickers").git_diff_picker, desc = "Diff Files" },
       { "<leader>fo", "<cmd>Telescope frecency theme=dropdown previewer=false<cr>", desc = "Recent" },
       { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
+      { "<leader>fm", "<cmd>Telescope marks<cr>", desc = "Marks" },
       { "<leader>fc", "<cmd>cd %:p:h<cr>", desc = "Change WorkDir" },
       { "<leader>fg", function() require("telescope").extensions.live_grep_args.live_grep_args() end, desc = "Live Grep", },
       { "<leader>fr", "<cmd>Telescope file_browser<cr>", desc = "Browser" },
