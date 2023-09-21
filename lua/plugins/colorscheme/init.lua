@@ -11,7 +11,7 @@ return {
   },
   {
     "folke/tokyonight.nvim",
-    lazy = true,
+    lazy = false,
     opts = {
       style = "moon",
       transparent = false,
@@ -20,6 +20,11 @@ return {
         floats = "transparent",
       },
     },
+    config = function(_, opts)
+      local tokyonight = require "tokyonight"
+      tokyonight.setup(opts)
+      tokyonight.load()
+    end,
   },
   {
     "catppuccin/nvim",
@@ -61,7 +66,7 @@ return {
   { "sainnhe/gruvbox-material", lazy = true, name = "gruvbox-material" },
   {
     "sainnhe/everforest",
-    lazy = false,
+    lazy = true,
     name = "everforest",
     config = function()
       vim.cmd.colorscheme "gruvbox-material"
