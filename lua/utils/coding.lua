@@ -72,4 +72,9 @@ function M.reddit()
   utils.open_term(cmd, { direction = "float" })
 end
 
+function M.gh_dash()
+  local cmd = "gh dash"
+  utils.open_term(cmd, { direction = "float" })
+end
+
 return M

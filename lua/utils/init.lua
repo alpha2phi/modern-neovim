@@ -3,7 +3,7 @@ local M = {}
 M.root_patterns = { ".git", "lua" }
 
 local function default_on_open(term)
-  vim.cmd "stopinsert"
+  vim.cmd "startinsert"
   vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
 end
 
@@ -21,7 +21,6 @@ function M.open_term(cmd, opts)
     dir = opts.dir,
     auto_scroll = false,
     close_on_exit = false,
-    start_in_insert = false,
     on_open = opts.on_open,
     on_exit = opts.on_exit,
   }

@@ -219,7 +219,7 @@ return {
           file_browser = {
             theme = "dropdown",
             previewer = false,
-            hijack_netrw = true,
+            hijack_netrw = false,
             mappings = mappings,
           },
           project = {

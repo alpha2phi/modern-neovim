@@ -164,7 +164,9 @@ return {
   },
   {
     "echasnovski/mini.files",
-    opts = {},
+    opts = {
+      options = { use_as_default_explorer = true },
+    },
     keys = {
       {
         "<leader>fE",
@@ -351,7 +353,7 @@ return {
 
       -- Exchange text regions
       exchange = {
-        prefix = "gx",
+        prefix = "gX",
         reindent_linewise = true,
       },
 
