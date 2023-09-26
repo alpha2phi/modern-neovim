@@ -145,8 +145,8 @@ return {
     "akinsho/git-conflict.nvim",
     --stylua: ignore
     keys = {
-      {"<leader>gC", function() require("plugins.vcs.hydra").open_git_conflict_hydra() end, desc = "Conflict"},
-      {"<leader>gS", function() require("plugins.vcs.hydra").open_git_signs_hydra() end, desc = "Signs"},
+      {"<leader>gC", function() require("plugins.hydra.git-action").open_git_conflict_hydra() end, desc = "Conflict"},
+      {"<leader>gS", function() require("plugins.hydra.git-action").open_git_signs_hydra() end, desc = "Signs"},
     },
     cmd = {
       "GitConflictChooseBoth",

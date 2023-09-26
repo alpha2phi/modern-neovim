@@ -14,7 +14,7 @@ M.open_git_conflict_hydra = function()
     color = "blue",
     hint = hint,
     config = {
-      color = "blue",
+      color = "pink",
       hint = {
         border = true,
       },
@@ -43,7 +43,7 @@ M.open_git_signs_hydra = function()
   Hydra({
     config = {
       exit = true,
-      color = "blue",
+      color = "pink",
       hint = {
         border = true,
       },
