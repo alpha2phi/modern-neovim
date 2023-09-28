@@ -22,6 +22,10 @@ M.open = function(file_path, buffer, pre_hook)
     mode = { "n", "i" },
     config = {
       buffer = buffer,
+      hint = {
+        border = "rounded",
+        position = "bottom",
+      },
     },
     heads = {
       { "y", _(function()

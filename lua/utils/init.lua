@@ -1,7 +1,5 @@
 local M = {}
 
-local uv = vim.uv
-
 M.root_patterns = { ".git", "lua" }
 
 local function default_on_open(term)
@@ -143,7 +141,7 @@ function M.telescope(builtin, opts)
 end
 
 function M.join_paths(...)
-  local path_sep = uv.os_uname().version:match "Windows" and "\\" or "/"
+  local path_sep = vim.loop.os_uname().version:match "Windows" and "\\" or "/"
   local result = table.concat({ ... }, path_sep)
   return result
 end
@@ -157,6 +155,19 @@ function M.find_string(table, string)
     end
   end
   return found
+end
+
+local is_windows = vim.loop.os_uname().version:match "Windows"
+local path_separator = is_windows and "\\" or "/"
+
+function M.remove_path_last_separator(path)
+  if not path then
+    return ""
+  end
+  if path:sub(#path) == path_separator then
+    return path:sub(1, #path - 1)
+  end
+  return path
 end
 
 return M
