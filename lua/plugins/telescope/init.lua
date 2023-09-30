@@ -216,7 +216,6 @@ return {
           file_sorter = require("telescope.sorters").get_fuzzy_file,
           file_ignore_patterns = { "node_modules" },
           generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
-          path_display = { "truncate" },
           winblend = 0,
           border = {},
           borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
@@ -226,6 +225,7 @@ return {
           grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
           qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
           buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
+          path_display = { "truncate" },
         },
         pickers = {
           find_files = {
