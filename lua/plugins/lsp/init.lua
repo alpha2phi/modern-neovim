@@ -131,7 +131,15 @@ return {
   },
   {
     "dnlhc/glance.nvim",
+    enabled = false,
     cmd = { "Glance" },
+    opts = {},
+  },
+  {
+    "luckasRanarison/clear-action.nvim",
+    enabled = false,
+    event = "VeryLazy",
+    cmd = { "CodeActionToggleSigns", "CodeActionToggleLabel" },
     opts = {},
   },
 }

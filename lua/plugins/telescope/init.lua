@@ -48,6 +48,7 @@ return {
       { "<leader>sb", function() require("telescope.builtin").current_buffer_fuzzy_find() end, desc = "Buffer", },
       { "<leader>vo", "<cmd>Telescope aerial<cr>", desc = "Code Outline" },
       { "<leader>zc", function() require("telescope.builtin").colorscheme({enable_preview = true}) end, desc = "Colorscheme", },
+      { "<leader>su", function() require("telescope.builtin").live_grep({ search_dirs = {vim.fs.dirname(vim.fn.expand("%")) }}) end , desc = "Grep (Current File Path)" },
     },
     config = function(_, _)
       local telescope = require "telescope"
@@ -55,6 +56,7 @@ return {
       local actions = require "telescope.actions"
       local actions_layout = require "telescope.actions.layout"
       local transform_mod = require("telescope.actions.mt").transform_mod
+      local custom_pickers = require "plugins.telescope.pickers"
       local custom_actions = transform_mod {
 
         -- File path
@@ -239,6 +241,14 @@ return {
           buffers = {
             theme = "dropdown",
             previewer = false,
+          },
+          live_grep = {
+            mappings = {
+              i = {
+                ["<c-f>"] = custom_pickers.actions.set_extension,
+                ["<c-l>"] = custom_pickers.actions.set_folders,
+              },
+            },
           },
         },
         extensions = {
