@@ -56,6 +56,31 @@ return {
       local actions_layout = require "telescope.actions.layout"
       local transform_mod = require("telescope.actions.mt").transform_mod
       local custom_actions = transform_mod {
+
+        -- File path
+        file_path = function(prompt_bufnr)
+          -- Get selected entry and the file full path
+          local content = require("telescope.actions.state").get_selected_entry()
+          local full_path = content.cwd .. require("plenary.path").path.sep .. content.value
+
+          -- Yank the path to unnamed and clipboard registers
+          vim.fn.setreg('"', full_path)
+          vim.fn.setreg("+", full_path)
+
+          -- Close the popup
+          vim.notify "File path is yanked "
+          require("telescope.actions").close(prompt_bufnr)
+        end,
+
+        -- Change directory
+        cwd = function(prompt_bufnr)
+          local selection = require("telescope.actions.state").get_selected_entry()
+          local dir = vim.fn.fnamemodify(selection.path, ":p:h")
+          require("telescope.actions").close(prompt_bufnr)
+          -- Depending on what you want put `cd`, `lcd`, `tcd`
+          vim.cmd(string.format("silent lcd %s", dir))
+        end,
+
         -- VisiData
         visidata = function(prompt_bufnr)
           -- Get the full path
@@ -148,7 +173,8 @@ return {
           ["s"] = custom_actions.visidata,
           ["z"] = custom_actions.toggle_term,
           ["<A-f>"] = custom_actions.file_browser,
-          n = { ["q"] = require("telescope.actions").close },
+          ["q"] = require("telescope.actions").close,
+          ["cd"] = custom_actions.cwd,
         },
       }
 
