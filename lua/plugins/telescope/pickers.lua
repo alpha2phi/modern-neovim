@@ -37,7 +37,7 @@ function M.git_diff_picker(opts)
 end
 
 M.actions = transform_mod {
-  ---Ask for a file extension and open a new `live_grep` filtering by it
+
   set_extension = function(prompt_bufnr)
     local current_input = action_state.get_current_line()
     vim.ui.input({ prompt = "*." }, function(input)
@@ -50,7 +50,6 @@ M.actions = transform_mod {
     end)
   end,
 
-  ---Ask the user for a folder and olen a new `live_grep` filtering by it
   set_folders = function(prompt_bufnr)
     local current_input = action_state.get_current_line()
     local data = {}
