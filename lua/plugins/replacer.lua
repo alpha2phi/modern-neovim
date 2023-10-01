@@ -1,5 +1,13 @@
 return {
   "gabrielpoca/replacer.nvim",
-  event = "VeryLazy",
-  enabled = false,
+  opts = {},
+  keys = {
+    {
+      "<leader>rr",
+      function()
+        require("replacer").run()
+      end,
+      desc = "Replacer",
+    },
+  },
 }

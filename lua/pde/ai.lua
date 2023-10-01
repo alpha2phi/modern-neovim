@@ -140,6 +140,7 @@ return {
   },
   {
     "sourcegraph/sg.nvim",
+    enabled = false,
     event = "VeryLazy",
     opts = {},
     dependencies = { "nvim-lua/plenary.nvim" },
