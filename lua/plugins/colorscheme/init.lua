@@ -1,6 +1,7 @@
 return {
   {
     "folke/styler.nvim",
+    enabled = false,
     event = "VeryLazy",
     opts = {
       themes = {
@@ -63,7 +64,6 @@ return {
     },
   },
   { "rebelot/kanagawa.nvim", lazy = true, name = "kanagawa" },
-  { "savq/melange-nvim", lazy = true, name = "melange" },
   { "sainnhe/gruvbox-material", lazy = true, name = "gruvbox-material" },
   {
     "sainnhe/everforest",

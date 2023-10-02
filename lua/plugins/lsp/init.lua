@@ -113,11 +113,13 @@ return {
   -- { "rafcamlet/nvim-luapad", cmd = { "LuaRun", "Luapad" } },
   {
     "stevearc/conform.nvim",
+    enabled = false,
     event = "BufReadPre",
     opts = {},
   },
   {
     "mfussenegger/nvim-lint",
+    enabled = false,
     event = "BufReadPre",
     opts = { ft = {} },
     config = function(_, opts)
