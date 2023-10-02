@@ -67,6 +67,7 @@ vim.api.nvim_create_autocmd("FileType", {
     "vim",
     "neoai-input",
     "neoai-output",
+    "netrw",
     "notify",
   },
   callback = function(event)

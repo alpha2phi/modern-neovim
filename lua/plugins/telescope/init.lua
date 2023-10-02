@@ -32,6 +32,7 @@ return {
       { "<leader>gf", require("plugins.telescope.pickers").git_diff_picker, desc = "Diff Files" },
       { "<leader>fo", "<cmd>Telescope frecency theme=dropdown previewer=false<cr>", desc = "Recent" },
       { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
+      { "<leader>fm", "<cmd>Telescope marks<cr>", desc = "Marks" },
       { "<leader>fc", "<cmd>cd %:p:h<cr>", desc = "Change WorkDir" },
       { "<leader>fg", function() require("telescope").extensions.live_grep_args.live_grep_args() end, desc = "Live Grep", },
       { "<leader>fr", "<cmd>Telescope file_browser<cr>", desc = "Browser" },
@@ -47,6 +48,7 @@ return {
       { "<leader>sb", function() require("telescope.builtin").current_buffer_fuzzy_find() end, desc = "Buffer", },
       { "<leader>vo", "<cmd>Telescope aerial<cr>", desc = "Code Outline" },
       { "<leader>zc", function() require("telescope.builtin").colorscheme({enable_preview = true}) end, desc = "Colorscheme", },
+      { "<leader>su", function() require("telescope.builtin").live_grep({ search_dirs = {vim.fs.dirname(vim.fn.expand("%")) }}) end , desc = "Grep (Current File Path)" },
     },
     config = function(_, _)
       local telescope = require "telescope"
@@ -54,7 +56,33 @@ return {
       local actions = require "telescope.actions"
       local actions_layout = require "telescope.actions.layout"
       local transform_mod = require("telescope.actions.mt").transform_mod
+      local custom_pickers = require "plugins.telescope.pickers"
       local custom_actions = transform_mod {
+
+        -- File path
+        file_path = function(prompt_bufnr)
+          -- Get selected entry and the file full path
+          local content = require("telescope.actions.state").get_selected_entry()
+          local full_path = content.cwd .. require("plenary.path").path.sep .. content.value
+
+          -- Yank the path to unnamed and clipboard registers
+          vim.fn.setreg('"', full_path)
+          vim.fn.setreg("+", full_path)
+
+          -- Close the popup
+          vim.notify "File path is yanked "
+          require("telescope.actions").close(prompt_bufnr)
+        end,
+
+        -- Change directory
+        cwd = function(prompt_bufnr)
+          local selection = require("telescope.actions.state").get_selected_entry()
+          local dir = vim.fn.fnamemodify(selection.path, ":p:h")
+          require("telescope.actions").close(prompt_bufnr)
+          -- Depending on what you want put `cd`, `lcd`, `tcd`
+          vim.cmd(string.format("silent lcd %s", dir))
+        end,
+
         -- VisiData
         visidata = function(prompt_bufnr)
           -- Get the full path
@@ -147,7 +175,8 @@ return {
           ["s"] = custom_actions.visidata,
           ["z"] = custom_actions.toggle_term,
           ["<A-f>"] = custom_actions.file_browser,
-          n = { ["q"] = require("telescope.actions").close },
+          ["q"] = require("telescope.actions").close,
+          ["cd"] = custom_actions.cwd,
         },
       }
 
@@ -187,7 +216,6 @@ return {
           file_sorter = require("telescope.sorters").get_fuzzy_file,
           file_ignore_patterns = { "node_modules" },
           generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
-          path_display = { "truncate" },
           winblend = 0,
           border = {},
           borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
@@ -197,6 +225,7 @@ return {
           grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
           qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
           buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
+          path_display = { "truncate" },
         },
         pickers = {
           find_files = {
@@ -213,12 +242,20 @@ return {
             theme = "dropdown",
             previewer = false,
           },
+          live_grep = {
+            mappings = {
+              i = {
+                ["<c-f>"] = custom_pickers.actions.set_extension,
+                ["<c-l>"] = custom_pickers.actions.set_folders,
+              },
+            },
+          },
         },
         extensions = {
           file_browser = {
             theme = "dropdown",
             previewer = false,
-            hijack_netrw = true,
+            hijack_netrw = false,
             mappings = mappings,
           },
           project = {

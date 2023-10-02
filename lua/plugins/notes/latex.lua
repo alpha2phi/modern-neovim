@@ -4,7 +4,7 @@ return {
     opts = {
       servers = {
         texlab = {},
-        ltex = {},
+        ltex = { filetypes = { "tex", "pandoc", "bib" } },
       },
     },
   },

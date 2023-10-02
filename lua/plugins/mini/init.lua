@@ -130,21 +130,31 @@ return {
   -- },
   {
     "echasnovski/mini.indentscope",
+    version = false,
     event = { "BufReadPre", "BufNewFile" },
     opts = {
+      -- symbol = "▏",
       symbol = "│",
       options = { try_as_border = true },
     },
     init = function()
       vim.api.nvim_create_autocmd("FileType", {
-        pattern = { "help", "alpha", "dashboard", "NvimTree", "Trouble", "lazy", "mason" },
+        pattern = {
+          "help",
+          "alpha",
+          "dashboard",
+          "neo-tree",
+          "Trouble",
+          "lazy",
+          "mason",
+          "notify",
+          "toggleterm",
+          "lazyterm",
+        },
         callback = function()
           vim.b.miniindentscope_disable = true
         end,
       })
-    end,
-    config = function(_, opts)
-      require("mini.indentscope").setup(opts)
     end,
   },
   {
@@ -164,7 +174,16 @@ return {
   },
   {
     "echasnovski/mini.files",
-    opts = {},
+    opts = {
+      windows = {
+        preview = true,
+        width_nofocus = 30,
+        width_preview = 60,
+      },
+      options = {
+        use_as_default_explorer = true,
+      },
+    },
     keys = {
       {
         "<leader>fE",
@@ -183,27 +202,29 @@ return {
     },
     config = function(_, opts)
       require("mini.files").setup(opts)
-
-      local show_dotfiles = true
-      local filter_show = function(fs_entry)
-        return true
-      end
-      local filter_hide = function(fs_entry)
-        return not vim.startswith(fs_entry.name, ".")
-      end
-
-      local toggle_dotfiles = function()
-        show_dotfiles = not show_dotfiles
-        local new_filter = show_dotfiles and filter_show or filter_hide
-        require("mini.files").refresh { content = { filter = new_filter } }
-      end
-
+    end,
+    init = function()
       vim.api.nvim_create_autocmd("User", {
         pattern = "MiniFilesBufferCreate",
         callback = function(args)
           local buf_id = args.data.buf_id
-          -- Tweak left-hand side of mapping to your liking
-          vim.keymap.set("n", "g.", toggle_dotfiles, { buffer = buf_id })
+          local mini_utils = require "plugins.mini.utils"
+          local map_split = mini_utils.map_split
+          local keymap = vim.keymap
+
+          -- Split view
+          map_split(buf_id, "gs", "belowright horizontal")
+          map_split(buf_id, "gv", "belowright vertical")
+
+          -- File actions
+          keymap.set("n", "g.", mini_utils.toggle_dotfiles, { buffer = buf_id, desc = "Hidden Files" })
+          keymap.set("n", "s", mini_utils.jump, { buffer = buf_id, desc = "Jump" })
+          keymap.set("n", "M", function()
+            mini_utils.file_actions(buf_id)
+          end, { buffer = buf_id, desc = "File Actions" })
+          keymap.set("n", "m", function()
+            mini_utils.folder_actions(buf_id)
+          end, { buffer = buf_id, desc = "Folder Actions" })
         end,
       })
     end,
@@ -351,7 +372,7 @@ return {
 
       -- Exchange text regions
       exchange = {
-        prefix = "gx",
+        prefix = "gX",
         reindent_linewise = true,
       },
 

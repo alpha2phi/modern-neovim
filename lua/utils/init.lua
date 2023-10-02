@@ -3,7 +3,7 @@ local M = {}
 M.root_patterns = { ".git", "lua" }
 
 local function default_on_open(term)
-  vim.cmd "stopinsert"
+  vim.cmd "startinsert"
   vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
 end
 
@@ -21,7 +21,6 @@ function M.open_term(cmd, opts)
     dir = opts.dir,
     auto_scroll = false,
     close_on_exit = false,
-    start_in_insert = false,
     on_open = opts.on_open,
     on_exit = opts.on_exit,
   }
@@ -141,50 +140,34 @@ function M.telescope(builtin, opts)
   end
 end
 
---[[ launch_notepad()
--- Launch a small, transparent floating window with a scartch buffer that persists until Neovim closes
---
--- @requires M.notepad_loaded, M.notepad_buf, M.notepad_win variables in util (this) module
---]]
-M.notepad_loaded = false
-M.notepad_buf, M.notepad_win = nil, nil
-function M.launch_notepad()
-  if not M.notepad_loaded or not vim.api.nvim_win_is_valid(M.notepad_win) then
-    if not M.notepad_buf or not vim.api.nvim_buf_is_valid(M.notepad_buf) then
-      -- Create a buffer if it none existed
-      M.notepad_buf = vim.api.nvim_create_buf(false, true)
-      vim.api.nvim_buf_set_option(M.notepad_buf, "bufhidden", "hide")
-      vim.api.nvim_buf_set_option(M.notepad_buf, "filetype", "markdown")
-      vim.api.nvim_buf_set_lines(M.notepad_buf, 0, 1, false, {
-        "# Notepad",
-        "",
-        "> Notepad clears when the current Neovim session closes",
-      })
-    end
-    -- Create a window
-    M.notepad_win = vim.api.nvim_open_win(M.notepad_buf, true, {
-      border = "rounded",
-      relative = "editor",
-      style = "minimal",
-      height = math.ceil(vim.o.lines * 0.5),
-      width = math.ceil(vim.o.columns * 0.5),
-      row = 1, --> Top of the window
-      col = math.ceil(vim.o.columns * 0.5), --> Far right; should add up to 1 with win_width
-    })
-    vim.api.nvim_win_set_option(M.notepad_win, "winblend", 30) --> Semi transparent buffer
+function M.join_paths(...)
+  local path_sep = vim.loop.os_uname().version:match "Windows" and "\\" or "/"
+  local result = table.concat({ ... }, path_sep)
+  return result
+end
 
-    -- Keymaps
-    local keymaps_opts = { silent = true, buffer = M.notepad_buf }
-    vim.keymap.set("n", "<ESC>", function()
-      M.launch_notepad()
-    end, keymaps_opts)
-    vim.keymap.set("n", "q", function()
-      M.launch_notepad()
-    end, keymaps_opts)
-  else
-    vim.api.nvim_win_hide(M.notepad_win)
+function M.find_string(table, string)
+  local found = false
+  for _, v in pairs(table) do
+    if v == string then
+      found = true
+      break
+    end
   end
-  M.notepad_loaded = not M.notepad_loaded
+  return found
+end
+
+local is_windows = vim.loop.os_uname().version:match "Windows"
+local path_separator = is_windows and "\\" or "/"
+
+function M.remove_path_last_separator(path)
+  if not path then
+    return ""
+  end
+  if path:sub(#path) == path_separator then
+    return path:sub(1, #path - 1)
+  end
+  return path
 end
 
 return M
