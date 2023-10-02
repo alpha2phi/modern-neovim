@@ -154,9 +154,17 @@ _s_: Stop
       },
     },
   },
-  -- {
-  --   "andythigpen/nvim-coverage",
-  --   cmd = { "Coverage" },
-  --   config = true,
-  -- },
+  {
+    "andythigpen/nvim-coverage",
+    cmd = { "Coverage" },
+    config = function()
+      require("coverage").setup()
+    end,
+  },
+  {
+    "Zeioth/compiler.nvim",
+    cmd = { "CompilerOpen", "CompilerToggleResults", "CompilerRedo" },
+    dependencies = { "stevearc/overseer.nvim" },
+    opts = {},
+  },
 }
