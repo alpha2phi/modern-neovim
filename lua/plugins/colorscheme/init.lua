@@ -63,10 +63,11 @@ return {
       },
     },
   },
-  { "rebelot/kanagawa.nvim", lazy = true, name = "kanagawa" },
-  { "sainnhe/gruvbox-material", lazy = true, name = "gruvbox-material" },
+  { "rebelot/kanagawa.nvim", enabled = false, lazy = true, name = "kanagawa" },
+  { "sainnhe/gruvbox-material", enabled = false, lazy = true, name = "gruvbox-material" },
   {
     "sainnhe/everforest",
+    enabled = false,
     lazy = true,
     name = "everforest",
     config = function()
