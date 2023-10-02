@@ -19,7 +19,7 @@ return {
     opts = {
       indent = {
         char = "│",
-        highlight = "IndentBlanklineChar",
+        tab_char = "│",
       },
       scope = { enabled = false },
       exclude = {
