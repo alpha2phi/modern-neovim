@@ -115,9 +115,9 @@ return {
           }),
         },
         sources = cmp.config.sources {
-          { name = "nvim_lsp", group_index = 1 },
+          { name = "nvim_lsp", group_index = 1, max_item_count = 15 },
           { name = "codeium", group_index = 1 },
-          { name = "luasnip", group_index = 1 },
+          { name = "luasnip", group_index = 1, max_item_count = 8 },
           { name = "buffer", group_index = 2 },
           { name = "path", group_index = 2 },
           { name = "git", group_index = 2 },
