@@ -1,5 +1,6 @@
 return {
   "coffebar/neovim-project",
+  enabled = false,
   event = "VeryLazy",
   opts = {
     projects = {

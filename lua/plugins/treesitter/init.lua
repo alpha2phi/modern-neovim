@@ -123,7 +123,7 @@ return {
   {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
-    enabled = false,
+    enabled = true,
     config = function()
       local npairs = require "nvim-autopairs"
       npairs.setup {
@@ -133,7 +133,7 @@ return {
   },
   {
     "altermo/ultimate-autopair.nvim",
-    enabled = true,
+    enabled = false,
     event = { "InsertEnter", "CmdlineEnter" },
     branch = "v0.6",
     opts = {},
