@@ -1,14 +1,26 @@
 local M = {}
 
-local nls_methods = require("null-ls").methods
+local loaded = false
+local FORMATTING = nil
+local DIAGNOSTICS = nil
+local COMPLETION = nil
+local CODE_ACTION = nil
+local HOVER = nil
 
-local FORMATTING = nls_methods.FORMATTING
-local DIAGNOSTICS = nls_methods.DIAGNOSTICS
-local COMPLETION = nls_methods.COMPLETION
-local CODE_ACTION = nls_methods.CODE_ACTION
-local HOVER = nls_methods.HOVER
+local function init()
+  local nls_methods = require("null-ls").methods
+  FORMATTING = nls_methods.FORMATTING
+  DIAGNOSTICS = nls_methods.DIAGNOSTICS
+  COMPLETION = nls_methods.COMPLETION
+  CODE_ACTION = nls_methods.CODE_ACTION
+  HOVER = nls_methods.HOVER
+  loaded = true
+end
 
 local function list_registered_providers_names(ft)
+  if not loaded then
+    init()
+  end
   local s = require "null-ls.sources"
   local available_sources = s.get_available(ft)
   local registered = {}
