@@ -1,10 +1,12 @@
 local M = {}
 
-local FORMATTING = require("null-ls").methods.FORMATTING
-local DIAGNOSTICS = require("null-ls").methods.DIAGNOSTICS
-local COMPLETION = require("null-ls").methods.COMPLETION
-local CODE_ACTION = require("null-ls").methods.CODE_ACTION
-local HOVER = require("null-ls").methods.HOVER
+local nls_methods = require("null-ls").methods
+
+local FORMATTING = nls_methods.FORMATTING
+local DIAGNOSTICS = nls_methods.DIAGNOSTICS
+local COMPLETION = nls_methods.COMPLETION
+local CODE_ACTION = nls_methods.CODE_ACTION
+local HOVER = nls_methods.HOVER
 
 local function list_registered_providers_names(ft)
   local s = require "null-ls.sources"

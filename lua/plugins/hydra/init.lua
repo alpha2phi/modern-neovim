@@ -206,7 +206,7 @@ end
 return {
   {
     "anuvyklack/hydra.nvim",
-    event = { "VeryLazy" },
+    event = { "BufReadPre" },
     opts = {
       specs = {
         gitsigns = gitsigns_menu,
