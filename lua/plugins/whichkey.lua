@@ -51,7 +51,11 @@ return {
         b = { name = "+Buffer" },
         d = { name = "+Debug" },
         D = { name = "+Database" },
-        f = { name = "+File" },
+        -- stylua: ignore
+        f = {
+          name = "+File" ,
+          t = { function() require("utils").open_term("yazi") end, "Terminal File Manager", },
+        },
         h = { name = "+Help" },
         j = { name = "+Jump" },
         g = { name = "+Git", h = { name = "+Hunk" }, t = { name = "+Toggle" }, w = { name = "+Work Tree" } },

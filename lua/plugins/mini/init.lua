@@ -393,4 +393,5 @@ return {
       },
     },
   },
+  { "echasnovski/mini.pick", opts = {}, cmd = { "Pick" }, enabled = false },
 }
