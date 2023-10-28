@@ -36,6 +36,4 @@ return {
       },
     },
   },
-  -- scope buffers to tabs
-  { "tiagovla/scope.nvim", event = "VeryLazy", opts = {} },
 }

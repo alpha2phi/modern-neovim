@@ -14,6 +14,7 @@ return {
       "benfowler/telescope-luasnip.nvim",
       "olacin/telescope-cc.nvim",
       "tsakirist/telescope-lazy.nvim",
+      "tiagovla/scope.nvim",
       {
         "ecthelionvi/NeoComposer.nvim",
         dependencies = { "kkharji/sqlite.lua" },
@@ -31,7 +32,7 @@ return {
       { "<leader>fF", require("utils").telescope("files", { cwd = false }), desc = "Find Files (Cwd)" },
       { "<leader>gf", require("plugins.telescope.pickers").git_diff_picker, desc = "Diff Files" },
       { "<leader>fo", "<cmd>Telescope frecency theme=dropdown previewer=false<cr>", desc = "Recent" },
-      { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
+      { "<leader>fb", "<cmd>Telescope buffers sort_mru=true ignore_current_buffer=true<cr>", desc = "Buffers" },
       { "<leader>fm", "<cmd>Telescope marks<cr>", desc = "Marks" },
       { "<leader>fc", "<cmd>cd %:p:h<cr>", desc = "Change WorkDir" },
       { "<leader>fg", function() require("telescope").extensions.live_grep_args.live_grep_args() end, desc = "Live Grep", },
@@ -279,6 +280,7 @@ return {
       telescope.load_extension "notify"
       telescope.load_extension "zoxide"
       telescope.load_extension "live_grep_args"
+      telescope.load_extension "scope"
 
       -- Highlights
       local fg_bg = require("utils").fg_bg
