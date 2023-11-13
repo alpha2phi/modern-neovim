@@ -26,6 +26,10 @@ return {
     },
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
+    init = function(plugin)
+      require("lazy.core.loader").add_to_rtp(plugin)
+      require "nvim-treesitter.query_predicates"
+    end,
     opts = {
       sync_install = false,
       ensure_installed = {

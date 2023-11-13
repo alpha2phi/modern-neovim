@@ -9,7 +9,15 @@ opt.conceallevel = 0
 opt.confirm = true
 opt.cursorline = true
 opt.expandtab = true
-opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+opt.fillchars = {
+  foldopen = "",
+  foldclose = "",
+  fold = " ",
+  foldsep = " ",
+  diff = "╱",
+  eob = " ",
+}
+
 opt.foldcolumn = "1" -- '0' is not bad
 opt.foldenable = true
 opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
@@ -56,3 +64,30 @@ vim.g.maplocalleader = ","
 vim.g.markdown_recommended_style = 0
 
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
+
+local function update_lead()
+  local lcs = vim.opt_local.listchars:get()
+  local tab = vim.fn.str2list(lcs.tab)
+  local space = vim.fn.str2list(lcs.multispace or lcs.space)
+  local lead = { tab[1] }
+  for i = 1, vim.bo.tabstop - 1 do
+    lead[#lead + 1] = space[i % #space + 1]
+  end
+  vim.opt_local.listchars:append { leadmultispace = vim.fn.list2str(lead) }
+end
+
+local function indent_listchars()
+  opt.list = true
+  opt.listchars = {
+    tab = "⟩ ",
+    trail = "+",
+    precedes = "<",
+    extends = ">",
+    space = "·",
+    nbsp = "␣",
+    leadmultispace = "│ ",
+    multispace = "│ ",
+  }
+  vim.api.nvim_create_autocmd("OptionSet", { pattern = { "listchars", "tabstop", "filetype" }, callback = update_lead })
+  vim.api.nvim_create_autocmd("VimEnter", { callback = update_lead, once = true })
+end
