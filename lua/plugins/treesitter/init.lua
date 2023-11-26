@@ -19,7 +19,7 @@ return {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
-      "JoosepAlviste/nvim-ts-context-commentstring",
+      { "JoosepAlviste/nvim-ts-context-commentstring", opts = { enable_autocmd = false } },
       "RRethy/nvim-treesitter-endwise",
       "windwp/nvim-ts-autotag",
       "nvim-treesitter/playground",
@@ -49,7 +49,6 @@ return {
       },
       highlight = { enable = true, additional_vim_regex_highlighting = { "org", "markdown" } },
       indent = { enable = true },
-      context_commentstring = { enable = true, enable_autocmd = false },
       incremental_selection = {
         enable = true,
         keymaps = {
