@@ -9,10 +9,10 @@ return {
   { "AckslD/nvim-FeMaco.lua", ft = { "markdown" }, opts = {} },
   {
     "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
     ft = { "markdown" },
-    build = "cd app && npm install",
-    init = function()
-      vim.g.mkdp_filetypes = { "markdown" }
+    build = function()
+      vim.fn["mkdp#util#install"]()
     end,
   },
   { "mzlogin/vim-markdown-toc", ft = { "markdown" } },
